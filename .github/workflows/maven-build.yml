@@ -5,41 +5,12 @@ on:
     branches: [main, develop]
   pull_request:
     branches: [main, develop]
-  workflow_dispatch:
-    inputs:
-      environment:
-        description: "Environment to run tests against"
-        required: true
-        default: "development"
 
 jobs:
-  code-quality:
-    name: Code Quality Checks
+  build-and-test:
+    name: Build, Lint, Test
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
 
-      - name: Set up JDK
-        uses: actions/setup-java@v3
-        with:
-          distribution: "temurin"
-          java-version: "17"
-          cache: maven
-
-      - name: Check code formatting
-        run: mvn spotless:check
-
-      - name: Run static code analysis
-        run: mvn pmd:check
-
-        continue-on-error: true
-
-  build:
-    name: Build and Unit Tests
-    runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -47,12 +18,9 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@v3
         with:
-          distribution: "temurin"
+          distribution: temurin
           java-version: "17"
           cache: maven
-
-      - name: Build and run unit tests
-        run: mvn clean test package
 
       - name: Cache Maven dependencies
         uses: actions/cache@v3
@@ -62,7 +30,20 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
-      - name: Save build artifacts
+      - name: Check code formatting (Spotless)
+        run: mvn spotless:check
+
+      - name: Run static analysis (PMD)
+        run: mvn pmd:check
+        continue-on-error: true
+
+      - name: Build and run unit tests
+        run: mvn clean test package
+
+      - name: Run integration tests
+        run: mvn verify -DskipTests=false
+
+      - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
           name: app-build
@@ -70,37 +51,13 @@ jobs:
             target/*.jar
             target/site/jacoco/
 
-      - name: Report test results
+      - name: Report unit test results
         if: always()
         uses: dorny/test-reporter@v1
         with:
           name: JUnit Test Results
           path: target/surefire-reports/*.xml
           reporter: java-junit
-
-  integration-tests:
-    name: Integration Tests
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Set up JDK
-        uses: actions/setup-java@v3
-        with:
-          distribution: "temurin"
-          java-version: "17"
-          cache: maven
-
-      - name: Download build artifacts
-        uses: actions/download-artifact@v3
-        with:
-          name: app-build
-          path: target/
-
-      - name: Run integration tests
-        run: mvn verify -DskipUnitTests=true
 
       - name: Report integration test results
         if: always()
@@ -110,25 +67,11 @@ jobs:
           path: target/failsafe-reports/*.xml
           reporter: java-junit
 
-  security-scan:
-    name: Security Scan
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Set up JDK
-        uses: actions/setup-java@v3
-        with:
-          distribution: "temurin"
-          java-version: "17"
-          cache: maven
-
       - name: Run OWASP dependency check
         run: mvn org.owasp:dependency-check-maven:check
         continue-on-error: true
 
-      - name: Save security reports
+      - name: Upload security report
         uses: actions/upload-artifact@v3
         if: always()
         with:
