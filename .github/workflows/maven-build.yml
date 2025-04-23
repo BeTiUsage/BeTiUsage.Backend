@@ -1,0 +1,188 @@
+name: Build and Test
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Environment to run tests against"
+        required: true
+        default: "development"
+        type: choice
+        options:
+          - development
+          - staging
+          - production
+
+jobs:
+  code-quality:
+    name: Code Quality Checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: "temurin"
+          java-version: "17"
+          cache: maven
+
+      - name: Check code formatting
+        run: mvn spotless:check
+
+      - name: Run static code analysis
+        run: mvn pmd:check
+
+      - name: Run SonarQube analysis
+        if: github.event_name == 'pull_request' || github.ref == 'refs/heads/main'
+        run: mvn sonar:sonar -Dsonar.projectKey=${{ github.repository }} -Dsonar.host.url=${{ secrets.SONAR_URL }} -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        continue-on-error: true
+
+  build:
+    name: Build and Unit Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: "temurin"
+          java-version: "17"
+          cache: maven
+
+      - name: Build and run unit tests
+        run: mvn clean test package
+
+      - name: Cache Maven dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Save build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: app-build
+          path: |
+            target/*.jar
+            target/site/jacoco/
+
+      - name: Report test results
+        if: always()
+        uses: dorny/test-reporter@v1
+        with:
+          name: JUnit Test Results
+          path: target/surefire-reports/*.xml
+          reporter: java-junit
+
+  integration-tests:
+    name: Integration Tests
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: "temurin"
+          java-version: "17"
+          cache: maven
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: app-build
+          path: target/
+
+      - name: Run integration tests
+        run: mvn verify -DskipUnitTests=true
+
+      - name: Report integration test results
+        if: always()
+        uses: dorny/test-reporter@v1
+        with:
+          name: Integration Test Results
+          path: target/failsafe-reports/*.xml
+          reporter: java-junit
+
+  security-scan:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: "temurin"
+          java-version: "17"
+          cache: maven
+
+      - name: Run OWASP dependency check
+        run: mvn org.owasp:dependency-check-maven:check
+        continue-on-error: true
+
+      - name: Save security reports
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: security-reports
+          path: target/dependency-check-report.html
+
+  deploy:
+    name: Deploy to Environment
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop')
+    needs: [build, integration-tests, security-scan]
+    runs-on: ubuntu-latest
+    environment: ${{ github.ref == 'refs/heads/main' && 'production' || 'development' }}
+    steps:
+      - name: Download build artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: app-build
+          path: target/
+
+      - name: Set deployment variables
+        id: vars
+        run: |
+          if [[ ${{ github.ref }} == 'refs/heads/main' ]]; then
+            echo "ENVIRONMENT=production" >> $GITHUB_OUTPUT
+          else
+            echo "ENVIRONMENT=development" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Deploy application
+        run: |
+          echo "Deploying to ${{ steps.vars.outputs.ENVIRONMENT }} environment"
+          # Add your deployment script here
+          # For example, using SSH to deploy to a server:
+          # scp target/*.jar user@server:/path/to/deploy/
+
+      - name: Send deployment notification
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const { repo, owner } = context.repo;
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: owner,
+              repo: repo,
+              body: `✅ Application has been successfully deployed to the ${{ steps.vars.outputs.ENVIRONMENT }} environment.`
+            });
+        if: success() && github.event_name == 'pull_request'
