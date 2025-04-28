@@ -22,4 +22,3 @@ public class Profile {
     private String middleName;
     private String lastName;
 }
-
