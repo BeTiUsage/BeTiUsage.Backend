@@ -26,8 +26,8 @@ public class Hobby {
     private String name;
     private String description;
     private String averageTimeConsumption;
-    @ManyToOne
-    private RequiredEquipment requiredEquipment;
+    @OneToMany
+    private List<RequiredEquipment> requiredEquipment = new ArrayList<>();
     private Double minimumStartCapital;
     private Double averageCapital;
 }

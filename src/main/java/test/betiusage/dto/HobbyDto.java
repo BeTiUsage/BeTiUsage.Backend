@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -15,7 +16,7 @@ public class HobbyDto {
     private String name;
     private String description;
     private String averageTimeConsumption;
-    private RequiredEquipmentDto requiredEquipment;
+    private List<RequiredEquipmentDto> requiredEquipment = new ArrayList<>();
     private Double minimumStartCapital;
     private Double averageCapital;
 }

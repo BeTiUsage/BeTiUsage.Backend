@@ -8,6 +8,5 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class RequiredEquipmentDto {
-    private Long id;
     private String name;
 }

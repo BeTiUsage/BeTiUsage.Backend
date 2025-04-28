@@ -8,7 +8,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class HobbyCategoryDto {
-    private Long id;
     private String name;
     private Boolean social;
 

@@ -35,20 +35,21 @@ public class HobbyService {
         hobbyDto.setAverageCapital(hobby.getAverageCapital());
         hobbyDto.setAverageTimeConsumption(hobby.getAverageTimeConsumption());
         hobbyDto.setMinimumStartCapital(hobby.getMinimumStartCapital());
-
-        if (hobby.getRequiredEquipment() != null) {
-            RequiredEquipmentDto equipmentDto = new RequiredEquipmentDto();
-            equipmentDto.setId(hobby.getRequiredEquipment().getId());
-            equipmentDto.setName(hobby.getRequiredEquipment().getName());
-            hobbyDto.setRequiredEquipment(equipmentDto);
-        }
-
+        hobbyDto.setRequiredEquipment(
+                hobby.getRequiredEquipment()
+                        .stream()
+                        .map(equipment -> {
+                            RequiredEquipmentDto dto = new RequiredEquipmentDto();
+                            dto.setName(equipment.getName());
+                            return dto;
+                        })
+                        .collect(Collectors.toList())
+        );
         if (hobby.getCategories() != null) {
             List<HobbyCategoryDto> hobbyCategoryDtos = hobby.getCategories()
                     .stream()
                     .map(category -> {
                         HobbyCategoryDto dto = new HobbyCategoryDto();
-                        dto.setId(category.getId());
                         dto.setName(category.getName());
                         dto.setSocial(category.getSocial());
                         return dto;

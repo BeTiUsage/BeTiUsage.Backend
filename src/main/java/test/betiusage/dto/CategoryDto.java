@@ -12,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 public class CategoryDto {
     private Long id;
-    private List<Hobby> hobbies;
+    private String hobbyName;
     private String name;
     private Boolean social;
 }

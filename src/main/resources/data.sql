@@ -9,15 +9,19 @@ INSERT INTO required_equipment (id, name) VALUES (1, 'Hiking boots');
 INSERT INTO required_equipment (id, name) VALUES (2, 'Backpack');
 INSERT INTO required_equipment (id, name) VALUES (3, 'Chess board');
 
-
--- Insert hobbies into the hobby table
-INSERT INTO hobby (id, name, description, average_time_consumption, required_equipment_id, minimum_start_capital, average_capital)
+-- Insert a new hobby into the hobby table
+INSERT INTO hobby (id, name, description, average_time_consumption, minimum_start_capital, average_capital)
 VALUES
-    (1, 'Hiking', 'Exploring outdoor trails and mountains.', '2-4 hours', 1, 100.0, 200.0),
-    (2, 'Backpacking', 'Multi-day hikes with camping gear.', '8-12 hours', 2, 500.0, 1000.0),
-    (3, 'Chess', 'A strategic board game.', '1-2 hours', 3, 20.0, 50.0);
+    (1, 'Hiking', 'A long walk in nature.', '2-3 hours', 100.0, 200.0),
+    (2, 'Chess', 'A strategic board game.', '1-2 hours', 50.0, 100.0),
+    (3, 'Photography', 'Capturing moments through a lens.', '1-3 hours', 200.0, 500.0);
 
--- Insert hobbies into the hobby_category table
+-- Insert hobby_category associations
 INSERT INTO hobby_category (hobby_id, category_id) VALUES (1, 1);
-INSERT INTO hobby_category (hobby_id, category_id) VALUES (2, 1);
-INSERT INTO hobby_category (hobby_id, category_id) VALUES (3, 2);
+INSERT INTO hobby_category (hobby_id, category_id) VALUES (2, 2);
+INSERT INTO hobby_category (hobby_id, category_id) VALUES (3, 3);
+
+-- Insert hobby_required_equipment associations
+INSERT INTO hobby_required_equipment (hobby_id, required_equipment_id) VALUES (1, 1);
+INSERT INTO hobby_required_equipment (hobby_id, required_equipment_id) VALUES (1, 2);
+INSERT INTO hobby_required_equipment (hobby_id, required_equipment_id) VALUES (2, 3);
