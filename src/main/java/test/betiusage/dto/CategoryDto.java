@@ -5,12 +5,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import test.betiusage.entitys.Hobby;
 
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
 public class CategoryDto {
     private Long id;
-    private Hobby hobbyId;
+    private List<Hobby> hobbies;
     private String name;
     private Boolean social;
 }

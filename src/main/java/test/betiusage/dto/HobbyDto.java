@@ -6,13 +6,14 @@ import lombok.Setter;
 import test.betiusage.entitys.Category;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
 @NoArgsConstructor
 public class HobbyDto {
     private Long id;
-    private Category categoryId;
+    private List<Category> categories;
     private String name;
     private String description;
     private String averageTimeConsumption;
