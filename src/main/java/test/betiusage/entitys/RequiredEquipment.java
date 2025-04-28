@@ -1,23 +1,21 @@
 package test.betiusage.entitys;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @Entity
-public class Category {
+public class RequiredEquipment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToMany(mappedBy = "categories")
-    private List<Hobby> hobbies = new ArrayList<>();
     private String name;
-    private Boolean social;
 }

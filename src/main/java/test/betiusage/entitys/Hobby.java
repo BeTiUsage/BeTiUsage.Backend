@@ -16,12 +16,18 @@ public class Hobby {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToMany
-    private List<Category> categories;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "hobby_category",
+            joinColumns = @JoinColumn(name = "hobby_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id")
+    )
+    private List<Category> categories = new ArrayList<>();
     private String name;
     private String description;
     private String averageTimeConsumption;
-    private ArrayList<String> requiredEquipment;
+    @ManyToOne
+    private RequiredEquipment requiredEquipment;
     private Double minimumStartCapital;
     private Double averageCapital;
 }
