@@ -26,7 +26,7 @@ public class Hobby {
     private String name;
     private String description;
     private String averageTimeConsumption;
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private List<RequiredEquipment> requiredEquipment = new ArrayList<>();
     private Double minimumStartCapital;
     private Double averageCapital;

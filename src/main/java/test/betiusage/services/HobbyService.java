@@ -23,7 +23,6 @@ public class HobbyService {
     }
 
     public List<HobbyDto> findAll() {
-        System.out.println("HobbyService.findAll()");
         return hobbyRepository.findAll().stream().map(this::toDto).collect(Collectors.toList());
     }
 
