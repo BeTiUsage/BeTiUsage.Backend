@@ -1,14 +1,12 @@
 package test.betiusage.services;
 
 import org.springframework.stereotype.Service;
-import test.betiusage.dto.CategoryDto;
 import test.betiusage.dto.HobbyCategoryDto;
 import test.betiusage.dto.HobbyDto;
 import test.betiusage.dto.RequiredEquipmentDto;
 import test.betiusage.entitys.Hobby;
 import test.betiusage.repositorys.CategoryRepository;
 import test.betiusage.repositorys.HobbyRepository;
-
 import java.util.List;
 import java.util.stream.Collectors;
 

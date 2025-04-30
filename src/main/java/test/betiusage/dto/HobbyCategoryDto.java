@@ -10,5 +10,4 @@ import lombok.Setter;
 public class HobbyCategoryDto {
     private String name;
     private Boolean social;
-
 }

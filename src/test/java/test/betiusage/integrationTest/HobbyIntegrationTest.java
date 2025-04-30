@@ -1,6 +1,5 @@
 package test.betiusage.integrationTest;
 
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +14,8 @@ import test.betiusage.entitys.RequiredEquipment;
 import test.betiusage.repositorys.CategoryRepository;
 import test.betiusage.repositorys.HobbyRepository;
 import test.betiusage.repositorys.RequiredEquipmentRepository;
-
 import java.util.List;
 import java.util.Optional;
-
 import static org.mockito.Mockito.when;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -73,7 +70,6 @@ public class HobbyIntegrationTest {
         when(categoryRepository.findById(1L)).thenReturn(Optional.of(mockCategory));
         when(requiredEquipmentRepository.findById(1L)).thenReturn(Optional.of(mockRequiredEquipment));
     }
-
 
     @Test
     void testGetAllHobbies() {

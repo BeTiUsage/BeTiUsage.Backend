@@ -20,5 +20,4 @@ public class HobbyController {
     public ResponseEntity<List<HobbyDto>> getHobbies() {
         return ResponseEntity.ok(hobbyService.findAll());
     }
-
 }
