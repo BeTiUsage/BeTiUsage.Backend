@@ -23,7 +23,7 @@ public class EventService {
         EventDTO eventDTO = new EventDTO();
         eventDTO.setId(event.getId());
         eventDTO.setHobbyName(event.getHobby().getName());
-        eventDTO.setCategoryName(event.getHobby().getCategories().get(0).getName());
+        eventDTO.setCategoryName(event.getCategory().getName());
         eventDTO.setName(event.getName());
         eventDTO.setDescription(event.getDescription());
         eventDTO.setLocation(event.getLocation());
