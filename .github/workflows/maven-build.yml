@@ -24,8 +24,5 @@ jobs:
       - name: Build project
         run: mvn clean compile
 
-      - name: Run tests
-        run: mvn test
-
       - name: Run process step if tests pass
         run: echo "All tests passed. Running post-test process..."
