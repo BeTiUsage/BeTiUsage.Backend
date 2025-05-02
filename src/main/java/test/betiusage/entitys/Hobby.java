@@ -30,4 +30,7 @@ public class Hobby {
     private List<RequiredEquipment> requiredEquipment = new ArrayList<>();
     private Double minimumStartCapital;
     private Double averageCapital;
+/*    @OneToMany(fetch = FetchType.EAGER)
+    private List<Community> communities;*/
+
 }
