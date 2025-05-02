@@ -63,7 +63,6 @@ public class EventIntegrationTest {
         mockEvent.setId(1L);
         mockEvent.setName("Test Event");
         mockEvent.setHobby(mockHobby);
-        mockEvent.setCategory(mockCategory);
         mockEvent.setDescription("This is a test event.");
         mockEvent.setLocation("Test Location");
         mockEvent.setStartTime(LocalDateTime.parse("2023-10-01T08:00:00"));
@@ -87,7 +86,6 @@ public class EventIntegrationTest {
                 .expectBody()
                 .jsonPath("$[0].id").isEqualTo(1)
                 .jsonPath("$[0].hobbyName").isEqualTo("Test Hobby")
-                .jsonPath("$[0].categoryName").isEqualTo("Outdoor")
                 .jsonPath("$[0].name").isEqualTo("Test Event")
                 .jsonPath("$[0].description").isEqualTo("This is a test event.")
                 .jsonPath("$[0].location").isEqualTo("Test Location")

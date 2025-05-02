@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 public class EventDTO {
     private Long id;
     private String HobbyName;
-    private String CategoryName;
     private String Name;
     private String Description;
     private String Location;

@@ -18,8 +18,6 @@ public class Event {
     private Long id;
     @ManyToOne
     private Hobby hobby;
-    @ManyToOne
-    private Category category;
     private String name;
     private String description;
     private String location;
