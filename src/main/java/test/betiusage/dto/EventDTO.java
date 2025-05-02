@@ -11,11 +11,11 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class EventDTO {
     private Long id;
-    private String HobbyName;
-    private String Name;
-    private String Description;
-    private String Location;
+    private String hobbyName;
+    private String name;
+    private String description;
+    private String location;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
-    private Double TicketPrice;
+    private Double ticketPrice;
 }
