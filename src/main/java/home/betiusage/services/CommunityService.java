@@ -51,6 +51,7 @@ public class CommunityService {
         communityDTO.setDescription(Community.getDescription());
         communityDTO.setHobbyId(Community.getHobby().getId());
         communityDTO.setHobbyName(Community.getHobby().getName());
+
         return communityDTO;
     }
 }
