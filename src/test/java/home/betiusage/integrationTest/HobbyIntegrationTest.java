@@ -73,7 +73,6 @@ public class HobbyIntegrationTest {
 
     @Test
     void testGetAllHobbies() {
-        System.out.println(mockHobby.getCategories().get(0).getId());
         webClient.get()
                 .uri("/api/hobbies")
                 .accept(MediaType.APPLICATION_JSON)
