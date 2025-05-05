@@ -1,8 +1,8 @@
 package home.betiusage.services;
 
 import home.betiusage.entities.Hobby;
-import home.betiusage.errorhandeling.exception.NotFoundException;
-import home.betiusage.errorhandeling.exception.ValidationException;
+import home.betiusage.errorHandling.exception.NotFoundException;
+import home.betiusage.errorHandling.exception.ValidationException;
 import org.springframework.stereotype.Service;
 import home.betiusage.dto.ProfileDTO;
 import home.betiusage.entities.Profile;

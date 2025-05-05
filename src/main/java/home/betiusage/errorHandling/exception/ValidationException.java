@@ -1,4 +1,4 @@
-package home.betiusage.errorhandeling.exception;
+package home.betiusage.errorHandling.exception;
 
 public class ValidationException extends RuntimeException {
     /**

@@ -16,3 +16,4 @@ public class ProfileDTO {
     private String username;
     private List<HobbyDTO> hobbies = new ArrayList<>();
 }
+

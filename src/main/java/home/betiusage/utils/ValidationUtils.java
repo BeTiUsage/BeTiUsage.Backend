@@ -1,7 +1,7 @@
 package home.betiusage.utils;
 
-import home.betiusage.errorhandeling.exception.NotFoundException;
-import home.betiusage.errorhandeling.exception.ValidationException;
+import home.betiusage.errorHandling.exception.NotFoundException;
+import home.betiusage.errorHandling.exception.ValidationException;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public class ValidationUtils {

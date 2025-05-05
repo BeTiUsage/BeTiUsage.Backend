@@ -1,15 +1,12 @@
-package home.betiusage.unitTest.errorhandeling;
+package home.betiusage.unitTest.errorHandling;
 
 import home.betiusage.dto.ProfileDTO;
-import home.betiusage.entities.Profile;
-import home.betiusage.errorhandeling.exception.ValidationException;
+import home.betiusage.errorHandling.exception.ValidationException;
 import home.betiusage.repositories.ProfileRepository;
 import home.betiusage.services.HobbyService;
 import home.betiusage.services.ProfileService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -35,16 +32,12 @@ class ProfileServiceTest {
         dto.setEmail("test@example.com");
         dto.setUsername("TestUser");
 
-        when(profileRepository.findById(1L)).thenReturn(Optional.of(new Profile()));
-
         // Act
         ProfileDTO result = profileService.validateProfileDTOUsername(dto);
 
         // Assert
         assertEquals(dto, result);
-        verify(profileRepository, times(1)).findById(1L);
     }
-
     @Test
     void testValidateProfileDTO_invalidUsername_throwsException() {
         // Arrange

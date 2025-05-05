@@ -1,13 +1,13 @@
-package home.betiusage.unitTest.errorhandeling;
+package home.betiusage.unitTest.errorHandling;
 
-import home.betiusage.errorhandeling.GlobalExceptionHandler;
+import home.betiusage.errorHandling.GlobalExceptionHandler;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-import home.betiusage.errorhandeling.exception.ValidationException;
-import home.betiusage.errorhandeling.exception.NotFoundException;
+import home.betiusage.errorHandling.exception.ValidationException;
+import home.betiusage.errorHandling.exception.NotFoundException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

@@ -1,11 +1,11 @@
-package home.betiusage.errorhandeling;
+package home.betiusage.errorHandling;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import home.betiusage.errorhandeling.exception.ValidationException;
-import home.betiusage.errorhandeling.exception.NotFoundException;
+import home.betiusage.errorHandling.exception.ValidationException;
+import home.betiusage.errorHandling.exception.NotFoundException;
 
 
 @ControllerAdvice

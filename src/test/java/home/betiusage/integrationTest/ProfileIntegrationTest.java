@@ -38,6 +38,7 @@ public class ProfileIntegrationTest {
 
         when(profileRepository.findById(1L)).thenReturn(Optional.of(mockProfile));
         when(profileRepository.findAll()).thenReturn(List.of(mockProfile));
+        when(profileRepository.existsById(1L)).thenReturn(true);
     }
 
     @Test
