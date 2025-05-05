@@ -1,4 +1,4 @@
-package home.betiusage.entitys;
+package home.betiusage.entites;
 
 import jakarta.persistence.*;
 import lombok.Getter;

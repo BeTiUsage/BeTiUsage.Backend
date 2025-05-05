@@ -2,9 +2,9 @@ package home.betiusage.services;
 
 import org.springframework.stereotype.Service;
 import home.betiusage.dto.CategoryDto;
-import home.betiusage.entitys.Category;
-import home.betiusage.entitys.Hobby;
-import home.betiusage.repositorys.CategoryRepository;
+import home.betiusage.entites.Category;
+import home.betiusage.entites.Hobby;
+import home.betiusage.repositories.CategoryRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;

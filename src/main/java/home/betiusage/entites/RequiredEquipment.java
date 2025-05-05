@@ -1,4 +1,4 @@
-package home.betiusage.entitys;
+package home.betiusage.entites;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

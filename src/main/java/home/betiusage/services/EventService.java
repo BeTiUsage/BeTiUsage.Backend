@@ -2,8 +2,8 @@ package home.betiusage.services;
 
 import org.springframework.stereotype.Service;
 import home.betiusage.dto.EventDTO;
-import home.betiusage.entitys.Event;
-import home.betiusage.repositorys.EventRepository;
+import home.betiusage.entites.Event;
+import home.betiusage.repositories.EventRepository;
 
 import java.util.List;
 

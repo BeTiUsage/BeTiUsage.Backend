@@ -4,9 +4,9 @@ import org.springframework.stereotype.Service;
 import home.betiusage.dto.HobbyCategoryDto;
 import home.betiusage.dto.HobbyDto;
 import home.betiusage.dto.RequiredEquipmentDto;
-import home.betiusage.entitys.Hobby;
-import home.betiusage.repositorys.CategoryRepository;
-import home.betiusage.repositorys.HobbyRepository;
+import home.betiusage.entites.Hobby;
+import home.betiusage.repositories.CategoryRepository;
+import home.betiusage.repositories.HobbyRepository;
 import java.util.List;
 import java.util.stream.Collectors;
 

@@ -8,12 +8,12 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.reactive.server.WebTestClient;
-import home.betiusage.entitys.Category;
-import home.betiusage.entitys.Event;
-import home.betiusage.entitys.Hobby;
-import home.betiusage.repositorys.CategoryRepository;
-import home.betiusage.repositorys.EventRepository;
-import home.betiusage.repositorys.HobbyRepository;
+import home.betiusage.entites.Category;
+import home.betiusage.entites.Event;
+import home.betiusage.entites.Hobby;
+import home.betiusage.repositories.CategoryRepository;
+import home.betiusage.repositories.EventRepository;
+import home.betiusage.repositories.HobbyRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;

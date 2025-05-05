@@ -1,4 +1,4 @@
-package home.betiusage.util;
+package home.betiusage.utils;
 
 import home.betiusage.errorhandeling.exception.NotFoundException;
 import home.betiusage.errorhandeling.exception.ValidationException;
