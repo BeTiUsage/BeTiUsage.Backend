@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 import home.betiusage.dto.EventDTO;
 import home.betiusage.entites.Event;
 import home.betiusage.repositories.EventRepository;
-
 import java.util.List;
 
 @Service

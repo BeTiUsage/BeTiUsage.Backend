@@ -5,7 +5,6 @@ import home.betiusage.dto.CategoryDto;
 import home.betiusage.entites.Category;
 import home.betiusage.entites.Hobby;
 import home.betiusage.repositories.CategoryRepository;
-
 import java.util.List;
 import java.util.stream.Collectors;
 

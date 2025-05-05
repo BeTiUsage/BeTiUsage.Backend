@@ -1,4 +1,3 @@
-
 package home.betiusage.entites;
 
 import jakarta.persistence.Entity;
