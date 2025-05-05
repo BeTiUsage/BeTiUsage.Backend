@@ -1,0 +1,33 @@
+package home.betiusage.services;
+
+import org.springframework.stereotype.Service;
+import home.betiusage.dto.ProfileDto;
+import home.betiusage.entites.Profile;
+import home.betiusage.repositories.ProfileRepository;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+public class ProfileService {
+    ProfileRepository profileRepository;
+
+    public ProfileService(ProfileRepository profileRepository) {
+        this.profileRepository = profileRepository;
+    }
+
+    public List<ProfileDto> findAll() {
+        return profileRepository.findAll().stream().map(this::toDTO).collect(Collectors.toList());
+    }
+
+    private ProfileDto toDTO(Profile profile) {
+        ProfileDto profileDto = new ProfileDto();
+        profileDto.setId(profile.getId());
+        profileDto.setEmail(profile.getEmail());
+        profileDto.setFirstName(profile.getFirstName());
+        profileDto.setMiddleName(profile.getMiddleName());
+        profileDto.setLastName(profile.getLastName());
+
+        return profileDto;
+    }
+}

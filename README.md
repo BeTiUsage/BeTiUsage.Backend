@@ -78,7 +78,7 @@ mvn compile
 mvn package
 
 # Run tests
-mvn test
+mvn home
 
 # Clean and package in one command
 mvn clean package
@@ -90,8 +90,8 @@ mvn install -DskipTests
 ### Additional Commands
 
 ```bash
-# Run a specific test class
-mvn test -Dtest=TestClassName
+# Run a specific home class
+mvn home -Dtest=TestClassName
 
 # Generate project site documentation
 mvn site
