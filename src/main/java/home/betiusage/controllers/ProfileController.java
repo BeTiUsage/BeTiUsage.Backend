@@ -19,12 +19,12 @@ public class ProfileController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ProfileDTO>>findAll() {
+    public ResponseEntity<List<ProfileDTO>>getProfiles() {
          return ResponseEntity.ok(profileService.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProfileDTO>findProfile(@PathVariable Long id) {
+    public ResponseEntity<ProfileDTO>findProfileById(@PathVariable Long id) {
         return ResponseEntity.of(profileService.findProfile(id));
     }
 

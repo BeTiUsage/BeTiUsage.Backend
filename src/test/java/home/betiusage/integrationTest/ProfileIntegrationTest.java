@@ -81,9 +81,7 @@ public class ProfileIntegrationTest {
                 .bodyValue(new Profile("JohnDoe", "Johntestdoe@gmail.com"))
                 .exchange()
                 .expectStatus().isCreated()
-                //.expectHeader().exists("Location") // TODO: Add the location?
                 .expectBody()
-                //.jsonPath("$.id").exists() // TODO: Do we just not return id? Can't remember
                 .jsonPath("$.email").isEqualTo("Johntestdoe@gmail.com")
                 .jsonPath("$.username").isEqualTo("JohnDoe");
 
@@ -92,10 +90,10 @@ public class ProfileIntegrationTest {
 
     @Test
     void putProfilesUpdateProfile() {
+
         webClient
                 .put().uri("/api/profiles/updateProfile/1")
                 .contentType(MediaType.APPLICATION_JSON)
-                // TODO: Change this, it's update and not create, use ID to update existing
                 .bodyValue("""
                             {
                             "username": "JohnDoeNEW"
@@ -103,10 +101,7 @@ public class ProfileIntegrationTest {
                             """)
                 .exchange()
                 .expectStatus().isOk()
-//                //.expectHeader().exists("Location") // TODO: Add the location?
                 .expectBody()
-                // TODO: Instead of email, check on hobby instead)
-//                .jsonPath("$.email").isEqualTo("JohntestdoeNEW@gmail.com")
                 .jsonPath("$.username").isEqualTo("JohnDoeNEW");
 
         verify(profileRepository, times(1)).save(any(Profile.class));

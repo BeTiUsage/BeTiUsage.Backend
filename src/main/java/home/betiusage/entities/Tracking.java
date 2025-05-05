@@ -26,7 +26,6 @@ public class Tracking {
     @JoinColumn(name = "hobby_id")
     private Hobby hobby;
     private double moneySpent;
-    // TODO: Should this be called exp or xp or experiencePoints?
     private int xp;
     private LocalDateTime startDate;
 

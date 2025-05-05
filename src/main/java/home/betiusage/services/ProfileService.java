@@ -36,7 +36,7 @@ public class ProfileService {
     }
 
     public ProfileDTO createProfile(ProfileDTO profileDTO) {
-        validateProfileDTO(profileDTO);
+        validateProfileDTOUsername(profileDTO);
         Profile profile = toEntity(profileDTO);
         profileRepository.save(profile);
 
@@ -49,7 +49,7 @@ public class ProfileService {
     public ProfileDTO updateProfile(ProfileDTO profileDTO, Long id) {
         existsById(profileRepository, id, "Profile");
         Profile profileToUpdate = profileRepository.findById(id).get();
-        validateProfileDTO(profileDTO);
+        validateProfileDTOUsername(profileDTO);
 
         if (profileDTO.getHobbyDTOList() != null && !profileDTO.getHobbyDTOList().isEmpty()) {
             List<Hobby> updatedHobbies = profileDTO.getHobbyDTOList().stream()
@@ -76,13 +76,9 @@ public class ProfileService {
         return profileToDelete;
     }
 
-    public ProfileDTO validateProfileDTO(ProfileDTO profileDTO) {
+    public ProfileDTO validateProfileDTOUsername(ProfileDTO profileDTO) {
         if (profileDTO.getUsername() == null || profileDTO.getUsername().equals(""))
             throw new ValidationException("You have to write a username");
-
-        // We shouldn't check that it exists here right? We're just checking the profileDTO is correct?
-//        profileRepository.findById(profileDTO.getId()).orElseThrow(()
-//                -> new NotFoundException("Profile with ID: " + profileDTO.getId() + "does not exist"));
 
         return profileDTO;
     }

@@ -39,7 +39,7 @@ class ProfileServiceTest {
         when(profileRepository.findById(1L)).thenReturn(Optional.of(new Profile()));
 
         // Act
-        ProfileDTO result = profileService.validateProfileDTO(dto);
+        ProfileDTO result = profileService.validateProfileDTOUsername(dto);
 
         // Assert
         assertEquals(dto, result);
@@ -48,42 +48,17 @@ class ProfileServiceTest {
 
     @Test
     void testValidateProfileDTO_invalidUsername_throwsException() {
+        // Arrange
         ProfileDTO dto = new ProfileDTO();
         dto.setId(1L);
         dto.setEmail("test@example.com");
         dto.setUsername("");  // Invalid username
 
+        // Act
         Exception exception = assertThrows(ValidationException.class, () ->
-                profileService.validateProfileDTO(dto));
+                profileService.validateProfileDTOUsername(dto));
 
+        // Assert
         assertTrue(exception.getMessage().contains("username"));
-    }
-
-    @Test
-    void testValidateProfileDTO_invalidEmail_throwsException() {
-        ProfileDTO dto = new ProfileDTO();
-        dto.setId(1L);
-        dto.setUsername("TestUser");
-        dto.setEmail("");  // Invalid email
-
-        Exception exception = assertThrows(ValidationException.class, () ->
-                profileService.validateProfileDTO(dto));
-
-        assertTrue(exception.getMessage().contains("email"));
-    }
-
-    @Test
-    void testValidateProfileDTO_profileNotFound_throwsException() {
-        ProfileDTO dto = new ProfileDTO();
-        dto.setId(1L);
-        dto.setUsername("TestUser");
-        dto.setEmail("test@example.com");
-
-        when(profileRepository.findById(1L)).thenReturn(Optional.empty());
-
-        Exception exception = assertThrows(NotFoundException.class, () ->
-                profileService.validateProfileDTO(dto));
-
-        assertTrue(exception.getMessage().contains("does not exist"));
     }
 }

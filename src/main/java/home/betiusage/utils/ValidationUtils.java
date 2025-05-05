@@ -16,9 +16,4 @@ public class ValidationUtils {
             throw new NotFoundException(entityName + " with id " + id + " does not exist");
         }
     }
-
-    public static <T> T getOrThrow(JpaRepository<T, Long> repo, Long id, String entityName) {
-        return repo.findById(id)
-                .orElseThrow(() -> new NotFoundException(entityName + " with id " + id + " not found"));
-    }
 }
