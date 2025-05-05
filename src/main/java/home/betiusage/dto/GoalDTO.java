@@ -1,0 +1,18 @@
+package home.betiusage.dto;
+
+import home.betiusage.entitys.SubGoal;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.util.Set;
+
+@Getter
+@Setter
+@NoArgsConstructor
+public class GoalDTO {
+    private Long id;
+    private String name;
+    private boolean completed;
+    private Set<SubGoal> subGoals;
+}
