@@ -8,8 +8,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.reactive.server.WebTestClient;
-import home.betiusage.entitys.Profile;
-import home.betiusage.repositorys.ProfileRepository;
+import home.betiusage.entities.Profile;
+import home.betiusage.repositories.ProfileRepository;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,6 +1,6 @@
 package home.betiusage.dto;
 
-import home.betiusage.entitys.SubGoal;
+import home.betiusage.entities.SubGoal;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

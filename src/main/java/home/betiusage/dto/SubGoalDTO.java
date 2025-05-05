@@ -1,11 +1,8 @@
 package home.betiusage.dto;
 
-import home.betiusage.entitys.SubGoal;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.Set;
 
 @Getter
 @Setter

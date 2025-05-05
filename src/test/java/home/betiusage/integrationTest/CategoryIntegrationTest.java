@@ -7,8 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.reactive.server.WebTestClient;
-import home.betiusage.entitys.Category;
-import home.betiusage.repositorys.CategoryRepository;
+import home.betiusage.entities.Category;
+import home.betiusage.repositories.CategoryRepository;
 
 import java.util.List;
 import java.util.Optional;

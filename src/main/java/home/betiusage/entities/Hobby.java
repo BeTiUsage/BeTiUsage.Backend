@@ -1,4 +1,4 @@
-package home.betiusage.entitys;
+package home.betiusage.entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -26,13 +26,11 @@ public class Hobby {
     private String name;
     private String description;
     private String averageTimeConsumption;
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "hobby", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RequiredEquipment> requiredEquipment = new ArrayList<>();
     private Double minimumStartCapital;
     private Double averageCapital;
     @ManyToOne
     @JoinColumn(name = "profile_id")
     private Profile profile;
-    @OneToOne(mappedBy = "hobby")
-    private Tracking tracking;
 }

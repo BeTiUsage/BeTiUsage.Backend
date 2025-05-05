@@ -1,6 +1,6 @@
-package home.betiusage.repositorys;
+package home.betiusage.repositories;
 
-import home.betiusage.entitys.Category;
+import home.betiusage.entities.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

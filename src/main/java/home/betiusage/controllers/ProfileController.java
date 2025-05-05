@@ -1,6 +1,5 @@
 package home.betiusage.controllers;
 
-import home.betiusage.entitys.Profile;
 import home.betiusage.services.ProfileService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -41,5 +40,8 @@ public class ProfileController {
         return ResponseEntity.ok(profileService.updateProfile(profileDTO, id));
     }
 
-    // TODO: Add delete profile
+    @DeleteMapping("/deleteProfile/{id}")
+    public ResponseEntity<ProfileDTO> deleteProfile(@PathVariable Long id) {
+        return ResponseEntity.ok(profileService.deleteProfile(id));
+    }
 }

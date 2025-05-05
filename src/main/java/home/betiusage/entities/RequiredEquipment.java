@@ -1,4 +1,4 @@
-package home.betiusage.entitys;
+package home.betiusage.entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -16,6 +16,6 @@ public class RequiredEquipment {
     private Long id;
     private String name;
     @ManyToOne
-    @JoinColumn(name = "hobby_id")
+    @JoinColumn(name = "hobby_id", nullable = false)
     private Hobby hobby;
 }

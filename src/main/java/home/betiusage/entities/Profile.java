@@ -1,5 +1,5 @@
 
-package home.betiusage.entitys;
+package home.betiusage.entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -19,9 +19,9 @@ public class Profile {
     private Long id;
     private String email;
     private String username;
-    @OneToMany(mappedBy = "profile", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "profile", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private List<Hobby> hobbies = new ArrayList<>();
-    @OneToMany(mappedBy = "profile", fetch = FetchType.EAGER) //cascade = CascadeType.ALL here?
+    @OneToMany(mappedBy = "profile", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Tracking> trackings = new ArrayList<>();
 
     public Profile(String username, String email) {

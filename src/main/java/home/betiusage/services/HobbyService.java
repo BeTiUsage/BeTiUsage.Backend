@@ -3,11 +3,11 @@ package home.betiusage.services;
 import home.betiusage.dto.HobbyCategoryDTO;
 import home.betiusage.dto.HobbyDTO;
 import home.betiusage.dto.RequiredEquipmentDTO;
-import home.betiusage.entitys.Category;
-import home.betiusage.entitys.Hobby;
-import home.betiusage.entitys.RequiredEquipment;
-import home.betiusage.repositorys.CategoryRepository;
-import home.betiusage.repositorys.HobbyRepository;
+import home.betiusage.entities.Category;
+import home.betiusage.entities.Hobby;
+import home.betiusage.entities.RequiredEquipment;
+import home.betiusage.repositories.CategoryRepository;
+import home.betiusage.repositories.HobbyRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

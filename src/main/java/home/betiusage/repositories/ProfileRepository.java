@@ -1,8 +1,8 @@
-package home.betiusage.repositorys;
+package home.betiusage.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import home.betiusage.entitys.Profile;
+import home.betiusage.entities.Profile;
 
 @Repository
 public interface ProfileRepository extends JpaRepository<Profile, Long> {

@@ -14,6 +14,5 @@ public class ProfileDTO {
     private Long id;
     private String email;
     private String username;
-    // TODO: Make sure this hobby list works everywhere
     private List<HobbyDTO> hobbyDTOList = new ArrayList<>();
 }
