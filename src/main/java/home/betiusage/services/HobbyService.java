@@ -1,12 +1,15 @@
 package home.betiusage.services;
 
-import org.springframework.stereotype.Service;
-import home.betiusage.dto.HobbyCategoryDto;
-import home.betiusage.dto.HobbyDto;
-import home.betiusage.dto.RequiredEquipmentDto;
-import home.betiusage.entites.Hobby;
+import home.betiusage.dto.HobbyCategoryDTO;
+import home.betiusage.dto.HobbyDTO;
+import home.betiusage.dto.RequiredEquipmentDTO;
+import home.betiusage.entities.Category;
+import home.betiusage.entities.Hobby;
+import home.betiusage.entities.RequiredEquipment;
 import home.betiusage.repositories.CategoryRepository;
 import home.betiusage.repositories.HobbyRepository;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,12 +23,12 @@ public class HobbyService {
         this.categoryRepository = categoryRepository;
     }
 
-    public List<HobbyDto> findAll() {
+    public List<HobbyDTO> findAll() {
         return hobbyRepository.findAll().stream().map(this::toDto).collect(Collectors.toList());
     }
 
-    public HobbyDto toDto(Hobby hobby) {
-        HobbyDto hobbyDto = new HobbyDto();
+    public HobbyDTO toDto(Hobby hobby) {
+        HobbyDTO hobbyDto = new HobbyDTO();
         hobbyDto.setId(hobby.getId());
         hobbyDto.setName(hobby.getName());
         hobbyDto.setDescription(hobby.getDescription());
@@ -36,24 +39,61 @@ public class HobbyService {
                 hobby.getRequiredEquipment()
                         .stream()
                         .map(equipment -> {
-                            RequiredEquipmentDto dto = new RequiredEquipmentDto();
+                            RequiredEquipmentDTO dto = new RequiredEquipmentDTO();
                             dto.setName(equipment.getName());
                             return dto;
                         })
                         .collect(Collectors.toList())
         );
         if (hobby.getCategories() != null) {
-            List<HobbyCategoryDto> hobbyCategoryDtos = hobby.getCategories()
+            List<HobbyCategoryDTO> hobbyCategoryDTOS = hobby.getCategories()
                     .stream()
                     .map(category -> {
-                        HobbyCategoryDto dto = new HobbyCategoryDto();
+                        HobbyCategoryDTO dto = new HobbyCategoryDTO();
                         dto.setName(category.getName());
                         dto.setSocial(category.getSocial());
                         return dto;
                     })
                     .collect(Collectors.toList());
-            hobbyDto.setCategories(hobbyCategoryDtos);
+            hobbyDto.setCategories(hobbyCategoryDTOS);
         }
         return hobbyDto;
+    }
+
+    public Hobby toEntity(HobbyDTO dto) {
+        Hobby hobby = new Hobby();
+        hobby.setId(dto.getId());
+        hobby.setName(dto.getName());
+        hobby.setDescription(dto.getDescription());
+        hobby.setAverageCapital(dto.getAverageCapital());
+        hobby.setAverageTimeConsumption(dto.getAverageTimeConsumption());
+        hobby.setMinimumStartCapital(dto.getMinimumStartCapital());
+
+        if (dto.getRequiredEquipment() != null) {
+            hobby.setRequiredEquipment(
+                    dto.getRequiredEquipment().stream()
+                            .map(equipmentDTO -> {
+                                RequiredEquipment equipment = new RequiredEquipment();
+                                equipment.setName(equipmentDTO.getName());
+                                return equipment;
+                            })
+                            .collect(Collectors.toList())
+            );
+        }
+
+        if (dto.getCategories() != null) {
+            hobby.setCategories(
+                    dto.getCategories().stream()
+                            .map(categoryDTO -> {
+                                Category category = new Category();
+                                category.setName(categoryDTO.getName());
+                                category.setSocial(categoryDTO.getSocial());
+                                return category;
+                            })
+                            .collect(Collectors.toList())
+            );
+        }
+
+        return hobby;
     }
 }

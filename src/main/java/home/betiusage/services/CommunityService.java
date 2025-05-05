@@ -3,7 +3,7 @@ package home.betiusage.services;
 import home.betiusage.repositories.CommunityRepository;
 import org.springframework.stereotype.Service;
 import home.betiusage.dto.CommunityDTO;
-import home.betiusage.entites.Community;
+import home.betiusage.entities.Community;
 import home.betiusage.repositories.HobbyRepository;
 import home.betiusage.utils.ValidationUtils;
 import java.util.List;

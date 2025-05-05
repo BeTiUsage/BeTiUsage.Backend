@@ -8,9 +8,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.reactive.server.WebTestClient;
-import home.betiusage.entites.Category;
-import home.betiusage.entites.Hobby;
-import home.betiusage.entites.RequiredEquipment;
+import home.betiusage.entities.Category;
+import home.betiusage.entities.Hobby;
+import home.betiusage.entities.RequiredEquipment;
 import home.betiusage.repositories.CategoryRepository;
 import home.betiusage.repositories.HobbyRepository;
 import home.betiusage.repositories.RequiredEquipmentRepository;
@@ -73,6 +73,7 @@ public class HobbyIntegrationTest {
 
     @Test
     void testGetAllHobbies() {
+        System.out.println(mockHobby.getCategories().get(0).getId());
         webClient.get()
                 .uri("/api/hobbies")
                 .accept(MediaType.APPLICATION_JSON)

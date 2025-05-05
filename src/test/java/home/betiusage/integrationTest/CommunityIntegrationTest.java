@@ -1,5 +1,7 @@
 package home.betiusage.integrationTest;
 
+import home.betiusage.entities.Community;
+import home.betiusage.entities.Hobby;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +11,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.reactive.server.WebTestClient;
-import home.betiusage.entites.*;
 import home.betiusage.repositories.CommunityRepository;
 import home.betiusage.repositories.HobbyRepository;
 import home.betiusage.services.CommunityService;

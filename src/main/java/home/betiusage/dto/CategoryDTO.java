@@ -7,6 +7,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class RequiredEquipmentDto {
+public class CategoryDTO {
+    private Long id;
+    private String hobbyName;
     private String name;
+    private Boolean social;
 }

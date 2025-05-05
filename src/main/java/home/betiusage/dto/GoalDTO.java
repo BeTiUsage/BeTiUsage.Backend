@@ -1,15 +1,18 @@
 package home.betiusage.dto;
 
+import home.betiusage.entities.SubGoal;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Set;
+
 @Getter
 @Setter
 @NoArgsConstructor
-public class CategoryDto {
+public class GoalDTO {
     private Long id;
-    private String hobbyName;
     private String name;
-    private Boolean social;
+    private boolean completed;
+    private Set<SubGoal> subGoals;
 }

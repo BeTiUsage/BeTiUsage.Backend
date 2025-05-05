@@ -1,10 +1,11 @@
 package home.betiusage.services;
 
-import org.springframework.stereotype.Service;
-import home.betiusage.dto.CategoryDto;
-import home.betiusage.entites.Category;
-import home.betiusage.entites.Hobby;
+import home.betiusage.dto.CategoryDTO;
+import home.betiusage.entities.Category;
+import home.betiusage.entities.Hobby;
 import home.betiusage.repositories.CategoryRepository;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,12 +17,12 @@ public class CategoryService {
         this.categoryRepository = categoryRepository;
     }
 
-    public List<CategoryDto> findAll() {
+    public List<CategoryDTO> findAll() {
         return categoryRepository.findAll().stream().map(this::toDto).toList();
     }
 
-    public CategoryDto toDto(Category category) {
-        CategoryDto categoryDto = new CategoryDto();
+    public CategoryDTO toDto(Category category) {
+        CategoryDTO categoryDto = new CategoryDTO();
         categoryDto.setId(category.getId());
         categoryDto.setName(category.getName());
         categoryDto.setSocial(category.getSocial());

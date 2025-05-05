@@ -1,4 +1,4 @@
-package home.betiusage.entites;
+package home.betiusage.entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -9,12 +9,13 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity
-public class Community {
+public class SubGoal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String url;
-    private String description;
+    private String name;
+    private Boolean completed;
     @ManyToOne
-    private Hobby hobby;
+    @JoinColumn(name = "goal_id")
+    private Goal goal;
 }

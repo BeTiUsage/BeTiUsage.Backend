@@ -9,13 +9,14 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class HobbyDto {
+public class HobbyDTO {
     private Long id;
-    private List<HobbyCategoryDto> categories;
+    private List<HobbyCategoryDTO> categories;
     private String name;
     private String description;
     private String averageTimeConsumption;
-    private List<RequiredEquipmentDto> requiredEquipment = new ArrayList<>();
+    private List<RequiredEquipmentDTO> requiredEquipment = new ArrayList<>();
     private Double minimumStartCapital;
     private Double averageCapital;
 }
+

@@ -7,7 +7,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class HobbyCategoryDto {
+public class SubGoalDTO {
+    private Long id;
     private String name;
-    private Boolean social;
+    private boolean completed;
 }

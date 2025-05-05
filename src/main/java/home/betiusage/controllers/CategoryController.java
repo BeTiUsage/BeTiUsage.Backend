@@ -1,10 +1,10 @@
 package home.betiusage.controllers;
 
+import home.betiusage.dto.CategoryDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import home.betiusage.dto.CategoryDto;
 import home.betiusage.services.CategoryService;
 import java.util.List;
 
@@ -18,7 +18,7 @@ public class CategoryController {
     }
 
     @GetMapping
-    public ResponseEntity<List<CategoryDto>> getCategories() {
+    public ResponseEntity<List<CategoryDTO>> getCategories() {
         return ResponseEntity.ok(categoryService.findAll());
     }
 }

@@ -1,5 +1,6 @@
-package home.betiusage.errorhandeling;
+package home.betiusage.unitTest.errorhandeling;
 
+import home.betiusage.errorhandeling.GlobalExceptionHandler;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
