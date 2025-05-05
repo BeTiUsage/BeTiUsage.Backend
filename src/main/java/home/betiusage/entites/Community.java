@@ -1,6 +1,5 @@
 package home.betiusage.entites;
 
-import home.betiusage.entites.Hobby;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

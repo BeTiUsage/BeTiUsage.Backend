@@ -4,10 +4,8 @@ import home.betiusage.repositories.CommunityRepository;
 import org.springframework.stereotype.Service;
 import home.betiusage.dto.CommunityDTO;
 import home.betiusage.entites.Community;
-import home.betiusage.errorhandeling.exception.NotFoundException;
-import home.betiusage.errorhandeling.exception.ValidationException;
 import home.betiusage.repositories.HobbyRepository;
-
+import home.betiusage.utils.ValidationUtils;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -30,25 +28,17 @@ public class CommunityService {
     }
 
     public Optional<CommunityDTO> findById(Long communityId) {
-        if (communityId == null || communityId <= 0) {
-            throw new ValidationException("Please provide a valid communityId id");
-        }
 
-        if (!communityRepository.existsById(communityId)) {
-            throw new NotFoundException("community with id " + communityId + " does not exist");
-        }
+        ValidationUtils.validateId(communityId, "communityId");
+        ValidationUtils.existsById(communityRepository, communityId, "communityId");
 
         return communityRepository.findById(communityId).map(this::toDTO);
     }
 
     public List<CommunityDTO> findByHobbyId(Long hobbyId) {
-        if (hobbyId == null || hobbyId <= 0) {
-            throw new ValidationException("Please provide a valid hobby id");
-        }
 
-        if (!hobbyRepository.existsById(hobbyId)) {
-            throw new NotFoundException("Hobby with id " + hobbyId + " does not exist");
-        }
+        ValidationUtils.validateId(hobbyId, "hobbyId");
+        ValidationUtils.existsById(hobbyRepository, hobbyId, "hobbyId");
 
         return communityRepository.findByHobbyId(hobbyId)
                 .stream()

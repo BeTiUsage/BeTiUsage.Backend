@@ -3,7 +3,6 @@ package home.betiusage.dto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import home.betiusage.entites.Hobby;
 
 @Getter
 @Setter

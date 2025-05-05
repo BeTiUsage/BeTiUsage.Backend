@@ -9,14 +9,15 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.reactive.server.WebTestClient;
-import home.betiusage.entitys.*;
-import home.betiusage.repositorys.CommunityRepository;
-import home.betiusage.repositorys.HobbyRepository;
+import home.betiusage.entites.*;
+import home.betiusage.repositories.CommunityRepository;
+import home.betiusage.repositories.HobbyRepository;
 import home.betiusage.services.CommunityService;
 import java.util.List;
 import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
+import home.betiusage.utils.ValidationUtils;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")

@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 import home.betiusage.dto.ProfileDto;
 import home.betiusage.entites.Profile;
 import home.betiusage.repositories.ProfileRepository;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
