@@ -28,7 +28,6 @@ public class CommunityService {
     }
 
     public Optional<CommunityDTO> findById(Long communityId) {
-
         ValidationUtils.validateId(communityId, "communityId");
         ValidationUtils.existsById(communityRepository, communityId, "communityId");
 
@@ -36,7 +35,6 @@ public class CommunityService {
     }
 
     public List<CommunityDTO> findByHobbyId(Long hobbyId) {
-
         ValidationUtils.validateId(hobbyId, "hobbyId");
         ValidationUtils.existsById(hobbyRepository, hobbyId, "hobbyId");
 
