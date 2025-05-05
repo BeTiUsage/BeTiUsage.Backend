@@ -51,8 +51,8 @@ public class ProfileService {
         Profile profileToUpdate = profileRepository.findById(id).get();
         validateProfileDTOUsername(profileDTO);
 
-        if (profileDTO.getHobbyDTOList() != null && !profileDTO.getHobbyDTOList().isEmpty()) {
-            List<Hobby> updatedHobbies = profileDTO.getHobbyDTOList().stream()
+        if (profileDTO.getHobbies() != null && !profileDTO.getHobbies().isEmpty()) {
+            List<Hobby> updatedHobbies = profileDTO.getHobbies().stream()
                     .map(hobbyService::toEntity)
                     .collect(Collectors.toList());
 
@@ -88,7 +88,7 @@ public class ProfileService {
         profileDTO.setId(profile.getId());
         profileDTO.setEmail(profile.getEmail());
         profileDTO.setUsername(profile.getUsername());
-        profileDTO.setHobbyDTOList(profile
+        profileDTO.setHobbies(profile
                 .getHobbies()
                 .stream().map(hobbyService::toDto)
                 .collect(Collectors.toList()));
@@ -102,7 +102,7 @@ public class ProfileService {
         profile.setEmail(profileDTO.getEmail());
         profile.setUsername(profileDTO.getUsername());
         profile.setHobbies(profileDTO
-                .getHobbyDTOList()
+                .getHobbies()
                 .stream().map(hobbyService::toEntity)
                 .collect(Collectors.toList()));
 
