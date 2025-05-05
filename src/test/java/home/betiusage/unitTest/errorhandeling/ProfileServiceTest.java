@@ -2,7 +2,6 @@ package home.betiusage.unitTest.errorhandeling;
 
 import home.betiusage.dto.ProfileDTO;
 import home.betiusage.entities.Profile;
-import home.betiusage.errorhandeling.exception.NotFoundException;
 import home.betiusage.errorhandeling.exception.ValidationException;
 import home.betiusage.repositories.ProfileRepository;
 import home.betiusage.services.HobbyService;

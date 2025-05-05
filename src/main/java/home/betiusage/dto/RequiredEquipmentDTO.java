@@ -10,3 +10,4 @@ import lombok.Setter;
 public class RequiredEquipmentDTO {
     private String name;
 }
+

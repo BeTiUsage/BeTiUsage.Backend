@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static home.betiusage.util.ValidationUtils.*;
+import static home.betiusage.utils.ValidationUtils.*;
 
 @Service
 public class ProfileService {

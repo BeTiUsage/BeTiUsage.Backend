@@ -19,3 +19,4 @@ public class HobbyDTO {
     private Double minimumStartCapital;
     private Double averageCapital;
 }
+

@@ -1,3 +1,4 @@
+
 package home.betiusage.dto;
 
 import lombok.Getter;
@@ -11,3 +12,4 @@ public class HobbyCategoryDTO {
     private String name;
     private Boolean social;
 }
+
