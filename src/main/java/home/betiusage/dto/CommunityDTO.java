@@ -13,4 +13,5 @@ public class CommunityDTO {
     private String description;
     private Long hobbyId;
     private String hobbyName;
+    private String forumName;
 }

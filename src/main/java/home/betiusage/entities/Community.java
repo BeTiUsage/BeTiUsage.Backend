@@ -15,6 +15,7 @@ public class Community {
     private Long id;
     private String url;
     private String description;
+    private String forumName;
     @ManyToOne
     private Hobby hobby;
 }
