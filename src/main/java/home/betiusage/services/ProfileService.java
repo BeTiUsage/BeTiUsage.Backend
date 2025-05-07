@@ -68,6 +68,13 @@ public class ProfileService {
         return profileToDelete;
     }
 
+    public Optional<ProfileDTO> findProfileByClerkId(String id) {
+        if (id == null || id.equals(""))
+            throw new ValidationException("Please provide a valid clerk id");
+
+        return profileRepository.findByClerkId(id).map(this::toDTO);
+    }
+
     public ProfileDTO validateProfileDTOUsername(ProfileDTO profileDTO) {
         if (profileDTO.getUsername() == null || profileDTO.getUsername().equals(""))
             throw new ValidationException("You have to write a username");
