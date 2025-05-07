@@ -1,49 +1,36 @@
 package home.betiusage.controllers;
 
+import home.betiusage.entities.Profile;
 import home.betiusage.services.ProfileService;
+import home.betiusage.utils.CurrentUserUtil;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import home.betiusage.dto.ProfileDTO;
 
-import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/profiles")
 public class ProfileController {
 
     private final ProfileService profileService;
+    private final CurrentUserUtil currentUserUtil;
 
-    public ProfileController(ProfileService profileService) {
+    public ProfileController(ProfileService profileService, CurrentUserUtil currentUserUtil) {
         this.profileService = profileService;
+        this.currentUserUtil = currentUserUtil;
     }
 
-    @GetMapping
-    public ResponseEntity<List<ProfileDTO>>getProfiles() {
-         return ResponseEntity.ok(profileService.findAll());
+    @GetMapping()
+    public ResponseEntity<Optional<ProfileDTO>> getProfile() {
+        Profile profile = currentUserUtil.getCurrentProfile();
+        return ResponseEntity.ok(profileService.findProfile(profile.getId()));
+
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ProfileDTO>findProfileById(@PathVariable Long id) {
-        return ResponseEntity.of(profileService.findProfile(id));
-    }
-
-    @PostMapping()
-    public ResponseEntity<ProfileDTO>createProfile(@RequestBody ProfileDTO profileDTO) {
-        return ResponseEntity.status(201).body(profileService.createProfile(profileDTO));
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<ProfileDTO>updateProfile(@RequestBody ProfileDTO profileDTO, @PathVariable Long id) {
-        return ResponseEntity.ok(profileService.updateProfile(profileDTO, id));
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<ProfileDTO> deleteProfile(@PathVariable Long id) {
-        return ResponseEntity.ok(profileService.deleteProfile(id));
-    }
-
-    @GetMapping("/clerk/{id}")
-    public ResponseEntity<ProfileDTO> findByClerkId(@PathVariable String id) {
-        return ResponseEntity.of(profileService.findProfileByClerkId(id));
+    @PutMapping()
+    public ResponseEntity<ProfileDTO> updateCurrentProfile(@RequestBody ProfileDTO profileDTO) {
+        Profile profile = currentUserUtil.getCurrentProfile();
+        return ResponseEntity.ok(profileService.updateProfile(profileDTO, profile.getId()));
     }
 }
