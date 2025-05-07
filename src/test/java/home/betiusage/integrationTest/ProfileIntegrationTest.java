@@ -93,7 +93,7 @@ public class ProfileIntegrationTest {
     @Test
     void postProfilesCreateProfile() {
         webClient
-                .post().uri("/api/profiles/createProfile")
+                .post().uri("/api/profiles")
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(new Profile("JohnDoe", "Johntestdoe@gmail.com"))
                 .exchange()
@@ -109,7 +109,7 @@ public class ProfileIntegrationTest {
     void putProfilesUpdateProfile() {
 
         webClient
-                .put().uri("/api/profiles/updateProfile/1")
+                .put().uri("/api/profiles/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue("""
                             {
