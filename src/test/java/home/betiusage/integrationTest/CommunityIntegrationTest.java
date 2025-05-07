@@ -45,6 +45,7 @@ public class CommunityIntegrationTest {
         mockCommunity.setId(1L);
         mockCommunity.setDescription("test description");
         mockCommunity.setUrl("test url");
+        mockCommunity.setForumName("test forum");
         mockCommunity.setHobby(mockHobby);
 
         when(communityRepository.findById(1L)).thenReturn(Optional.of(mockCommunity));
@@ -71,9 +72,11 @@ public class CommunityIntegrationTest {
                 .expectBody()
                 .jsonPath("$[0].id").isEqualTo(1L)
                 .jsonPath("$[0].url").isEqualTo("test url")
+                .jsonPath("$[0].forumName").isEqualTo("test forum")
                 .jsonPath("$[0].description").isEqualTo("test description")
                 .jsonPath("$[0].hobbyId").isEqualTo(1L)
                 .jsonPath("$[0].hobbyName").isEqualTo("test hobby");
+
 
         verify(communityRepository, times(1)).findAll();
     }
@@ -89,6 +92,7 @@ public class CommunityIntegrationTest {
                 .expectBody()
                 .jsonPath("$.id").isEqualTo(1L)
                 .jsonPath("$.url").isEqualTo("test url")
+                .jsonPath("$.forumName").isEqualTo("test forum")
                 .jsonPath("$.description").isEqualTo("test description")
                 .jsonPath("$.hobbyId").isEqualTo(1L)
                 .jsonPath("$.hobbyName").isEqualTo("test hobby");
@@ -107,6 +111,7 @@ public class CommunityIntegrationTest {
                 .expectBody()
                 .jsonPath("$[0].id").isEqualTo(1L)
                 .jsonPath("$[0].url").isEqualTo("test url")
+                .jsonPath("$[0].forumName").isEqualTo("test forum")
                 .jsonPath("$[0].description").isEqualTo("test description")
                 .jsonPath("$[0].hobbyId").isEqualTo(1L)
                 .jsonPath("$[0].hobbyName").isEqualTo("test hobby");
