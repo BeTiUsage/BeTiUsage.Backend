@@ -51,23 +51,23 @@ VALUES
     (2, 'Chess Tournament', 'A competitive chess tournament.', '2023-10-15 09:00:00', '2023-10-15 18:00:00', 'Community Center', 2, 15.0),
     (3, 'Photography Workshop', 'Learn photography skills.', '2023-10-20 10:00:00', '2023-10-20 16:00:00', 'Art Studio', 3, 50.0);
 
-INSERT INTO community (hobby_id, description, url)
+INSERT INTO community (hobby_id, description, url, forum_name)
 VALUES
-    (1, 'TrailBlazers - A community of passionate hikers exploring mountain trails across the country. We organize weekly group hikes and monthly camping trips.', 'https://www.trailblazers-hiking.com'),
-    (1, 'Urban Hikers Club - Discover hidden trails and green spaces in urban environments. Perfect for city dwellers who want to connect with nature without traveling far.', 'https://www.urbanhikersclub.org'),
-    (1, 'Family Trekkers - A hiking community focused on family-friendly trails and outdoor activities. We specialize in age-appropriate hikes and nature education for children.', 'https://www.familytrekkers.net'),
-    (1, 'Alpine Explorers - Dedicated to high-altitude hiking and mountain exploration. Our members tackle challenging peaks and share advanced hiking techniques.', 'https://www.alpine-explorers.com');
+    (1, 'TrailBlazers - A community of passionate hikers exploring mountain trails across the country. We organize weekly group hikes and monthly camping trips.', 'https://www.trailblazers-hiking.com', 'TrailBlazers Forum'),
+    (1, 'Urban Hikers Club - Discover hidden trails and green spaces in urban environments. Perfect for city dwellers who want to connect with nature without traveling far.', 'https://www.urbanhikersclub.org', 'Urban Hikers Forum'),
+    (1, 'Family Trekkers - A hiking community focused on family-friendly trails and outdoor activities. We specialize in age-appropriate hikes and nature education for children.', 'https://www.familytrekkers.net', 'Family Trekkers Forum'),
+    (1, 'Alpine Explorers - Dedicated to high-altitude hiking and mountain exploration. Our members tackle challenging peaks and share advanced hiking techniques.', 'https://www.alpine-explorers.com', 'Alpine Explorers Forum');
 
-INSERT INTO community (hobby_id, description, url)
+INSERT INTO community (hobby_id, description, url, forum_name)
 VALUES
-    (2, 'Checkmate Society - An online chess community with daily tournaments and strategic discussions. Players of all levels welcome.', 'https://www.checkmatesociety.com'),
-    (2, 'Knights & Pawns - A chess community focused on teaching the game to beginners through step-by-step tutorials and mentorship programs.', 'https://www.knightsandpawns.org'),
-    (2, 'Grandmaster Hub - An elite chess community for advanced players looking to refine their skills. Features analysis of professional matches and advanced tactics.', 'https://www.grandmasterhub.chess'),
-    (2, 'Chess for Youth - A community dedicated to promoting chess in schools and developing young chess players through competitions and training programs.', 'https://www.chessforyouth.edu');
+    (2, 'Checkmate Society - An online chess community with daily tournaments and strategic discussions. Players of all levels welcome.', 'https://www.checkmatesociety.com', 'Checkmate Society Forum'),
+    (2, 'Knights & Pawns - A chess community focused on teaching the game to beginners through step-by-step tutorials and mentorship programs.', 'https://www.knightsandpawns.org', 'Knights & Pawns Forum'),
+    (2, 'Grandmaster Hub - An elite chess community for advanced players looking to refine their skills. Features analysis of professional matches and advanced tactics.', 'https://www.grandmasterhub.chess', 'Grandmaster Hub Forum'),
+    (2, 'Chess for Youth - A community dedicated to promoting chess in schools and developing young chess players through competitions and training programs.', 'https://www.chessforyouth.edu', 'Chess for Youth Forum');
 
-INSERT INTO community (hobby_id, description, url)
+INSERT INTO community (hobby_id, description, url, forum_name)
 VALUES
-    (3, 'Lens Craft Collective - A supportive community for photographers of all skill levels to share their work, get feedback, and participate in monthly themed challenges.', 'https://www.lenscraft.photo'),
-    (3, 'Nature Photographers Alliance - Specialized community for wildlife and landscape photography enthusiasts. Includes location guides and conservation initiatives.', 'https://www.naturephotographers.org'),
-    (3, 'Street Snappers - Urban photography community focused on candid street photography and city scenes. Features regular photo walks in metropolitan areas.', 'https://www.streetsnappers.com'),
-    (3, 'Portrait Masters - Community dedicated to portrait photography techniques, lighting setups, and post-processing. Includes portfolio reviews and model connections.', 'https://www.portraitmasters.art');
+    (3, 'Lens Craft Collective - A supportive community for photographers of all skill levels to share their work, get feedback, and participate in monthly themed challenges.', 'https://www.lenscraft.photo', 'Lens Craft Collective Forum'),
+    (3, 'Nature Photographers Alliance - Specialized community for wildlife and landscape photography enthusiasts. Includes location guides and conservation initiatives.', 'https://www.naturephotographers.org', 'Nature Photographers Alliance Forum'),
+    (3, 'Street Snappers - Urban photography community focused on candid street photography and city scenes. Features regular photo walks in metropolitan areas.', 'https://www.streetsnappers.com', 'Street Snappers Forum'),
+    (3, 'Portrait Masters - Community dedicated to portrait photography techniques, lighting setups, and post-processing. Includes portfolio reviews and model connections.', 'https://www.portraitmasters.art', 'Portrait Masters Forum');
