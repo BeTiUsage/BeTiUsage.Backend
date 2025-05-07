@@ -14,6 +14,5 @@ public class ProfileDTO {
     private Long id;
     private String email;
     private String username;
-    private List<HobbyDTO> hobbies = new ArrayList<>();
 }
 

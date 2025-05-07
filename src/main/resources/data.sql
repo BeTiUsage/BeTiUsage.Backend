@@ -12,11 +12,11 @@ VALUES
     (2, 'DudeMan@gmail.com', 'DudeMan'),
     (3, 'ChicaGirl@gmail.com', 'ChicaGirl');
 
-INSERT INTO hobby (id, name, description, average_time_consumption, minimum_start_capital, average_capital, profile_id)
+INSERT INTO hobby (id, name, description, average_time_consumption, minimum_start_capital, average_capital, img)
 VALUES
-    (1, 'Hiking', 'A long walk in nature.', '2-3 hours', 100.0, 200.0, 1),
-    (2, 'Chess', 'A strategic board game.', '1-2 hours', 50.0, 100.0, 2),
-    (3, 'Photography', 'Capturing moments through a lens.', '1-3 hours', 200.0, 500.0,3);
+    (1, 'Hiking', 'A long walk in nature.', '2-3 hours', 100.0, 200.0, 'https://as1.ftcdn.net/v2/jpg/02/91/63/48/1000_F_291634839_WF8mQtlpNZFlG1X34p8RX2dGQhUxynJK.jpg'),
+    (2, 'Chess', 'A strategic board game.', '1-2 hours', 50.0, 100.0, 'https://www.lolaapp.com/wp-content/uploads/2023/11/Facts-on-Chess_2.jpg'),
+    (3, 'Photography', 'Capturing moments through a lens.', '1-3 hours', 200.0, 500.0, 'https://media.licdn.com/dms/image/C5612AQHhGWNpvI1BiA/article-cover_image-shrink_720_1280/0/1520108955015?e=2147483647&v=beta&t=IcU1LBhINXlNoIDtvqWt_4hyxoIYiwFhJ8g21oS3yXI');
 
 INSERT INTO required_equipment (id, name, hobby_id)
 VALUES

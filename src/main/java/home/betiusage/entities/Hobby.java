@@ -25,7 +25,5 @@ public class Hobby {
     private List<RequiredEquipment> requiredEquipment = new ArrayList<>();
     private Double minimumStartCapital;
     private Double averageCapital;
-    @ManyToOne
-    @JoinColumn(name = "profile_id")
-    private Profile profile;
+    private String img;
 }
