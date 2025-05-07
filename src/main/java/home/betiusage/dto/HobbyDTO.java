@@ -18,5 +18,6 @@ public class HobbyDTO {
     private List<RequiredEquipmentDTO> requiredEquipment = new ArrayList<>();
     private Double minimumStartCapital;
     private Double averageCapital;
+    private String img;
 }
 

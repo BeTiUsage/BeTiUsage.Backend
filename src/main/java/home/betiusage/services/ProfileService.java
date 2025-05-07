@@ -51,14 +51,6 @@ public class ProfileService {
         Profile profileToUpdate = profileRepository.findById(id).get();
         validateProfileDTOUsername(profileDTO);
 
-        if (profileDTO.getHobbies() != null && !profileDTO.getHobbies().isEmpty()) {
-            List<Hobby> updatedHobbies = profileDTO.getHobbies().stream()
-                    .map(hobbyService::toEntity)
-                    .collect(Collectors.toList());
-
-            profileToUpdate.setHobbies(updatedHobbies);
-        }
-
         if (profileDTO.getUsername() != null && !profileDTO.getUsername().equals("")) {
             profileToUpdate.setUsername(profileDTO.getUsername());
         }
@@ -88,10 +80,6 @@ public class ProfileService {
         profileDTO.setId(profile.getId());
         profileDTO.setEmail(profile.getEmail());
         profileDTO.setUsername(profile.getUsername());
-        profileDTO.setHobbies(profile
-                .getHobbies()
-                .stream().map(hobbyService::toDto)
-                .collect(Collectors.toList()));
 
         return profileDTO;
     }
@@ -101,10 +89,6 @@ public class ProfileService {
         profile.setId(profileDTO.getId());
         profile.setEmail(profileDTO.getEmail());
         profile.setUsername(profileDTO.getUsername());
-        profile.setHobbies(profileDTO
-                .getHobbies()
-                .stream().map(hobbyService::toEntity)
-                .collect(Collectors.toList()));
 
         return profile;
     }
