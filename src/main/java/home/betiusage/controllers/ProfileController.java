@@ -44,4 +44,9 @@ public class ProfileController {
     public ResponseEntity<ProfileDTO> deleteProfile(@PathVariable Long id) {
         return ResponseEntity.ok(profileService.deleteProfile(id));
     }
+
+    @GetMapping("/clerk/{id}")
+    public ResponseEntity<ProfileDTO> findByClerkId(@PathVariable String id) {
+        return ResponseEntity.of(profileService.findProfileByClerkId(id));
+    }
 }

@@ -6,11 +6,12 @@ VALUES
     (2, 'Board Game', false),
     (3, 'Other', false);
 
-INSERT INTO profile (id, email, username)
+INSERT INTO profile (id, email, username, clerk_id)
 VALUES
-    (1, 'JohnDoe@gmail.com', 'JohnDoe'),
-    (2, 'DudeMan@gmail.com', 'DudeMan'),
-    (3, 'ChicaGirl@gmail.com', 'ChicaGirl');
+    (1, 'JohnDoe@gmail.com', 'JohnDoe', 'clerkDummyId1'),
+    (2, 'DudeMan@gmail.com', 'DudeMan', 'clerkDummyId2'),
+    (3, 'ChicaGirl@gmail.com', 'ChicaGirl', 'clerkDummyId3'),
+    (4, 'localhost.extrovert697@passmail.net', 'martintheman', 'user_2wfZkeECyKZM50lzcjP73TUTyAr');
 
 INSERT INTO hobby (id, name, description, average_time_consumption, minimum_start_capital, average_capital, img)
 VALUES

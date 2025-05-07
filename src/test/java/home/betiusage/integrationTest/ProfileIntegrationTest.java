@@ -35,8 +35,10 @@ public class ProfileIntegrationTest {
         mockProfile.setId(1L);
         mockProfile.setEmail("Johntestdoe@gmail.com");
         mockProfile.setUsername("JohnDoe");
+        mockProfile.setClerkId("clerkDummyId");
 
         when(profileRepository.findById(1L)).thenReturn(Optional.of(mockProfile));
+        when(profileRepository.findByClerkId("clerkDummyId")).thenReturn(Optional.of(mockProfile));
         when(profileRepository.findAll()).thenReturn(List.of(mockProfile));
         when(profileRepository.existsById(1L)).thenReturn(true);
     }
@@ -72,6 +74,20 @@ public class ProfileIntegrationTest {
                 .jsonPath("$.username").isEqualTo("JohnDoe");
 
         verify(profileRepository, times(1)).findById(1L);
+    }
+
+    @Test
+    void getProfilesFindByClerkId() {
+        webClient
+                .get().uri("/api/profiles/clerk/clerkDummyId")
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody()
+                .jsonPath("$.id").isEqualTo(1)
+                .jsonPath("$.email").isEqualTo("Johntestdoe@gmail.com")
+                .jsonPath("$.username").isEqualTo("JohnDoe");
+
+        verify(profileRepository, times(1)).findByClerkId("clerkDummyId");
     }
 
     @Test
