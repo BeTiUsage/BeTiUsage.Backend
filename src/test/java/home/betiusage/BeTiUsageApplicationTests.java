@@ -11,5 +11,4 @@ class BeTiUsageApplicationTests {
     @Test
     void contextLoads() {
     }
-
 }
