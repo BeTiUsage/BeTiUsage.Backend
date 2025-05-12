@@ -10,10 +10,6 @@ import java.util.Optional;
 
 @Repository
 public interface TrackingRepository extends JpaRepository<Tracking, Long> {
-
     List<Tracking> findAllByProfile_Id(Long profileId);
-    
-    
     Optional<Tracking> findByIdAndProfile_Id(Long trackingId, Long profileId);
-
 }
