@@ -23,4 +23,5 @@ public class Event {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private Double ticketPrice;
+    private String city;
 }
