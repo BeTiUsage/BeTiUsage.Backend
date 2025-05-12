@@ -48,11 +48,28 @@ VALUES
     (2, 2),
     (3, 3);
 
-INSERT INTO event (id, name, description, start_time, end_time, location, hobby_id, ticket_price)
+INSERT INTO event (id, name, description, start_time, end_time, location, hobby_id, ticket_price, city)
 VALUES
-    (1, 'Mountain Hiking', 'A challenging hike in the mountains.', '2023-10-01 08:00:00', '2023-10-01 17:00:00', 'Mountain Trail', 1, 20.0),
-    (2, 'Chess Tournament', 'A competitive chess tournament.', '2023-10-15 09:00:00', '2023-10-15 18:00:00', 'Community Center', 2, 15.0),
-    (3, 'Photography Workshop', 'Learn photography skills.', '2023-10-20 10:00:00', '2023-10-20 16:00:00', 'Art Studio', 3, 50.0);
+    (1, 'Mountain Hiking', 'A challenging hike in the mountains.', '2025-05-07 17:00', '2025-05-07 20:00:00', 'Mountain Trail', 1, 20.0, 'Los Angeles'),
+    (2, 'Chess Tournament', 'A competitive chess tournament.', '2025-05-07 13:00:00', '2025-05-07 18:00:00', 'Community Center', 2, 15.0, 'Los Angeles'),
+    (3, 'Photography Workshop', 'Learn photography skills.', '2025-05-08 10:00:00', '2025-05-08 16:00:00', 'Art Studio', 3, 50.0, 'New York'),
+    (4, 'Sunset Hiking', 'Enjoy a breathtaking hike during sunset.', '2025-05-10 18:00:00', '2025-05-10 21:00:00', 'Sunset Peak', 1, 25.0, 'Denver'),
+    (5, 'Blitz Chess Competition', 'Fast-paced 5-minute game tournament.', '2025-05-15 14:00:00', '2025-05-15 17:00:00', 'Local Chess Club', 2, 10.0, 'San Francisco'),
+    (6, 'Night Photography Workshop', 'Master photography in low-light conditions.', '2025-05-18 19:00:00', '2025-05-18 22:00:00', 'National Park', 3, 60.0, 'Chicago'),
+    (7, 'Spring Hiking Festival', 'A day-long festival with multiple hiking trails to choose from.', '2025-05-20 08:00:00', '2025-05-20 18:00:00', 'Hiking Sanctuary', 1, 30.0, 'Los Angeles'),
+    (8, 'Chess Puzzle Solving Contest', 'Challenge your mind by solving chess puzzles.', '2025-05-23 12:00:00', '2025-05-23 16:00:00', 'City Library', 2, 5.0, 'New York'),
+    (9, 'Beginner Photography Course', 'Learn basic photography skills with hands-on practice.', '2025-05-25 09:00:00', '2025-05-25 15:00:00', 'Photography Studio', 3, 40.0, 'San Francisco'),
+    (10, 'Trail Cleanup Hike', 'Combine hiking and environmental conservation by cleaning the trails.', '2025-05-28 10:00:00', '2025-05-28 14:00:00', 'Green Valley', 1, 0.0, 'Los Angeles'),
+    (11, 'Chess Strategy Workshop', 'Enhance your chess skills with expert strategies.', '2025-05-30 10:00:00', '2025-05-30 14:00:00', 'Chess Academy', 2, 20.0, 'Chicago'),
+    (12, 'Outdoor Portrait Photography Session', 'Capture stunning outdoor portraits with professional guidance.', '2025-06-01 09:00:00', '2025-06-01 13:00:00', 'City Park', 3, 45.0, 'Denver'),
+    (13, 'Family Hiking Day', 'A fun-filled day of hiking activities for families.', '2025-06-05 10:00:00', '2025-06-05 16:00:00', 'Family Trail', 1, 20.0, 'San Francisco'),
+    (14, 'Chess Endgame Masterclass', 'Learn advanced endgame techniques from a grandmaster.', '2025-06-07 14:00:00', '2025-06-07 18:00:00', 'Chess Club', 2, 25.0, 'New York'),
+    (15, 'Wildlife Photography Expedition', 'Join us for a wildlife photography adventure in the national park.', '2025-06-10 08:00:00', '2025-06-10 18:00:00', 'National Park', 3, 70.0, 'Denver'),
+    (16, 'Editing and Post-Processing Workshop', 'Learn to enhance your photos with professional editing software.', '2025-06-16 10:00:00', '2025-06-16 16:00:00', 'Creative Studio Center', 3, 45.0, 'Los Angeles'),
+    (17, 'Seasonal Trail Run', 'Combine running and hiking on this adventure-packed trail.', '2025-06-20 07:00:00', '2025-06-20 12:00:00', 'Riverbank Trail', 1, 20.0, 'Chicago'),
+    (18, 'Advanced Chess Tactics', 'A workshop focused on mastering advanced chess tactics.', '2025-06-22 14:00:00', '2025-06-22 18:00:00', 'Chess Academy', 2, 20.0, 'San Francisco'),
+    (19, 'Wildlife Photography Expedition', 'Capture stunning photos of wildlife in their natural habitat.', '2025-06-25 05:00:00', '2025-06-25 18:00:00', 'Savannah Reserves', 3, 100.0, 'New York'),
+    (20, 'Hiking Gear Swap Meetup', 'Exchange or sell hiking gear with fellow hikers.', '2025-06-27 11:00:00', '2025-06-27 15:00:00', 'Outdoor Center', 1, 5.0, 'Denver');
 
 INSERT INTO community (hobby_id, description, url, forum_name)
 VALUES
