@@ -9,7 +9,7 @@ import home.betiusage.services.CategoryService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/categories")
+@RequestMapping("/api/public/categories")
 public class CategoryController {
     private final CategoryService categoryService;
 
