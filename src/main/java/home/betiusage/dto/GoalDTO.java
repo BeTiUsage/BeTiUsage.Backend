@@ -13,6 +13,6 @@ import java.util.Set;
 public class GoalDTO {
     private Long id;
     private String name;
-    private boolean completed;
+    private Boolean completed;
     private Set<SubGoal> subGoals;
 }

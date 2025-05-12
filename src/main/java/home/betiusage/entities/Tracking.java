@@ -20,13 +20,13 @@ public class Tracking {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "profile_id")
     private Profile profile;
-    @OneToMany(mappedBy = "tracking", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "tracking", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Goal> goals = new ArrayList<>();
     @OneToOne
     @JoinColumn(name = "hobby_id")
     private Hobby hobby;
-    private double moneySpent;
-    private int xp;
+    private Double moneySpent;
+    private Integer xp;
     private LocalDateTime startDate;
 
 }
