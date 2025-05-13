@@ -45,6 +45,42 @@ public class TrackingService {
                 .map(this::toDTO);
     }
 
+
+    public TrackingDTO updateTracking(TrackingDTO trackingDTO, Long id) {
+        validateId(id, "tracking");
+        existsById(trackingRepository, id, "tracking");
+        Tracking existingTracking = trackingRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Tracking not found with id: " + id));
+
+        if (trackingDTO.getMoneySpent() != null) {
+            existingTracking.setMoneySpent(trackingDTO.getMoneySpent());
+        }
+        if (trackingDTO.getStartDate() != null) {
+            existingTracking.setStartDate(trackingDTO.getStartDate());
+        }
+
+        if (trackingDTO.getGoalId() != null) {
+            List<Goal> goals = trackingDTO.getGoalId().stream()
+                    .map(goalId -> {
+                        Goal goal = new Goal();
+                        goal.setId(goalId);
+                        return goal;
+                    })
+                    .toList();
+            existingTracking.setGoals(goals);
+        }
+
+        if (trackingDTO.getHobbyId() != null) {
+            existingTracking.getHobby().setId(trackingDTO.getHobbyId());
+        }
+
+        if (trackingDTO.getHobbyName() != null) {
+            existingTracking.getHobby().setName(trackingDTO.getHobbyName());
+        }
+
+        return toDTO(trackingRepository.save(existingTracking));
+    }
+
     public TrackingDTO toDTO (Tracking tracking) {
         TrackingDTO trackingDTO = new TrackingDTO();
         trackingDTO.setId(tracking.getId());
