@@ -40,8 +40,8 @@ public class GoalService {
             );
         }
 
-        Goal savedGoal = goalRepository.save(goal);
-        return toDTO(savedGoal);
+
+        return toDTO(goalRepository.save(ToEntity(goalDTO)));
     }
 
     public GoalDTO updateGoal(GoalDTO goalDTO, Long id) {
@@ -68,8 +68,19 @@ public class GoalService {
             );
         }
 
-        Goal updatedGoal = goalRepository.save(existingGoal);
-        return toDTO(updatedGoal);
+        return toDTO(goalRepository.save(ToEntity(goalDTO)));
+    }
+
+    public GoalDTO deleteGoal(Long id) {
+        if (id == null) {
+            throw new NotFoundException("ID should not be null");
+        }
+
+        Goal existingGoal = goalRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Goal not found with id: " + id));
+
+        goalRepository.delete(existingGoal);
+        return toDTO(existingGoal);
     }
 
 
@@ -95,7 +106,7 @@ public class GoalService {
         return goalDTO;
     }
 
-    public Goal toEntity(GoalDTO goalDTO) {
+    public Goal ToEntity(GoalDTO goalDTO) {
         Goal goal = new Goal();
         goal.setId(goalDTO.getId());
         goal.setName(goalDTO.getName());

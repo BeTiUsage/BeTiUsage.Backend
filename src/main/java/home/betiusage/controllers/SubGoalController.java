@@ -2,9 +2,11 @@ package home.betiusage.controllers;
 
 import home.betiusage.dto.SubGoalDTO;
 import home.betiusage.services.SubGoalService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Method;
 import java.util.List;
 
 @RestController
@@ -26,10 +28,10 @@ public class SubGoalController {
     @PostMapping
     public ResponseEntity<SubGoalDTO> createSubGoal(SubGoalDTO subGoalDTO) {
         SubGoalDTO createdSubGoal = subGoalService.createSubGoal(subGoalDTO);
-        return ResponseEntity.ok(createdSubGoal);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdSubGoal);
     }
 
-    @PutMapping
+    @PutMapping("/update/{id}")
     public ResponseEntity<SubGoalDTO> updateSubGoal(@RequestBody SubGoalDTO subGoalDTO, @RequestParam Long id) {
         SubGoalDTO updatedSubGoal = subGoalService.updateSubGoal(subGoalDTO, id);
         return ResponseEntity.ok(updatedSubGoal);

@@ -25,10 +25,7 @@ public class SubGoalService {
         if (subGoalDTO.getId() != null) {
             throw new NotFoundException("ID should not be provided for a new SubGoal");
         }
-
-        SubGoal subGoal = ToEntity(subGoalDTO);
-        subGoal = subGoalRepository.save(subGoal);
-        return ToDTO(subGoal);
+        return ToDTO(subGoalRepository.save(ToEntity(subGoalDTO)));
     }
 
     public SubGoalDTO updateSubGoal(SubGoalDTO subGoalDTO, Long id) {
@@ -46,7 +43,7 @@ public class SubGoalService {
             existingSubGoal.setCompleted(subGoalDTO.getCompleted());
         }
 
-        return ToDTO(subGoalRepository.save(existingSubGoal));
+        return ToDTO(subGoalRepository.save(ToEntity(subGoalDTO)));
     }
 
 
