@@ -33,4 +33,10 @@ public class ProfileController {
         Profile profile = currentUserUtil.getCurrentProfile();
         return ResponseEntity.ok(profileService.updateProfile(profileDTO, profile.getId()));
     }
+
+    @DeleteMapping()
+    public ResponseEntity<ProfileDTO> deleteCurrentProfile() {
+        Profile profile = currentUserUtil.getCurrentProfile();
+        return ResponseEntity.ok(profileService.deleteCurrentProfile(profile.getId()));
+    }
 }
