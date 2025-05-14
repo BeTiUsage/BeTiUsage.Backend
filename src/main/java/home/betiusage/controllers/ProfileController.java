@@ -10,7 +10,6 @@ import home.betiusage.dto.ProfileDTO;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin
 @RequestMapping("/api/profiles")
 public class ProfileController {
 

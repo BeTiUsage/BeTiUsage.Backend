@@ -11,7 +11,6 @@ import home.betiusage.services.EventService;
 import java.util.List;
 
 @RestController
-@CrossOrigin
 @RequestMapping("/api/events")
 public class EventController {
     private final EventService eventService;

@@ -11,7 +11,6 @@ import home.betiusage.services.HobbyService;
 import java.util.List;
 
 @RestController
-@CrossOrigin
 @RequestMapping("/api/hobbies")
 public class HobbyController {
     private final HobbyService hobbyService;
