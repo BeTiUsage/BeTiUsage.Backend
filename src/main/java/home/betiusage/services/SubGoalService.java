@@ -25,6 +25,13 @@ public class SubGoalService {
         if (subGoalDTO.getId() != null) {
             throw new NotFoundException("ID should not be provided for a new SubGoal");
         }
+        if (subGoalDTO.getName() == null || subGoalDTO.getName().isEmpty()) {
+            throw new NotFoundException("SubGoal name should not be null or empty");
+        }
+
+        if (subGoalDTO.getCompleted() == null) {
+            throw new NotFoundException("SubGoal completed status should not be null");
+        }
         return ToDTO(subGoalRepository.save(ToEntity(subGoalDTO)));
     }
 

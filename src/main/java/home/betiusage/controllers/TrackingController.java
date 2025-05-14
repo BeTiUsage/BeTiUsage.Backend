@@ -32,7 +32,7 @@ public class TrackingController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TrackingDTO> updateTracking(@RequestBody TrackingDTO trackingDTO, @RequestParam Long id) {
+    public ResponseEntity<TrackingDTO> updateTracking(@RequestBody TrackingDTO trackingDTO, @PathVariable Long id) {
         TrackingDTO updatedTracking = trackingService.updateTracking(trackingDTO, id);
         return ResponseEntity.ok(updatedTracking);
     }
