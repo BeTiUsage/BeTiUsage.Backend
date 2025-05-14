@@ -8,6 +8,7 @@ import home.betiusage.services.CommunityService;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api/communities")
 public class CommunityController {
     private final CommunityService communityService;
