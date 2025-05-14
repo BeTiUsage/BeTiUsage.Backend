@@ -70,6 +70,12 @@ public class SubGoalIntegrationTest {
         subGoalDTO.setCompleted(mockSubGoal2.getCompleted());
         when(subGoalService.deleteSubGoal(2L)).thenReturn(subGoalDTO);
 
+        SubGoalDTO updatedSubGoalDTO = new SubGoalDTO();
+        updatedSubGoalDTO.setId(updatedSubGoal.getId());
+        updatedSubGoalDTO.setName(updatedSubGoal.getName());
+        updatedSubGoalDTO.setCompleted(updatedSubGoal.getCompleted());
+        when(subGoalService.updateSubGoal(any(SubGoalDTO.class), any(Long.class))).thenReturn(updatedSubGoalDTO);
+
 
     }
 
@@ -113,6 +119,19 @@ public class SubGoalIntegrationTest {
                 .expectBody()
                 .jsonPath("$.id").isEqualTo(3)
                 .jsonPath("$.name").isEqualTo("Test SubGoal 3")
+                .jsonPath("$.completed").isEqualTo(false);
+    }
+
+    @Test
+    void testUpdateSubGoal() {
+        webClient.put().uri("/api/public/subgoals/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(updatedSubGoal)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody()
+                .jsonPath("$.id").isEqualTo(1)
+                .jsonPath("$.name").isEqualTo("Updated SubGoal")
                 .jsonPath("$.completed").isEqualTo(false);
     }
 
