@@ -4,6 +4,8 @@ import home.betiusage.dto.ProfileDTO;
 import home.betiusage.entities.Profile;
 import home.betiusage.errorHandling.exception.NotFoundException;
 import home.betiusage.repositories.ProfileRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
@@ -11,7 +13,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class ProfileService {
-
+    private static final Logger logger = LoggerFactory.getLogger(ProfileService.class);
     private final ProfileRepository profileRepository;
 
     public ProfileService(ProfileRepository profileRepository) {
@@ -81,5 +83,16 @@ public class ProfileService {
         profileDTO.setUsername(profile.getUsername());
 
         return profileDTO;
+    }
+
+    public ProfileDTO deleteCurrentProfile(Long id) {
+        Profile profile = profileRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Profile not found with id: " + id));
+
+        logger.info("Request to delete profile with Clerk ID: {}", profile.getClerkId());
+        ProfileDTO deletedProfileDTO = toDTO(profile);
+        profileRepository.delete(profile);
+
+        return deletedProfileDTO;
     }
 }
