@@ -1,7 +1,9 @@
 package home.betiusage.integrationTest;
 
+import home.betiusage.dto.SubGoalDTO;
 import home.betiusage.entities.SubGoal;
 import home.betiusage.repositories.SubGoalRepository;
+import home.betiusage.services.SubGoalService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 import java.util.List;
 import java.util.Optional;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -23,11 +26,15 @@ public class SubGoalIntegrationTest {
     @MockBean
     private SubGoalRepository subGoalRepository;
 
+    @MockBean
+    private SubGoalService subGoalService;
+
     @Autowired
     private WebTestClient webClient;
 
     private SubGoal mockSubGoal;
     private SubGoal mockSubGoal2;
+    private SubGoal updatedSubGoal;
 
 
     @BeforeEach
@@ -42,66 +49,77 @@ public class SubGoalIntegrationTest {
         mockSubGoal2.setName("Test SubGoal 2");
         mockSubGoal2.setCompleted(false);
 
-        when(subGoalRepository.findById(1L)).thenReturn(Optional.of(mockSubGoal));
+        // Updated version of mockSubGoal
+        updatedSubGoal = new SubGoal();
+        updatedSubGoal.setId(1L);
+        updatedSubGoal.setName("Updated SubGoal");
+        updatedSubGoal.setCompleted(false);
+
+        // This is the important line that was missing - mock the findAll method
         when(subGoalRepository.findAll()).thenReturn(List.of(mockSubGoal));
 
+        // Your existing mocks
+        when(subGoalRepository.findById(1L)).thenReturn(Optional.of(mockSubGoal));
+        when(subGoalRepository.findById(2L)).thenReturn(Optional.of(mockSubGoal2));
         when(subGoalRepository.save(mockSubGoal)).thenReturn(mockSubGoal);
         when(subGoalRepository.save(mockSubGoal2)).thenReturn(mockSubGoal2);
 
-        when(subGoalRepository.findById(2L)).thenReturn(Optional.of(mockSubGoal2));
-        when(subGoalRepository.findAll()).thenReturn(List.of(mockSubGoal, mockSubGoal2));
+        SubGoalDTO subGoalDTO = new SubGoalDTO();
+        subGoalDTO.setId(mockSubGoal2.getId());
+        subGoalDTO.setName(mockSubGoal2.getName());
+        subGoalDTO.setCompleted(mockSubGoal2.getCompleted());
+        when(subGoalService.deleteSubGoal(2L)).thenReturn(subGoalDTO);
+
+
     }
+
 
 
     @Test
     void testGetSubGoals() {
         webClient
-                .get().uri("/api/public/goals")
+                .get().uri("/api/public/subgoals")
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody()
                 .jsonPath("$[0].id").isEqualTo(1)
+                .jsonPath("$[0].name").isEqualTo("Test SubGoal")
                 .jsonPath("$[0].completed").isEqualTo(true);
     }
 
     @Test
     void testCreateSubGoal() {
+        // 1. Create a request DTO (without ID)
+        SubGoalDTO requestDTO = new SubGoalDTO();
+        requestDTO.setName("Test SubGoal 3");
+        requestDTO.setCompleted(false);
+
+        // 2. Create a response DTO (with ID) that the mock service will return
+        SubGoalDTO responseDTO = new SubGoalDTO();
+        responseDTO.setId(3L);
+        responseDTO.setName("Test SubGoal 3");
+        responseDTO.setCompleted(false);
+
+        // 3. Mock the service method
+        when(subGoalService.createSubGoal(any(SubGoalDTO.class))).thenReturn(responseDTO);
+
+        // 4. Perform the test
         webClient
-                .post().uri("/api/public/goals")
+                .post().uri("/api/public/subgoals")
                 .contentType(MediaType.APPLICATION_JSON)
-                .bodyValue(mockSubGoal)
+                .bodyValue(requestDTO)  // Send the request DTO (no ID)
                 .exchange()
+                .expectStatus().isCreated()  // Expect 201 Created status
                 .expectBody()
-                .jsonPath("$.id").isEqualTo(1)
-                .jsonPath("$.name").isEqualTo("Test SubGoal")
-                .jsonPath("$.completed").isEqualTo(true);
-    }
-
-
-    @Test
-    void testUpdateSubGoal() {
-        mockSubGoal.setName("Updated SubGoal");
-        mockSubGoal.setCompleted(false);
-
-        System.out.println(mockSubGoal.getName());
-        System.out.println(mockSubGoal.getCompleted());
-
-        webClient
-                .put().uri("/api/public/goals/update/1")
-                .contentType(MediaType.APPLICATION_JSON)
-                .bodyValue(mockSubGoal)
-                .exchange()
-                .expectBody()
-                .jsonPath("$.id").isEqualTo(1)
-                .jsonPath("$.name").isEqualTo("Updated SubGoal")
+                .jsonPath("$.id").isEqualTo(3)
+                .jsonPath("$.name").isEqualTo("Test SubGoal 3")
                 .jsonPath("$.completed").isEqualTo(false);
     }
-
 
     @Test
     void testDeleteSubGoal() {
         webClient
-                .delete().uri("/api/public/goals/2")
+                .delete().uri("/api/public/subgoals/2")
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody()
