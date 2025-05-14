@@ -27,8 +27,8 @@ public class GoalController {
         return ResponseEntity.status(HttpStatus.CREATED).body(goalService.createGoal(goalDTO));
     }
 
-    @PostMapping("/update/{id}")
-    public ResponseEntity<GoalDTO> updateGoal(@RequestBody GoalDTO goalDTO, @RequestParam Long id) {
+    @PutMapping("/{id}")
+    public ResponseEntity<GoalDTO> updateGoal(@RequestBody GoalDTO goalDTO, @PathVariable Long id) {
         return ResponseEntity.ok(goalService.updateGoal(goalDTO, id));
     }
 
@@ -36,4 +36,15 @@ public class GoalController {
     public ResponseEntity<GoalDTO> deleteGoal(@PathVariable Long id) {
         return ResponseEntity.ok(goalService.deleteGoal(id));
     }
+
+    @DeleteMapping("/subgoals/{id}")
+    public ResponseEntity<GoalDTO> deleteSubGoals(@PathVariable Long id) {
+        return ResponseEntity.ok(goalService.deleteSubgoals(id));
+    }
+
+    @DeleteMapping("/{id}/subgoals/{subgoalId}")
+    public ResponseEntity<GoalDTO> deleteSubGoal(@PathVariable Long id, @PathVariable Long subgoalId) {
+        return ResponseEntity.ok(goalService.deleteSubgoal(id, subgoalId));
+    }
+
 }
