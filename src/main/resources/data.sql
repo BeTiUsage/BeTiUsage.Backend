@@ -27,19 +27,19 @@ VALUES
 
 INSERT INTO tracking (id, money_spent, xp, start_date, profile_id, hobby_id)
 VALUES
-    (1, 4.2, 42, '2025-04-04 10:10:10', 1, 1),
-    (2, 3.5, 35, '2025-04-05 11:11:11', 1, 2),
-    (3, 2.8, 28, '2025-04-06 12:12:12', 1, 3);
+    (1, 4.2, 0, '2025-04-04 10:10:10', 1, 1),
+    (2, 3.5, 0, '2025-04-05 11:11:11', 1, 2),
+    (3, 2.8, 0, '2025-04-06 12:12:12', 1, 3);
 
 INSERT INTO goal (id, name, completed, tracking_id)
 VALUES
-    (1, 'Get 600 elo', true, 1),
-    (2, 'Get 800 elo', false, 1),
-    (3, 'Get 1000 elo', false, 1);
+    (1, 'Win 20 games', false, 1),
+    (2, 'Lay a Strategy', false, 1),
+    (3, 'Overcome opponent ', false, 1);
 
 INSERT INTO sub_goal (id, name, completed, goal_id)
 VALUES
-    (1, 'Play 5 games', true, 1),
+    (1, 'Play 5 games', false, 1),
     (2, 'Analyze games', false, 1);
 
 INSERT INTO hobby_categories (hobbies_id, categories_id)

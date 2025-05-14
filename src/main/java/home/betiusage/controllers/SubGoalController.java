@@ -6,7 +6,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.reflect.Method;
 import java.util.List;
 
 @RestController
@@ -34,6 +33,12 @@ public class SubGoalController {
     @PutMapping("/{id}")
     public ResponseEntity<SubGoalDTO> updateSubGoal(@RequestBody SubGoalDTO subGoalDTO, @PathVariable Long id) {
         SubGoalDTO updatedSubGoal = subGoalService.updateSubGoal(subGoalDTO, id);
+        return ResponseEntity.ok(updatedSubGoal);
+    }
+
+    @PutMapping("/{id}/completed")
+    public ResponseEntity<SubGoalDTO> updateSubGoalCompleted(@RequestBody SubGoalDTO subGoalDTO, @PathVariable Long id) {
+        SubGoalDTO updatedSubGoal = subGoalService.updateSubGoalCompletedStatus(subGoalDTO, id);
         return ResponseEntity.ok(updatedSubGoal);
     }
 

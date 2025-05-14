@@ -16,4 +16,5 @@ public class GoalDTO {
     private String name;
     private Boolean completed;
     private List<SubGoalDTO> subGoals;
+    private Long trackingId;
 }

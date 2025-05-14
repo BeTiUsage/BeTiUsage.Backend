@@ -1,9 +1,12 @@
 package home.betiusage.services;
 
 import home.betiusage.dto.SubGoalDTO;
+import home.betiusage.entities.Goal;
 import home.betiusage.entities.SubGoal;
+import home.betiusage.entities.Tracking;
 import home.betiusage.errorHandling.exception.NotFoundException;
 import home.betiusage.repositories.SubGoalRepository;
+import home.betiusage.repositories.TrackingRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,9 +14,11 @@ import java.util.List;
 @Service
 public class SubGoalService {
     private final SubGoalRepository subGoalRepository;
+    private final TrackingRepository trackingRepository;
 
-    public SubGoalService(SubGoalRepository subGoalRepository) {
+    public SubGoalService(SubGoalRepository subGoalRepository, TrackingRepository trackingRepository) {
         this.subGoalRepository = subGoalRepository;
+        this.trackingRepository = trackingRepository;
     }
 
     public List<SubGoalDTO> findAll() {
@@ -46,12 +51,51 @@ public class SubGoalService {
         if (subGoalDTO.getName() != null) {
             existingSubGoal.setName(subGoalDTO.getName());
         }
+
+        return ToDTO(subGoalRepository.save(ToEntity(subGoalDTO)));
+    }
+
+    public SubGoalDTO updateSubGoalCompletedStatus(SubGoalDTO subGoalDTO, Long id) {
+        if (id == null) {
+            throw new NotFoundException("ID should not be null");
+        }
+
+        SubGoal existingSubGoal = subGoalRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("SubGoal not found with id: " + id));
+
         if (subGoalDTO.getCompleted() != null) {
             existingSubGoal.setCompleted(subGoalDTO.getCompleted());
+            if (subGoalDTO.getCompleted()) {
+                existingSubGoal.setCompleted(true);
+                awardXpForSubgoalCompletion(existingSubGoal);
+            } else {
+                existingSubGoal.setCompleted(false);
+            }
         }
 
         return ToDTO(subGoalRepository.save(ToEntity(subGoalDTO)));
     }
+
+    private void awardXpForSubgoalCompletion(SubGoal subGoal) {
+        Goal parentGoal = subGoal.getGoal();
+        if (parentGoal == null || parentGoal.getTracking() == null) {
+            return; // No tracking to update
+        }
+
+        Tracking tracking = parentGoal.getTracking();
+
+        // Initialize XP if it's null
+        if (tracking.getXp() == null) {
+            tracking.setXp(0);
+        }
+
+        // Award XP for subgoal completion
+        tracking.setXp(tracking.getXp() + XpService.getSubgoalCompletionXp());
+
+        // Save the tracking with updated XP
+        trackingRepository.save(tracking);
+    }
+
 
 
     public SubGoalDTO deleteSubGoal(Long id) {
@@ -79,6 +123,13 @@ public class SubGoalService {
         subGoal.setId(subGoalDTO.getId());
         subGoal.setName(subGoalDTO.getName());
         subGoal.setCompleted(subGoalDTO.getCompleted());
+
+        if (subGoalDTO.getId() != null) {
+            SubGoal existingSubGoal = subGoalRepository.findById(subGoalDTO.getId()).orElse(null);
+            if (existingSubGoal != null && existingSubGoal.getGoal() != null) {
+                subGoal.setGoal(existingSubGoal.getGoal());
+            }
+        }
         return subGoal;
     }
 
