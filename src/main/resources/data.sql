@@ -1,5 +1,3 @@
-CREATE SCHEMA IF NOT EXISTS better_time_usage_db;
-
 INSERT INTO category (id, name, social)
 VALUES
     (1, 'Outdoor', true),
