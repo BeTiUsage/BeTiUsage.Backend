@@ -10,6 +10,7 @@ import home.betiusage.services.CategoryService;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api/categories")
 public class CategoryController {
     private final CategoryService categoryService;
