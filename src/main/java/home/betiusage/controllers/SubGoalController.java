@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/public/subgoals")
+@RequestMapping("/api/subgoals")
 public class SubGoalController {
 
     private final SubGoalService subGoalService;

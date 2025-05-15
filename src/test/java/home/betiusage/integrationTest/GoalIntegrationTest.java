@@ -97,7 +97,7 @@ public class GoalIntegrationTest {
     @Test
     void testGetGoals() {
         webClient
-                .get().uri("/api/public/goals")
+                .get().uri("/api/goals")
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody()
@@ -125,7 +125,7 @@ public class GoalIntegrationTest {
         when(goalService.createGoal(any(GoalDTO.class))).thenReturn(responseDTO);
 
         webClient
-                .post().uri("/api/public/goals")
+                .post().uri("/api/goals")
                 .bodyValue(requestDTO)
                 .exchange()
                 .expectStatus().isCreated()
@@ -137,7 +137,7 @@ public class GoalIntegrationTest {
 
     @Test
     void testUpdateGoal() {
-        webClient.put().uri("/api/public/goals/1")
+        webClient.put().uri("/api/goals/1")
                 .bodyValue(updatedGoal)
                 .exchange()
                 .expectStatus().isOk()
@@ -149,7 +149,7 @@ public class GoalIntegrationTest {
 
     @Test
     void testDeleteGoal() {
-        webClient.delete().uri("/api/public/goals/2")
+        webClient.delete().uri("/api/goals/2")
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody()

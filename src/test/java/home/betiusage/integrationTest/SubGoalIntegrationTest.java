@@ -84,7 +84,7 @@ public class SubGoalIntegrationTest {
     @Test
     void testGetSubGoals() {
         webClient
-                .get().uri("/api/public/subgoals")
+                .get().uri("/api/subgoals")
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody()
@@ -111,7 +111,7 @@ public class SubGoalIntegrationTest {
 
         // 4. Perform the test
         webClient
-                .post().uri("/api/public/subgoals")
+                .post().uri("/api/subgoals")
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(requestDTO)  // Send the request DTO (no ID)
                 .exchange()
@@ -124,7 +124,7 @@ public class SubGoalIntegrationTest {
 
     @Test
     void testUpdateSubGoal() {
-        webClient.put().uri("/api/public/subgoals/1")
+        webClient.put().uri("/api/subgoals/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(updatedSubGoal)
                 .exchange()
@@ -138,7 +138,7 @@ public class SubGoalIntegrationTest {
     @Test
     void testDeleteSubGoal() {
         webClient
-                .delete().uri("/api/public/subgoals/2")
+                .delete().uri("/api/subgoals/2")
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody()
