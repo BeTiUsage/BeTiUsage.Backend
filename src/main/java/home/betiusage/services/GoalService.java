@@ -7,6 +7,7 @@ import home.betiusage.entities.SubGoal;
 import home.betiusage.entities.Tracking;
 import home.betiusage.errorHandling.exception.NotFoundException;
 import home.betiusage.repositories.GoalRepository;
+import home.betiusage.repositories.SubGoalRepository;
 import home.betiusage.repositories.TrackingRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -18,10 +19,12 @@ import java.util.stream.Collectors;
 @Service
 public class GoalService {
     private final GoalRepository goalRepository;
+    private final SubGoalRepository subGoalRepository;
     private final TrackingRepository trackingRepository;
 
-    public GoalService(GoalRepository goalRepository, TrackingRepository trackingRepository) {
+    public GoalService(GoalRepository goalRepository, SubGoalRepository subGoalRepository, TrackingRepository trackingRepository) {
         this.goalRepository = goalRepository;
+        this.subGoalRepository = subGoalRepository;
         this.trackingRepository = trackingRepository;
     }
 
@@ -34,21 +37,36 @@ public class GoalService {
         goal.setName(goalDTO.getName());
         goal.setCompleted(goalDTO.getCompleted());
 
-        if (goalDTO.getSubGoals() != null) {
-            goal.setSubGoals(
-                    goalDTO.getSubGoals().stream()
-                            .map(subGoalDTO -> {
-                                SubGoal subGoal = new SubGoal();
-                                subGoal.setName(subGoalDTO.getName());
-                                subGoal.setCompleted(subGoalDTO.getCompleted());
-                                return subGoal;
-                            })
-                            .toList()
-            );
+        // Handle tracking relationship properly
+        if (goalDTO.getTrackingId() != null) {
+            Tracking tracking = trackingRepository.findById(goalDTO.getTrackingId())
+                    .orElseThrow(() -> new NotFoundException("Tracking not found with id: " + goalDTO.getTrackingId()));
+            goal.setTracking(tracking);
         }
 
+        Goal savedGoal = goalRepository.save(goal);
 
-        return toDTO(goalRepository.save(ToEntity(goalDTO)));
+        if (goalDTO.getSubGoals() != null && !goalDTO.getSubGoals().isEmpty()) {
+            List<SubGoal> subGoalsList = new ArrayList<>();
+
+            for (SubGoalDTO subGoalDTO : goalDTO.getSubGoals()) {
+                if (subGoalDTO.getId() != null) {
+                    SubGoal existingSubGoal = subGoalRepository.findById(subGoalDTO.getId())
+                            .orElseThrow(() -> new NotFoundException("SubGoal not found with id: " + subGoalDTO.getId()));
+
+                    existingSubGoal.setGoal(savedGoal);
+                    subGoalsList.add(existingSubGoal);
+                } else {
+                    throw new NotFoundException("SubGoal id should not be null");
+                }
+            }
+
+            savedGoal.setSubGoals(subGoalsList);
+
+            savedGoal = goalRepository.save(savedGoal);
+        }
+
+        return toDTO(savedGoal);
     }
 
     public GoalDTO updateGoal(GoalDTO goalDTO, Long id) {
