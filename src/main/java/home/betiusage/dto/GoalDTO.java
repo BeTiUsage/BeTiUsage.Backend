@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -14,5 +15,6 @@ public class GoalDTO {
     private Long id;
     private String name;
     private Boolean completed;
-    private Set<SubGoal> subGoals;
+    private List<SubGoalDTO> subGoals;
+    private Long trackingId;
 }

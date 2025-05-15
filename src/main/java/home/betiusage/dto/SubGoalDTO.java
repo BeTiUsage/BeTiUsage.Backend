@@ -10,5 +10,5 @@ import lombok.Setter;
 public class SubGoalDTO {
     private Long id;
     private String name;
-    private boolean completed;
+    private Boolean completed;
 }

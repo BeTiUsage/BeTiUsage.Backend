@@ -3,11 +3,9 @@ package home.betiusage.controllers;
 import home.betiusage.dto.TrackingDTO;
 import home.betiusage.errorHandling.exception.NotFoundException;
 import home.betiusage.services.TrackingService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -32,5 +30,17 @@ public class TrackingController {
         TrackingDTO tracking = trackingService.findByIdAndProfileId(profileId, trackingId)
                 .orElseThrow(() -> new NotFoundException("Tracking not found"));
         return ResponseEntity.ok(tracking);
+    }
+
+    @PostMapping
+    public ResponseEntity<TrackingDTO> createTracking(@RequestBody TrackingDTO trackingDTO) {
+        TrackingDTO createdTracking = trackingService.createTracking(trackingDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdTracking);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<TrackingDTO> updateTracking(@RequestBody TrackingDTO trackingDTO, @PathVariable Long id) {
+        TrackingDTO updatedTracking = trackingService.updateTracking(trackingDTO, id);
+        return ResponseEntity.ok(updatedTracking);
     }
 }
