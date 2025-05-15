@@ -40,6 +40,7 @@ public class GoalIntegrationTest {
 
     private Goal mockGoal;
     private Goal mockGoal2;
+    private GoalDTO mockGoalDTO;
     private Tracking mockTracking;
     private Goal updatedGoal;
 
@@ -72,6 +73,13 @@ public class GoalIntegrationTest {
         updatedGoal.setName("Updated Goal");
         updatedGoal.setCompleted(false);
 
+        mockGoalDTO = new GoalDTO();
+        mockGoalDTO.setId(mockGoal.getId());
+        mockGoalDTO.setName(mockGoal.getName());
+        mockGoalDTO.setCompleted(mockGoal.getCompleted());
+        mockGoalDTO.setTrackingId(mockTracking.getId());
+
+
         when(goalRepository.findById(1L)).thenReturn(Optional.of(mockGoal));
         when(goalRepository.findAll()).thenReturn(List.of(mockGoal));
         when(goalRepository.save(mockGoal)).thenReturn(mockGoal);
@@ -80,9 +88,9 @@ public class GoalIntegrationTest {
         when(trackingRepository.findAll()).thenReturn(List.of(mockTracking));
 
         GoalDTO goalDTO = new GoalDTO();
-        goalDTO.setId(mockGoal2.getId());
-        goalDTO.setName(mockGoal2.getName());
-        goalDTO.setCompleted(mockGoal2.getCompleted());
+        goalDTO.setId(mockGoal.getId());
+        goalDTO.setName(mockGoal.getName());
+        goalDTO.setCompleted(mockGoal.getCompleted());
 
         when(goalService.deleteGoal(2L)).thenReturn(goalDTO);
 
@@ -92,6 +100,7 @@ public class GoalIntegrationTest {
         updatedGoalDTO.setCompleted(updatedGoal.getCompleted());
 
         when(goalService.updateGoal(any(GoalDTO.class), any(Long.class))).thenReturn(updatedGoalDTO);
+        when(goalService.findAll()).thenReturn(List.of(goalDTO));
     }
 
     @Test
@@ -153,8 +162,8 @@ public class GoalIntegrationTest {
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody()
-                .jsonPath("$.id").isEqualTo(2)
-                .jsonPath("$.name").isEqualTo("Test Goal 2")
+                .jsonPath("$.id").isEqualTo(1)
+                .jsonPath("$.name").isEqualTo("Test Goal")
                 .jsonPath("$.completed").isEqualTo(false);
     }
 

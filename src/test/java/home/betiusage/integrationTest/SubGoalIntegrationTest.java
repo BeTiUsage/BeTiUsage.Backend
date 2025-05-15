@@ -34,6 +34,7 @@ public class SubGoalIntegrationTest {
 
     private SubGoal mockSubGoal;
     private SubGoal mockSubGoal2;
+    private SubGoalDTO mockSubGoalDTO;
     private SubGoal updatedSubGoal;
 
 
@@ -55,6 +56,12 @@ public class SubGoalIntegrationTest {
         updatedSubGoal.setName("Updated SubGoal");
         updatedSubGoal.setCompleted(false);
 
+        mockSubGoalDTO = new SubGoalDTO();
+        mockSubGoalDTO.setId(mockSubGoal.getId());
+        mockSubGoalDTO.setName(mockSubGoal.getName());
+        mockSubGoalDTO.setCompleted(mockSubGoal.getCompleted());
+
+
         // This is the important line that was missing - mock the findAll method
         when(subGoalRepository.findAll()).thenReturn(List.of(mockSubGoal));
 
@@ -75,6 +82,8 @@ public class SubGoalIntegrationTest {
         updatedSubGoalDTO.setName(updatedSubGoal.getName());
         updatedSubGoalDTO.setCompleted(updatedSubGoal.getCompleted());
         when(subGoalService.updateSubGoal(any(SubGoalDTO.class), any(Long.class))).thenReturn(updatedSubGoalDTO);
+
+        when(subGoalService.findAll()).thenReturn(List.of(mockSubGoalDTO));
 
 
     }
