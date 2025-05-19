@@ -36,7 +36,7 @@ public class TrackingService {
 
     public List<TrackingDTO> findAllByProfileId(Long profileId) {
         validateId(profileId, "profile");
-        existsById(trackingRepository, profileId, "Profile");
+        existsById(profileRepository, profileId, "Profile");
         if (trackingRepository.findAllByProfile_Id(profileId).isEmpty()) {
             throw new NotFoundException("No tracking found for this profile");
         }
@@ -50,7 +50,7 @@ public class TrackingService {
         validateId(trackingId, "tracking");
         validateId(profileId, "profile");
         existsById(trackingRepository, trackingId, "tracking");
-        existsById(trackingRepository, profileId, "profile");
+        existsById(profileRepository, profileId, "profile");
         if (trackingRepository.findByIdAndProfile_Id(trackingId, profileId).isEmpty()) {
             throw new NotFoundException("No tracking found for this profile");
         }
