@@ -28,8 +28,8 @@ VALUES
 INSERT INTO tracking (id, money_spent, xp, start_date, profile_id, hobby_id)
 VALUES
     (1, 4.2, 0, '2025-04-04 10:10:10', 4, 1),
-    (2, 3.5, 0, '2025-04-05 11:11:11', 2, 2),
-    (3, 2.8, 0, '2025-04-06 12:12:12', 3, 3);
+    (2, 3.5, 0, '2025-04-05 11:11:11', 4, 2),
+    (3, 2.8, 0, '2025-04-06 12:12:12', 4, 3);
 
 INSERT INTO goal (id, name, completed, tracking_id)
 VALUES
