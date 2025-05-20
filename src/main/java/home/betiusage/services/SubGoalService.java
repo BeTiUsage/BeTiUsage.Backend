@@ -55,28 +55,7 @@ public class SubGoalService {
         return ToDTO(subGoalRepository.save(ToEntity(subGoalDTO)));
     }
 
-    public SubGoalDTO updateSubGoalCompletedStatus(SubGoalDTO subGoalDTO, Long id) {
-        if (id == null) {
-            throw new NotFoundException("ID should not be null");
-        }
-
-        SubGoal existingSubGoal = subGoalRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("SubGoal not found with id: " + id));
-
-        if (subGoalDTO.getCompleted() != null) {
-            existingSubGoal.setCompleted(subGoalDTO.getCompleted());
-            if (subGoalDTO.getCompleted()) {
-                existingSubGoal.setCompleted(true);
-                awardXpForSubgoalCompletion(existingSubGoal);
-            } else {
-                existingSubGoal.setCompleted(false);
-            }
-        }
-
-        return ToDTO(subGoalRepository.save(ToEntity(subGoalDTO)));
-    }
-
-    private void awardXpForSubgoalCompletion(SubGoal subGoal) {
+    public void awardXpForSubgoalCompletion(SubGoal subGoal) {
         Goal parentGoal = subGoal.getGoal();
         if (parentGoal == null || parentGoal.getTracking() == null) {
             return; // No tracking to update

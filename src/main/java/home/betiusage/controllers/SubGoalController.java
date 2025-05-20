@@ -36,12 +36,6 @@ public class SubGoalController {
         return ResponseEntity.ok(updatedSubGoal);
     }
 
-    @PutMapping("/{id}/completed")
-    public ResponseEntity<SubGoalDTO> updateSubGoalCompleted(@RequestBody SubGoalDTO subGoalDTO, @PathVariable Long id) {
-        SubGoalDTO updatedSubGoal = subGoalService.updateSubGoalCompletedStatus(subGoalDTO, id);
-        return ResponseEntity.ok(updatedSubGoal);
-    }
-
     @DeleteMapping("/{id}")
     public ResponseEntity<SubGoalDTO> deleteSubGoal(@PathVariable Long id) {
         return ResponseEntity.ok(subGoalService.deleteSubGoal(id));

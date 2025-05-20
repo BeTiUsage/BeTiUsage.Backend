@@ -173,6 +173,7 @@ public class TrackingService {
             goalDTO.setName(goal.getName());
             goalDTO.setCompleted(goal.getCompleted());
             goalDTO.setTrackingId(goal.getTracking() != null ? goal.getTracking().getId() : null);
+            goalDTO.setGoalNumber(goal.getGoalNumber());
             goalDTO.setSubGoals(goal.getSubGoals().stream().map(subGoal -> {
                 SubGoalDTO subGoalDTO = new SubGoalDTO();
                 subGoalDTO.setId(subGoal.getId());

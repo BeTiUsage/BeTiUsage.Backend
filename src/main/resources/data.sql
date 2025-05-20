@@ -28,14 +28,14 @@ VALUES
 INSERT INTO tracking (id, money_spent, xp, start_date, profile_id, hobby_id)
 VALUES
     (1, 4.2, 0, '2025-04-04 10:10:10', 4, 1),
-    (2, 3.5, 0, '2025-04-05 11:11:11', 4, 2),
-    (3, 2.8, 0, '2025-04-06 12:12:12', 4, 3);
+    (2, 3.5, 0, '2025-04-05 11:11:11', 1, 2),
+    (3, 2.8, 0, '2025-04-06 12:12:12', 1, 3);
 
-INSERT INTO goal (id, name, completed, tracking_id)
+INSERT INTO goal (id, name, completed, tracking_id, goal_number)
 VALUES
-    (1, 'Win 20 games', false, 1),
-    (2, 'Lay a Strategy', false, 1),
-    (3, 'Overcome opponent ', false, 1);
+    (1, 'Lay a Strategy', false, 1, 1),
+    (2, 'Win 20 games', false, 1, 2),
+    (3, 'Overcome opponent ', false, 1, 3);
 
 INSERT INTO sub_goal (id, name, completed, goal_id)
 VALUES
