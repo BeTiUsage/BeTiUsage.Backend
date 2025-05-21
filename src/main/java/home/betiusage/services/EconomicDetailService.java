@@ -26,11 +26,11 @@ public class EconomicDetailService {
         ValidationUtils.existsById(hobbyRepository, hobbyId, "hobbyId");
         return economicDetailRepository.findAllByHobbyId(hobbyId)
                 .stream()
-                .map(this::toDto)
+                .map(this::toDTO)
                 .collect(Collectors.toList());
     }
 
-    public EconomicDetailsDTO toDto(EconomicDetail economicDetail) {
+    public EconomicDetailsDTO toDTO(EconomicDetail economicDetail) {
         EconomicDetailsDTO dto = new EconomicDetailsDTO();
 
         dto.setId(economicDetail.getId());
