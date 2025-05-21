@@ -91,3 +91,39 @@ VALUES
     (3, 'Nature Photographers Alliance - Specialized community for wildlife and landscape photography enthusiasts. Includes location guides and conservation initiatives.', 'https://www.naturephotographers.org', 'Nature Photographers Alliance Forum'),
     (3, 'Street Snappers - Urban photography community focused on candid street photography and city scenes. Features regular photo walks in metropolitan areas.', 'https://www.streetsnappers.com', 'Street Snappers Forum'),
     (3, 'Portraita Masters - Community dedicated to portrait photography techniques, lighting setups, and post-processing. Includes portfolio reviews and model connections.', 'https://www.portraitmasters.art', 'Portrait Masters Forum');
+
+INSERT INTO economic_detail (
+    comment, cost_range_max, cost_range_min, currency,
+    duration, estimated_cost, is_required, label,
+    location_dependent, purchase_link, hobby_id
+) VALUES
+      (
+          'Essential boots for hiking. Waterproof and durable.',
+          150.00, 100.00, 'USD',
+          'N/A', 120.00, TRUE, 'Hiking Boots',
+          FALSE, 'https://example.com/hiking-boots', 1
+      ),
+      (
+          'Sturdy backpack for day hikes.',
+          100.00, 60.00, 'USD',
+          'N/A', 80.00, TRUE, 'Hiking Backpack',
+          FALSE, 'https://example.com/hiking-backpack', 1
+      ),
+      (
+          'Optional hiking poles for better balance and joint support.',
+          70.00, 30.00, 'USD',
+          'N/A', 50.00, FALSE, 'Hiking Poles',
+          FALSE, 'https://example.com/hiking-poles', 1
+      ),
+      (
+          'Weather-appropriate clothing like layers, rain jackets, etc.',
+          200.00, 100.00, 'USD',
+          'Seasonal', 150.00, TRUE, 'Clothing',
+          TRUE, 'https://example.com/hiking-clothing', 1
+      ),
+      (
+          'Trail map or GPS device – optional for well-marked paths.',
+          50.00, 20.00, 'USD',
+          'One-time', 35.00, FALSE, 'Navigation Tools',
+          TRUE, 'https://example.com/navigation', 1
+      );
