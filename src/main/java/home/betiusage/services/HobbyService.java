@@ -36,6 +36,11 @@ public class HobbyService {
         hobbyDTO.setAverageTimeConsumption(hobby.getAverageTimeConsumption());
         hobbyDTO.setMinimumStartCapital(hobby.getMinimumStartCapital());
         hobbyDTO.setImg(hobby.getImg());
+        hobbyDTO.setCostRating(
+                hobby.getCostRating() != null
+                        ? hobby.getCostRating()
+                        : hobby.getCalculatedCostRating()
+        );
         hobbyDTO.setRequiredEquipment(
                 hobby.getRequiredEquipment()
                         .stream()

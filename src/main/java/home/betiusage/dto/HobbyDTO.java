@@ -1,5 +1,6 @@
 package home.betiusage.dto;
 
+import home.betiusage.enums.ECostRating;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,6 +19,7 @@ public class HobbyDTO {
     private List<RequiredEquipmentDTO> requiredEquipment = new ArrayList<>();
     private Double minimumStartCapital;
     private Double averageCapital;
+    private ECostRating costRating;
     private String img;
 }
 
