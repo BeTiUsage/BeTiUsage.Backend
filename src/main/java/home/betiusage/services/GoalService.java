@@ -97,29 +97,6 @@ public class GoalService {
             existingGoal.setName(goalDTO.getName());
         }
 
-        // Check if trying to mark goal as completed
-        if (goalDTO.getCompleted() != null && goalDTO.getCompleted()) {
-            // Verify all subgoals are completed
-            boolean allSubgoalsCompleted = existingGoal.getSubGoals().isEmpty() ||
-                    existingGoal.getSubGoals().stream()
-                            .allMatch(sg -> sg.getCompleted() != null && sg.getCompleted());
-
-            if (!allSubgoalsCompleted) {
-                throw new IllegalStateException("Cannot mark goal as completed when subgoals are incomplete");
-            }
-
-            // Only award XP if the goal wasn't previously completed
-            boolean wasAlreadyCompleted = existingGoal.getCompleted() != null && existingGoal.getCompleted();
-            if (!wasAlreadyCompleted) {
-                awardXpForGoalCompletion(existingGoal);
-            }
-        }
-
-        // Update the goal's completion status
-        if (goalDTO.getCompleted() != null) {
-            existingGoal.setCompleted(goalDTO.getCompleted());
-        }
-
         // Update goalNumber if provided
         if (goalDTO.getGoalNumber() != null) {
             existingGoal.setGoalNumber(goalDTO.getGoalNumber());
@@ -141,29 +118,31 @@ public class GoalService {
                 boolean wasCompletedBefore = false;
 
                 if (subGoalDTO.getId() != null) {
-
                     Optional<SubGoal> existingSubGoal = existingGoal.getSubGoals().stream()
                             .filter(sg -> sg.getId().equals(subGoalDTO.getId()))
                             .findFirst();
 
                     if (existingSubGoal.isPresent()) {
                         subGoal = existingSubGoal.get();
-
                         wasCompletedBefore = subGoal.getCompleted() != null && subGoal.getCompleted();
                     } else {
-
                         subGoal = subGoalRepository.findById(subGoalDTO.getId())
                                 .orElseGet(SubGoal::new);
                         wasCompletedBefore = subGoal.getCompleted() != null && subGoal.getCompleted();
                     }
                 } else {
-
                     subGoal = new SubGoal();
                     wasCompletedBefore = false;
                 }
 
                 if (subGoalDTO.getName() != null) {
                     subGoal.setName(subGoalDTO.getName());
+                }
+
+                if (subGoalDTO.getCompleted() == null) {
+                    subGoal.setCompleted(false);
+                } else {
+                    subGoal.setCompleted(subGoalDTO.getCompleted());
                 }
 
                 // Update completion status if provided and award XP only when status changes from false to true
@@ -191,6 +170,29 @@ public class GoalService {
             // Clear existing subgoals and add updated ones
             existingGoal.getSubGoals().clear();
             existingGoal.getSubGoals().addAll(updatedSubGoals);
+        }
+
+        boolean goalCompletionRequested = goalDTO.getCompleted() != null && goalDTO.getCompleted();
+        if (goalCompletionRequested) {
+            // Verify all subgoals are completed
+            boolean allSubgoalsCompleted = existingGoal.getSubGoals().isEmpty() ||
+                    existingGoal.getSubGoals().stream()
+                            .allMatch(sg -> sg.getCompleted() != null && sg.getCompleted());
+
+            if (!allSubgoalsCompleted) {
+                throw new IllegalStateException("Cannot mark goal as completed when subgoals are incomplete");
+            }
+
+            // Only award XP if the goal wasn't previously completed
+            boolean wasAlreadyCompleted = existingGoal.getCompleted() != null && existingGoal.getCompleted();
+            if (!wasAlreadyCompleted) {
+                awardXpForGoalCompletion(existingGoal);
+            }
+        }
+
+        // Update the goal's completion status
+        if (goalDTO.getCompleted() != null) {
+            existingGoal.setCompleted(goalDTO.getCompleted());
         }
 
         // Save and return the updated goal
