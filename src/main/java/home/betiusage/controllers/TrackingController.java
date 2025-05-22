@@ -1,6 +1,7 @@
 package home.betiusage.controllers;
 
 import home.betiusage.dto.TrackingDTO;
+import home.betiusage.dto.TrackingResDTO;
 import home.betiusage.errorHandling.exception.NotFoundException;
 import home.betiusage.services.TrackingService;
 import org.springframework.http.HttpStatus;
@@ -20,14 +21,14 @@ public class TrackingController {
     }
 
     @GetMapping("/profile/{profileId}")
-    public ResponseEntity<List<TrackingDTO>> findAllByProfileId(@PathVariable Long profileId) {
-        List<TrackingDTO> trackings = trackingService.findAllByProfileId(profileId);
+    public ResponseEntity<List<TrackingResDTO>> findAllByProfileId(@PathVariable Long profileId) {
+        List<TrackingResDTO> trackings = trackingService.findAllByProfileId(profileId);
         return ResponseEntity.ok(trackings);
     }
 
     @GetMapping("/profile/{profileId}/tracking/{trackingId}")
-    public ResponseEntity<TrackingDTO> findByIdAndProfileId(@PathVariable Long profileId, @PathVariable Long trackingId) {
-        TrackingDTO tracking = trackingService.findByIdAndProfileId(profileId, trackingId)
+    public ResponseEntity<TrackingResDTO> findByIdAndProfileId(@PathVariable Long profileId, @PathVariable Long trackingId) {
+        TrackingResDTO tracking = trackingService.findByIdAndProfileId(profileId, trackingId)
                 .orElseThrow(() -> new NotFoundException("Tracking not found"));
         return ResponseEntity.ok(tracking);
     }

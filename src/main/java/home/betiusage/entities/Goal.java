@@ -24,5 +24,5 @@ public class Goal {
     private List<SubGoal> subGoals = new ArrayList<>();
     @ManyToOne
     private Tracking tracking;
-
+    private Long goalNumber;
 }
