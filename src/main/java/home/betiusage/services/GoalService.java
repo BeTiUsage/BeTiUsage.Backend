@@ -59,11 +59,9 @@ public class GoalService {
                 SubGoal subGoal;
 
                 if (subGoalDTO.getId() != null) {
-                    // Handle existing subgoals if any
                     subGoal = subGoalRepository.findById(subGoalDTO.getId())
                             .orElseThrow(() -> new NotFoundException("SubGoal not found with id: " + subGoalDTO.getId()));
                 } else {
-                    // Create new subgoal
                     subGoal = new SubGoal();
                 }
 
@@ -75,7 +73,6 @@ public class GoalService {
                 subGoalsList.add(subGoal);
             }
 
-            // Save all subgoals together
             subGoalsList = subGoalRepository.saveAll(subGoalsList);
             savedGoal.setSubGoals(subGoalsList);
         }
@@ -92,17 +89,14 @@ public class GoalService {
         Goal existingGoal = goalRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Goal not found with id: " + id));
 
-        // Update name if provided
         if (goalDTO.getName() != null) {
             existingGoal.setName(goalDTO.getName());
         }
 
-        // Update goalNumber if provided
         if (goalDTO.getGoalNumber() != null) {
             existingGoal.setGoalNumber(goalDTO.getGoalNumber());
         }
 
-        // Handle tracking relationship if provided
         if (goalDTO.getTrackingId() != null) {
             Tracking tracking = trackingRepository.findById(goalDTO.getTrackingId())
                     .orElseThrow(() -> new NotFoundException("Tracking not found with id: " + goalDTO.getTrackingId()));
@@ -154,20 +148,16 @@ public class GoalService {
                         // Set the goal relationship first so XP calculation works properly
                         subGoal.setGoal(existingGoal);
 
-                        // Now award XP
                         subGoalService.awardXpForSubgoalCompletion(subGoal);
                     }
 
-                    // Update completion status
                     subGoal.setCompleted(isCompletedNow);
                 }
 
-                // Ensure goal reference is set
                 subGoal.setGoal(existingGoal);
                 updatedSubGoals.add(subGoal);
             }
 
-            // Clear existing subgoals and add updated ones
             existingGoal.getSubGoals().clear();
             existingGoal.getSubGoals().addAll(updatedSubGoals);
         }
@@ -190,12 +180,10 @@ public class GoalService {
             }
         }
 
-        // Update the goal's completion status
         if (goalDTO.getCompleted() != null) {
             existingGoal.setCompleted(goalDTO.getCompleted());
         }
 
-        // Save and return the updated goal
         Goal savedGoal = goalRepository.save(existingGoal);
         return toDTO(savedGoal);
     }
@@ -228,36 +216,29 @@ public class GoalService {
         Goal existingGoal = goalRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Goal not found with id: " + id));
 
-        // Create DTO before deletion for returning
         GoalDTO goalDTO = toDTO(existingGoal);
 
-        // Handle the Tracking relationship
         if (existingGoal.getTracking() != null) {
             Tracking tracking = existingGoal.getTracking();
             tracking.getGoals().remove(existingGoal);
             existingGoal.setTracking(null);
         }
 
-        // Get all subgoal IDs for explicit deletion
         List<Long> subgoalIds = existingGoal.getSubGoals().stream()
                 .map(SubGoal::getId)
                 .toList();
 
-        // Break bidirectional relationships with subgoals
         for (SubGoal subGoal : new ArrayList<>(existingGoal.getSubGoals())) {
             subGoal.setGoal(null);
         }
         existingGoal.getSubGoals().clear();
 
-        // Save to update relationships
         goalRepository.saveAndFlush(existingGoal);
 
-        // Delete all the subgoals explicitly
         for (Long subgoalId : subgoalIds) {
             subGoalRepository.deleteById(subgoalId);
         }
 
-        // Now delete the goal
         goalRepository.delete(existingGoal);
         goalRepository.flush();
 
@@ -278,16 +259,12 @@ public class GoalService {
                 .findFirst()
                 .orElseThrow(() -> new NotFoundException("Subgoal not found with id: " + subGoalId));
 
-        // Remove the subgoal from the goal's collection
         existingGoal.getSubGoals().remove(existingSubGoal);
 
-        // Set the goal reference to null (breaking bidirectional relationship)
         existingSubGoal.setGoal(null);
 
-        // Save the goal to update its collection
         goalRepository.saveAndFlush(existingGoal);
 
-        // Now delete the subgoal from the database
         subGoalRepository.deleteById(subGoalId);
 
         return toDTO(existingGoal);
@@ -319,29 +296,5 @@ public class GoalService {
         subGoalDTO.setName(subGoal.getName());
         subGoalDTO.setCompleted(subGoal.getCompleted());
         return subGoalDTO;
-    }
-
-
-    public Goal ToEntity(GoalDTO goalDTO) {
-        Goal goal = new Goal();
-        goal.setId(goalDTO.getId());
-        goal.setName(goalDTO.getName());
-        goal.setCompleted(goalDTO.getCompleted());
-        goal.setTracking(goalDTO.getTrackingId() != null ? new Tracking() : null);
-        goal.setGoalNumber(goalDTO.getGoalNumber());
-        if (goalDTO.getSubGoals() != null) {
-            goal.setSubGoals(
-                    goalDTO.getSubGoals().stream()
-                            .map(subGoalDTO -> {
-                                SubGoal subGoal = new SubGoal();
-                                subGoal.setId(subGoalDTO.getId());
-                                subGoal.setName(subGoalDTO.getName());
-                                subGoal.setCompleted(subGoalDTO.getCompleted());
-                                return subGoal;
-                            })
-                            .toList()
-            );
-        }
-        return goal;
     }
 }
