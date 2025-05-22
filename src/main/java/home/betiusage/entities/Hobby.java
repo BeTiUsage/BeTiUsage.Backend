@@ -1,5 +1,6 @@
 package home.betiusage.entities;
 
+import home.betiusage.enums.ECostRating;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,7 +24,38 @@ public class Hobby {
     private String averageTimeConsumption;
     @OneToMany(mappedBy = "hobby", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RequiredEquipment> requiredEquipment = new ArrayList<>();
+    private String img;
+    //economic
+    @Enumerated(EnumType.STRING)
+    private ECostRating costRating;
     private Double minimumStartCapital;
     private Double averageCapital;
-    private String img;
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<EconomicDetail> economicDetails = new ArrayList<>();
+
+    public void setAverageCapital(Double averageCapital) {
+        this.averageCapital = averageCapital;
+        this.costRating = calculateCostRating(averageCapital);
+    }
+
+    @Transient
+    public ECostRating getCalculatedCostRating() {
+        return calculateCostRating(this.averageCapital);
+    }
+
+    private ECostRating calculateCostRating(Double capital) {
+        if (capital == null) return null;
+
+        if (capital < 500) {
+            return ECostRating.VERY_CHEAP;
+        } else if (capital < 3000) {
+            return ECostRating.CHEAP;
+        } else if (capital < 5000) {
+            return ECostRating.MODERATE;
+        } else if (capital < 7500) {
+            return ECostRating.EXPENSIVE;
+        } else {
+            return ECostRating.VERY_EXPENSIVE;
+        }
+    }
 }
