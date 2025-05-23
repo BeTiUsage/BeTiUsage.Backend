@@ -188,7 +188,7 @@ public class GoalService {
         return toDTO(savedGoal);
     }
 
-    private void awardXpForGoalCompletion(Goal goal) {
+    public void awardXpForGoalCompletion(Goal goal) {
         Tracking tracking = goal.getTracking();
         if (tracking == null) {
             return; // No tracking to update

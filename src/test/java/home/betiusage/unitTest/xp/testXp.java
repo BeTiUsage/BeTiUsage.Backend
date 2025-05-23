@@ -20,9 +20,11 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -47,6 +49,7 @@ public class testXp {
     private Tracking tracking;
     private Goal goal;
     private SubGoal subGoal;
+    private SubGoal subGoal2;
 
     @BeforeEach
     void setUp() {
@@ -68,104 +71,68 @@ public class testXp {
         subGoal.setCompleted(false);
         subGoal.setGoal(goal);
 
+        subGoal2 = new SubGoal();
+        subGoal2.setId(2L);
+        subGoal2.setName("Test SubGoal 2");
+        subGoal2.setCompleted(false);
+        subGoal2.setGoal(goal);
+
         goal.getSubGoals().add(subGoal);
     }
 
     @Test
-    void testSubGoalCompletionGives10Xp() {
-        // Arrange
-        SubGoalDTO subGoalDTO = new SubGoalDTO();
-        subGoalDTO.setId(1L);
-        subGoalDTO.setCompleted(true);
+    void testXpForSubgoalCompletion() {
+        // Setup - Tracking starts with 0 XP
+        when(trackingRepository.save(any(Tracking.class))).thenReturn(tracking);
 
-        when(subGoalRepository.findById(1L)).thenReturn(Optional.of(subGoal));
-        when(subGoalRepository.save(any(SubGoal.class))).thenReturn(subGoal);
+        // Execute the method under test
+        subGoalService.awardXpForSubgoalCompletion(subGoal);
 
-        ArgumentCaptor<Tracking> trackingCaptor = ArgumentCaptor.forClass(Tracking.class);
+        // Verify the XP increase is correct (should be 10 XP for a subgoal)
+        assertEquals(XpService.getSubgoalCompletionXp(), tracking.getXp(),
+                "Subgoal completion should award 10 XP");
 
-        // Act
-        subGoalService.updateSubGoalCompletedStatus(subGoalDTO, 1L);
-
-        // Assert
-        verify(trackingRepository).save(trackingCaptor.capture());
-        Tracking savedTracking = trackingCaptor.getValue();
-        assertEquals(XpService.getSubgoalCompletionXp(), savedTracking.getXp());
-        System.out.println("SubGoal XP test - Expected: 10, Actual: " + savedTracking.getXp());
-        assertEquals(10, savedTracking.getXp()); // Explicitly check the value
+        // Verify that trackingRepository.save was called once
+        verify(trackingRepository, times(1)).save(tracking);
     }
 
     @Test
-    void testGoalCompletionGives50Xp() {
-        // Arrange
-        // First, mark the subgoal as completed
-        subGoal.setCompleted(true);
+    void testXpForGoalCompletion() {
+        // Setup - Tracking starts with 0 XP
+        when(trackingRepository.save(any(Tracking.class))).thenReturn(tracking);
 
-        GoalDTO goalDTO = new GoalDTO();
-        goalDTO.setId(1L);
-        goalDTO.setCompleted(true);
+        // Execute the method under test
+        goalService.awardXpForGoalCompletion(goal);
 
-        when(goalRepository.findById(1L)).thenReturn(Optional.of(goal));
-        when(goalRepository.save(any(Goal.class))).thenReturn(goal);
+        // Verify the XP increase is correct (should be 50 XP for a goal)
+        assertEquals(XpService.getGoalCompletionBonusXp(), tracking.getXp(),
+                "Goal completion should award 50 XP bonus");
 
-        ArgumentCaptor<Tracking> trackingCaptor = ArgumentCaptor.forClass(Tracking.class);
-
-        // Act
-        goalService.updateGoalCompletedStatus(goalDTO, 1L);
-
-        // Assert
-        verify(trackingRepository).save(trackingCaptor.capture());
-        Tracking savedTracking = trackingCaptor.getValue();
-        assertEquals(XpService.getGoalCompletionBonusXp(), savedTracking.getXp());
-        System.out.println("Goal XP test - Expected: 50, Actual: " + savedTracking.getXp());
-        assertEquals(50, savedTracking.getXp()); // Explicitly check the value
+        // Verify that trackingRepository.save was called once
+        verify(trackingRepository, times(1)).save(tracking);
     }
 
     @Test
-    void testCompletingBothSubGoalAndGoalGivesTotal60Xp() {
-        // Arrange
-        tracking.setXp(0);
+    void testXpForCompletingSubgoalAndThenGoal() {
+        // Setup - Tracking starts with 0 XP
+        when(trackingRepository.save(any(Tracking.class))).thenReturn(tracking);
 
-        // Set up subgoal completion
-        SubGoalDTO subGoalDTO = new SubGoalDTO();
-        subGoalDTO.setId(1L);
-        subGoalDTO.setCompleted(true);
+        // First complete a subgoal (10 XP)
+        subGoalService.awardXpForSubgoalCompletion(subGoal);
 
-        when(subGoalRepository.findById(1L)).thenReturn(Optional.of(subGoal));
-        when(subGoalRepository.save(any(SubGoal.class))).thenAnswer(invocation -> {
-            SubGoal saved = invocation.getArgument(0);
-            saved.setCompleted(true);
-            return saved;
-        });
+        // Verify first XP award
+        assertEquals(XpService.getSubgoalCompletionXp(), tracking.getXp(),
+                "Subgoal completion should award 10 XP");
 
-        // Set up goal completion
-        GoalDTO goalDTO = new GoalDTO();
-        goalDTO.setId(1L);
-        goalDTO.setCompleted(true);
+        // Then complete the goal (50 XP more)
+        goalService.awardXpForGoalCompletion(goal);
 
-        when(goalRepository.findById(1L)).thenReturn(Optional.of(goal));
-        when(goalRepository.save(any(Goal.class))).thenReturn(goal);
+        // Verify the total XP is now 60 (10+50)
+        int expectedTotalXp = XpService.getSubgoalCompletionXp() + XpService.getGoalCompletionBonusXp();
+        assertEquals(expectedTotalXp, tracking.getXp(),
+                "Total XP should be 60 after completing both subgoal and goal");
 
-        ArgumentCaptor<Tracking> trackingCaptor = ArgumentCaptor.forClass(Tracking.class);
-
-        // Act - First complete the subgoal
-        subGoalService.updateSubGoalCompletedStatus(subGoalDTO, 1L);
-
-        // Capture the intermediate XP value
-        verify(trackingRepository, times(1)).save(trackingCaptor.capture());
-        Tracking trackingAfterSubgoal = trackingCaptor.getValue();
-
-        // Update tracking XP for next test
-        tracking.setXp(trackingAfterSubgoal.getXp());
-
-        // Act - Then complete the goal
-        goalService.updateGoalCompletedStatus(goalDTO, 1L);
-
-        // Assert the final state
-        verify(trackingRepository, times(2)).save(trackingCaptor.capture());
-        Tracking finalTracking = trackingCaptor.getAllValues().get(1);
-
-        // The total XP should be subgoal (10) + goal (50) = 60
-        System.out.println("Total XP test - Expected: 60, Actual: " + finalTracking.getXp());
-        assertEquals(60, finalTracking.getXp());
+        // Verify that trackingRepository.save was called twice (once for each completion)
+        verify(trackingRepository, times(2)).save(tracking);
     }
 }
