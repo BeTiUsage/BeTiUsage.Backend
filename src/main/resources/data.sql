@@ -127,3 +127,137 @@ INSERT INTO economic_detail (
           'One-time', 35.00, FALSE, 'Navigation Tools',
           TRUE, 'https://example.com/navigation', 1
       );
+
+INSERT INTO economic_detail (
+    comment, cost_range_max, cost_range_min, currency,
+    duration, estimated_cost, is_required, label,
+    location_dependent, purchase_link, hobby_id
+) VALUES
+(
+    'Standard tournament chess set with wooden pieces and board.',
+    80.00, 40.00, 'USD',
+    'N/A', 60.00, TRUE, 'Chess Set',
+    FALSE, 'https://example.com/chess-set', 2
+),
+(
+    'Digital chess clock for timed games and tournaments.',
+    120.00, 60.00, 'USD',
+    'N/A', 90.00, TRUE, 'Chess Clock',
+    FALSE, 'https://example.com/chess-clock', 2
+),
+(
+    'Chess notation pad for recording moves during games.',
+    15.00, 5.00, 'USD',
+    'Consumable', 10.00, TRUE, 'Score Sheets',
+    FALSE, 'https://example.com/score-sheets', 2
+),
+(
+    'Comprehensive chess opening theory and strategy books.',
+    100.00, 30.00, 'USD',
+    'N/A', 65.00, FALSE, 'Chess Books',
+    FALSE, 'https://example.com/chess-books', 2
+),
+(
+    'Premium chess software for analysis and training.',
+    200.00, 50.00, 'USD',
+    'Annual', 125.00, FALSE, 'Chess Software',
+    FALSE, 'https://example.com/chess-software', 2
+),
+(
+    'Monthly membership for online chess platform with lessons.',
+    20.00, 10.00, 'USD',
+    'Monthly', 15.00, FALSE, 'Online Chess Membership',
+    FALSE, 'https://example.com/chess-membership', 2
+),
+(
+    'Travel chess set for playing on the go.',
+    40.00, 15.00, 'USD',
+    'N/A', 25.00, FALSE, 'Travel Chess Set',
+    FALSE, 'https://example.com/travel-chess', 2
+),
+(
+    'Entry fees for local chess tournaments and competitions.',
+    50.00, 20.00, 'USD',
+    'Per Event', 35.00, FALSE, 'Tournament Entry Fees',
+    TRUE, 'https://example.com/tournament-entry', 2
+),
+
+(
+    'Entry-level DSLR or mirrorless camera body for beginners.',
+    1200.00, 400.00, 'USD',
+    'N/A', 800.00, TRUE, 'Camera Body',
+    FALSE, 'https://example.com/camera-body', 3
+),
+(
+    'Standard 18-55mm kit lens for general photography.',
+    400.00, 150.00, 'USD',
+    'N/A', 275.00, TRUE, 'Kit Lens (18-55mm)',
+    FALSE, 'https://example.com/kit-lens', 3
+),
+(
+    'High-speed SD cards for storing photos and videos.',
+    80.00, 30.00, 'USD',
+    'N/A', 55.00, TRUE, 'Memory Cards',
+    FALSE, 'https://example.com/memory-cards', 3
+),
+(
+    'Camera bag or backpack for protection and transport.',
+    150.00, 50.00, 'USD',
+    'N/A', 100.00, TRUE, 'Camera Bag',
+    FALSE, 'https://example.com/camera-bag', 3
+),
+
+(
+    'Sturdy tripod for stable shots and long exposures.',
+    300.00, 80.00, 'USD',
+    'N/A', 190.00, FALSE, 'Tripod',
+    FALSE, 'https://example.com/tripod', 3
+),
+(
+    'Portrait lens for sharp subject focus and background blur.',
+    800.00, 300.00, 'USD',
+    'N/A', 550.00, FALSE, 'Portrait Lens (85mm)',
+    FALSE, 'https://example.com/portrait-lens', 3
+),
+(
+    'Wide-angle lens for landscape and architecture photography.',
+    1000.00, 400.00, 'USD',
+    'N/A', 700.00, FALSE, 'Wide Angle Lens (16-35mm)',
+    FALSE, 'https://example.com/wide-lens', 3
+),
+(
+    'External flash unit for better lighting control.',
+    400.00, 150.00, 'USD',
+    'N/A', 275.00, FALSE, 'External Flash',
+    FALSE, 'https://example.com/external-flash', 3
+),
+(
+    'Polarizing and ND filters for enhanced image quality.',
+    150.00, 50.00, 'USD',
+    'N/A', 100.00, FALSE, 'Camera Filters',
+    FALSE, 'https://example.com/camera-filters', 3
+),
+(
+    'Photo editing software subscription for post-processing.',
+    240.00, 120.00, 'USD',
+    'Annual', 180.00, FALSE, 'Editing Software',
+    FALSE, 'https://example.com/editing-software', 3
+),
+(
+    'Extra batteries for extended shooting sessions.',
+    100.00, 40.00, 'USD',
+    'N/A', 70.00, FALSE, 'Extra Batteries',
+    FALSE, 'https://example.com/batteries', 3
+),
+(
+    'Photography workshop or course for skill development.',
+    500.00, 200.00, 'USD',
+    'One-time', 350.00, FALSE, 'Photography Course',
+    TRUE, 'https://example.com/photo-course', 3
+),
+(
+    'Cloud storage subscription for photo backup and sharing.',
+    120.00, 60.00, 'USD',
+    'Annual', 90.00, FALSE, 'Cloud Storage',
+    FALSE, 'https://example.com/cloud-storage', 3
+);
