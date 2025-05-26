@@ -17,7 +17,7 @@ public class EconomicDetailController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<EconomicDetailsDTO>> getEconomicDetailByHobbyId() {
+    public ResponseEntity<List<EconomicDetailsDTO>> getEconomicDetail() {
         List<EconomicDetailsDTO> details = economicDetailService.getEconomicDetails();
         return ResponseEntity.ok(details);
     }
