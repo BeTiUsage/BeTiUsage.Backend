@@ -16,9 +16,9 @@ public class EconomicDetailController {
         this.economicDetailService = economicDetailService;
     }
 
-    @GetMapping("hobbyid/{id}")
-    public ResponseEntity<List<EconomicDetailsDTO>> getEconomicDetailByHobbyId(@PathVariable Long id) {
-        List<EconomicDetailsDTO> details = economicDetailService.getEconomicDetailByHobbyId(id);
+    @GetMapping()
+    public ResponseEntity<List<EconomicDetailsDTO>> getEconomicDetail() {
+        List<EconomicDetailsDTO> details = economicDetailService.getEconomicDetails();
         return ResponseEntity.ok(details);
     }
 }
