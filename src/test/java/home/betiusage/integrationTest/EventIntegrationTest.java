@@ -68,6 +68,7 @@ public class EventIntegrationTest {
         mockEvent.setStartTime(LocalDateTime.parse("2023-10-01T08:00:00"));
         mockEvent.setEndTime(LocalDateTime.parse("2023-10-01T12:00:00"));
         mockEvent.setTicketPrice(20.0);
+        mockEvent.setCity("Test City");
 
         // Mock Repository Calls
         when(eventRepository.findById(1L)).thenReturn(Optional.of(mockEvent));
@@ -91,6 +92,7 @@ public class EventIntegrationTest {
                 .jsonPath("$[0].location").isEqualTo("Test Location")
                 .jsonPath("$[0].startTime").isEqualTo("2023-10-01T08:00:00")
                 .jsonPath("$[0].endTime").isEqualTo("2023-10-01T12:00:00")
-                .jsonPath("$[0].ticketPrice").isEqualTo(20.0);
+                .jsonPath("$[0].ticketPrice").isEqualTo(20.0)
+                .jsonPath("$[0].city").isEqualTo("Test City");
     }
 }

@@ -18,4 +18,5 @@ public class EventDTO {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private Double ticketPrice;
+    private String city;
 }

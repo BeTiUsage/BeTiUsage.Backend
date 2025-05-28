@@ -28,6 +28,7 @@ public class EventService {
         eventDTO.setStartTime(event.getStartTime());
         eventDTO.setEndTime(event.getEndTime());
         eventDTO.setTicketPrice(event.getTicketPrice());
+        eventDTO.setCity(event.getCity());
         return eventDTO;
     }
 }

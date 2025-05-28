@@ -22,7 +22,7 @@ public class Tracking {
     private Profile profile;
     @OneToMany(mappedBy = "tracking", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Goal> goals = new ArrayList<>();
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "hobby_id")
     private Hobby hobby;
     private Double moneySpent;
