@@ -129,7 +129,7 @@ public class TrackingIntegrationTest {
                 .jsonPath("$[0].id").isEqualTo(1L)
                 .jsonPath("$[0].hobbyId").isEqualTo(1L)
                 .jsonPath("$[0].hobbyName").isEqualTo("test hobby")
-                .jsonPath("$[0].goalId[0]").isEqualTo(1L)
+                .jsonPath("$[0].goals[0].id").isEqualTo(1L)
                 .jsonPath("$[0].profileId").isEqualTo(1L)
                 .jsonPath("$[0].moneySpent").isEqualTo(0.0);
     }
@@ -145,7 +145,7 @@ public class TrackingIntegrationTest {
                 .jsonPath("$.id").isEqualTo(2L)
                 .jsonPath("$.hobbyId").isEqualTo(2L)
                 .jsonPath("$.hobbyName").isEqualTo("test hobby 2")
-                .jsonPath("$.goalId[0]").isEqualTo(2L)
+                .jsonPath("$.goals[0].id").isEqualTo(2L)
                 .jsonPath("$.profileId").isEqualTo(1L)
                 .jsonPath("$.moneySpent").isEqualTo(10.0);
     }
