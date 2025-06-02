@@ -44,4 +44,11 @@ public class TrackingController {
         TrackingDTO updatedTracking = trackingService.updateTracking(trackingDTO, id);
         return ResponseEntity.ok(updatedTracking);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<TrackingDTO> deleteTracking(@PathVariable Long id) {
+        //                                  Do we need trackingDTO?^^
+        TrackingDTO updatedTracking = trackingService.deleteTracking(id);
+        return ResponseEntity.ok(updatedTracking);
+    }
 }

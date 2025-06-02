@@ -1,9 +1,6 @@
 package home.betiusage.services;
 
-import home.betiusage.dto.GoalDTO;
-import home.betiusage.dto.SubGoalDTO;
-import home.betiusage.dto.TrackingDTO;
-import home.betiusage.dto.TrackingResDTO;
+import home.betiusage.dto.*;
 import home.betiusage.entities.Goal;
 import home.betiusage.entities.Hobby;
 import home.betiusage.entities.Profile;
@@ -146,6 +143,22 @@ public class TrackingService {
         }
 
         return toDTO(trackingRepository.save(existingTracking));
+    }
+
+    public TrackingDTO deleteTracking(Long id) {
+        Tracking tracking = trackingRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Tracking not found with id: " + id));
+
+        //logger.info("Request to delete profile with Clerk ID: {}", profile.getClerkId());
+        TrackingDTO deletedProfileDTO = toDTO(tracking);
+
+        // TODO: FIXME - Why doesn't this delete properly??
+        // TODO: No error but it remains in the DB...
+
+        System.out.println("Deleting tracking: " + tracking.getId());
+        trackingRepository.delete(tracking); // TODO: Should this delete by entity or ID?
+        System.out.println("Deleting tracking: " + tracking.getId());
+        return deletedProfileDTO;
     }
 
     public TrackingDTO toDTO (Tracking tracking) {
