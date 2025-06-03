@@ -277,6 +277,7 @@ public class GoalService {
         goalDTO.setCompleted(goal.getCompleted());
         goalDTO.setTrackingId(goal.getTracking() != null ? goal.getTracking().getId() : null);
         goalDTO.setGoalNumber(goal.getGoalNumber());
+        goalDTO.setHobbyName(goal.getHobbyName());
 
         if (goal.getSubGoals() != null && !goal.getSubGoals().isEmpty()) {
             List<SubGoalDTO> subGoalDTOs = goal.getSubGoals().stream()
