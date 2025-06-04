@@ -179,7 +179,7 @@ public class TrackingService {
         trackingDTO.setMoneySpent(tracking.getMoneySpent());
         trackingDTO.setXp(tracking.getXp());
         trackingDTO.setStartDate(tracking.getStartDate());
-        trackingDTO.setHobbyImg(tracking.getHobby().getImg());
+        trackingDTO.setImg(tracking.getHobby().getImg());
         return trackingDTO;
     }
 
