@@ -149,15 +149,23 @@ public class TrackingService {
         Tracking tracking = trackingRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Tracking not found with id: " + id));
 
-        //logger.info("Request to delete profile with Clerk ID: {}", profile.getClerkId());
         TrackingDTO deletedProfileDTO = toDTO(tracking);
 
-        // TODO: FIXME - Why doesn't this delete properly??
-        // TODO: No error but it remains in the DB...
+        tracking.setProfile(null);
+        tracking.setHobby(null);
 
-        System.out.println("Deleting tracking: " + tracking.getId());
-        trackingRepository.delete(tracking); // TODO: Should this delete by entity or ID?
-        System.out.println("Deleting tracking: " + tracking.getId());
+        // Break the bi-directional relationship between tracking and goals
+        for (Goal goal : tracking.getGoals()) {
+            goal.setTracking(null); // Remove the back-reference
+        }
+
+        // Clear the goals list in tracking to trigger orphanRemoval
+        tracking.getGoals().clear();
+        trackingRepository.save(tracking); // Save to apply orphan removal
+
+        // Now delete the tracking
+        trackingRepository.delete(tracking); // or deleteById(id)
+
         return deletedProfileDTO;
     }
 
@@ -171,7 +179,7 @@ public class TrackingService {
         trackingDTO.setMoneySpent(tracking.getMoneySpent());
         trackingDTO.setXp(tracking.getXp());
         trackingDTO.setStartDate(tracking.getStartDate());
-
+        trackingDTO.setHobbyImg(tracking.getHobby().getImg());
         return trackingDTO;
     }
 
