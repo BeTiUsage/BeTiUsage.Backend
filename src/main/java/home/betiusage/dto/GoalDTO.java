@@ -18,4 +18,5 @@ public class GoalDTO {
     private List<SubGoalDTO> subGoals;
     private Long trackingId;
     private Long goalNumber;
+    private String hobbyName;
 }

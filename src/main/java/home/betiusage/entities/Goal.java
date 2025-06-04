@@ -25,4 +25,5 @@ public class Goal {
     @ManyToOne
     private Tracking tracking;
     private Long goalNumber;
+    private String hobbyName;
 }
