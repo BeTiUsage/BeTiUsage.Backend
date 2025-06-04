@@ -19,7 +19,7 @@ INSERT INTO hobby (id, name, description, average_time_consumption, minimum_star
 VALUES
     (1, 'Hiking', 'A long walk in nature.', '2-3 hours', 100.0, 200.0, 'https://as1.ftcdn.net/v2/jpg/02/91/63/48/1000_F_291634839_WF8mQtlpNZFlG1X34p8RX2dGQhUxynJK.jpg'),
     (2, 'Chess', 'A strategic board game.', '1-2 hours', 50.0, 100.0, 'https://www.lolaapp.com/wp-content/uploads/2023/11/Facts-on-Chess_2.jpg'),
-    (3, 'Photography', 'Capturing moments through a lens.', '1-3 hours', 200.0, 500.0, 'https://media.licdn.com/dms/image/C5612AQHhGWNpvI1BiA/article-cover_image-shrink_720_1280/0/1520108955015?e=2147483647&v=beta&t=IcU1LBhINXlNoIDtvqWt_4hyxoIYiwFhJ8g21oS3yXI'),
+    (3, 'Photography', 'Capturing moments through a lens.', '1-3 hours', 200.0, 500.0, 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'),
     (4, 'Rock Climbing', 'Indoor and outdoor climbing adventures.', '2-4 hours', 300.0, 600.0, 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800'),
     (5, 'Pottery', 'Creating ceramic art and functional pieces.', '2-3 hours', 150.0, 400.0, 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800'),
     (6, 'Guitar Playing', 'Learning and mastering the guitar.', '1-2 hours', 200.0, 500.0, 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800'),
@@ -34,12 +34,12 @@ VALUES
     (15, 'Dancing', 'Various dance styles and techniques.', '1-2 hours', 80.0, 200.0, 'https://images.unsplash.com/photo-1547153760-18fc86324498?w=800'),
     (16, 'Woodworking', 'Creating furniture and decorative items from wood.', '3-6 hours', 300.0, 800.0, 'https://images.unsplash.com/photo-1504148455328-c376907d081c?w=800'),
     (17, 'Swimming', 'Recreational and competitive swimming.', '1-2 hours', 100.0, 250.0, 'https://images.unsplash.com/photo-1530549387789-4c1017266635?w=800'),
-    (18, 'Baking', 'Creating breads, pastries, and desserts.', '2-4 hours', 150.0, 350.0, 'https://images.unsplash.com/photo-1556909114-46b0ae5b1e9b?w=800'),
+    (18, 'Baking', 'Creating breads, pastries, and desserts.', '2-4 hours', 150.0, 350.0, 'https://images.unsplash.com/photo-1597528662465-55ece5734101?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'),
     (19, 'Tennis', 'Racquet sport for fitness and competition.', '1-3 hours', 150.0, 400.0, 'https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?w=800'),
     (20, 'Astronomy', 'Observing and studying celestial objects.', '2-5 hours', 200.0, 600.0, 'https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?w=800'),
-    (21, 'Skateboarding', 'Street and park skateboarding skills.', '2-4 hours', 120.0, 300.0, 'https://images.unsplash.com/photo-1547036967-23d11aacaee0?w=800'),
+    (21, 'Skateboarding', 'Street and park skateboarding skills.', '2-4 hours', 120.0, 300.0, 'https://images.unsplash.com/photo-1517582837435-fdb3ccb5bb41?q=80&w=2304&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'),
     (22, 'Meditation', 'Mindfulness and mental wellness practice.', '0.5-2 hours', 20.0, 80.0, 'https://images.unsplash.com/photo-1593811167562-9cef47bfc4d7?w=800'),
-    (23, 'Fishing', 'Recreational angling in various water bodies.', '3-8 hours', 100.0, 350.0, 'https://images.unsplash.com/photo-1445264918150-66a2371142fc?w=800');
+    (23, 'Fishing', 'Recreational angling in various water bodies.', '3-8 hours', 100.0, 350.0, 'https://images.unsplash.com/photo-1545450660-3378a7f3a364?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
 
 
 INSERT INTO required_equipment (id, name, hobby_id)
