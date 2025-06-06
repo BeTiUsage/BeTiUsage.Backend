@@ -15,8 +15,10 @@ public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @ManyToOne(fetch = FetchType.EAGER)
     private Hobby hobby;
+
     private String name;
     private String description;
     private String location;

@@ -3,6 +3,7 @@ package home.betiusage.controllers;
 import home.betiusage.entities.Profile;
 import home.betiusage.services.ProfileService;
 import home.betiusage.utils.CurrentUserUtil;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import home.betiusage.dto.ProfileDTO;
@@ -23,13 +24,21 @@ public class ProfileController {
 
     @GetMapping()
     public ResponseEntity<Optional<ProfileDTO>> getProfile() {
-        Profile profile = currentUserUtil.getCurrentProfile();
-        return ResponseEntity.ok(profileService.findProfile(profile.getId()));
+        try {
+            Profile profile = currentUserUtil.getCurrentProfile();
+            return ResponseEntity.ok(profileService.findProfile(profile.getId()));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     @DeleteMapping()
     public ResponseEntity<ProfileDTO> deleteCurrentProfile() {
-        Profile profile = currentUserUtil.getCurrentProfile();
-        return ResponseEntity.ok(profileService.deleteCurrentProfile(profile.getId()));
+        try {
+            Profile profile = currentUserUtil.getCurrentProfile();
+            return ResponseEntity.ok(profileService.deleteCurrentProfile(profile.getId()));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 }

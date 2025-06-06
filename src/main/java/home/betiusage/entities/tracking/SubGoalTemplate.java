@@ -1,4 +1,4 @@
-package home.betiusage.entities;
+package home.betiusage.entities.tracking;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -9,15 +9,17 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity
-public class Community {
+public class SubGoalTemplate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String url;
-    private String description;
-    private String forumName;
-
     @ManyToOne(fetch = FetchType.EAGER)
-    private Hobby hobby;
+    private GoalTemplate goalTemplate;
+
+    private String title;
+    private String description;
+    private Integer defaultTargetValue;
+    private Integer defaultXpReward;
+    private Integer orderIndex;
 }

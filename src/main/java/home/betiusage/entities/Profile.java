@@ -19,9 +19,11 @@ public class Profile {
     private Long id;
     private String email;
     private String username;
-    @OneToMany(fetch = FetchType.EAGER)
-    private List<Tracking> trackings = new ArrayList<>();
     @Column(nullable = false, unique = true)
     private String clerkId;
+
+    public Profile(Long id) {
+        this.id = id;
+    }
 
 }

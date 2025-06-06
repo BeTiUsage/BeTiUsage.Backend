@@ -1,5 +1,6 @@
 package home.betiusage.controllers;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import home.betiusage.dto.CommunityDTO;
@@ -18,6 +19,10 @@ public class CommunityController {
 
     @GetMapping
     public ResponseEntity<List<CommunityDTO>> findAll () {
-        return ResponseEntity.ok(communityService.findAll());
+        try {
+            return ResponseEntity.ok(communityService.findAll());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 }

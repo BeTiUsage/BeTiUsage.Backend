@@ -1,6 +1,7 @@
 package home.betiusage.controllers;
 
 import home.betiusage.dto.HobbyDTO;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,10 @@ public class HobbyController {
 
     @GetMapping
     public ResponseEntity<List<HobbyDTO>> getHobbies() {
-        return ResponseEntity.ok(hobbyService.findAll());
+        try {
+            return ResponseEntity.ok(hobbyService.findAll());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 }

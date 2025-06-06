@@ -1,5 +1,7 @@
 package home.betiusage.controllers;
 
+import home.betiusage.dto.EconomicDetailsDTO;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +22,10 @@ public class EventController {
 
     @GetMapping
     public ResponseEntity<List<EventDTO>> getEvents() {
-        return ResponseEntity.ok(eventService.findAll());
+        try {
+            return ResponseEntity.ok(eventService.findAll());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 }

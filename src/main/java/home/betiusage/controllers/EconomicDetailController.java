@@ -2,6 +2,7 @@ package home.betiusage.controllers;
 
 import home.betiusage.dto.EconomicDetailsDTO;
 import home.betiusage.services.EconomicDetailService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +19,11 @@ public class EconomicDetailController {
 
     @GetMapping()
     public ResponseEntity<List<EconomicDetailsDTO>> getEconomicDetail() {
-        List<EconomicDetailsDTO> details = economicDetailService.getEconomicDetails();
-        return ResponseEntity.ok(details);
+        try {
+            List<EconomicDetailsDTO> details = economicDetailService.getEconomicDetails();
+            return ResponseEntity.ok(details);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 }

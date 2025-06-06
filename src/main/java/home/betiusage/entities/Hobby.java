@@ -56,4 +56,8 @@ public class Hobby {
             return ECostRating.VERY_EXPENSIVE;
         }
     }
+
+    public Hobby(Long id) {
+        this.id = id;
+    }
 }
