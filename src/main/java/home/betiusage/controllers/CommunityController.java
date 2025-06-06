@@ -20,14 +20,4 @@ public class CommunityController {
     public ResponseEntity<List<CommunityDTO>> findAll () {
         return ResponseEntity.ok(communityService.findAll());
     }
-
-    @GetMapping("{id}")
-    public ResponseEntity<CommunityDTO> findById(@PathVariable Long id) {
-        return ResponseEntity.of(communityService.findById(id));
-    }
-
-    @GetMapping("/hobby/{id}")
-    public ResponseEntity<List<CommunityDTO>> findByHobbyId(@PathVariable Long id) {
-        return ResponseEntity.ok(communityService.findByHobbyId(id));
-    }
 }
