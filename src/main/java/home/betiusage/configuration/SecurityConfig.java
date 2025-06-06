@@ -23,7 +23,6 @@ public class SecurityConfig {
 
     @Value("${clerk.jwks-uri:https://sought-sawfly-57.clerk.accounts.dev/.well-known/jwks.json}")
     private String jwksUri;
-
     private final ClerkJwtAuthenticationConverter jwtAuthenticationConverter;
 
     public SecurityConfig(ClerkJwtAuthenticationConverter jwtAuthenticationConverter) {
@@ -46,7 +45,6 @@ public class SecurityConfig {
                                 .jwtAuthenticationConverter(jwtAuthenticationConverter)
                         )
                 );
-
         return http.build();
     }
 

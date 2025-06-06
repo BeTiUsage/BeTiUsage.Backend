@@ -25,13 +25,6 @@ public class ProfileController {
     public ResponseEntity<Optional<ProfileDTO>> getProfile() {
         Profile profile = currentUserUtil.getCurrentProfile();
         return ResponseEntity.ok(profileService.findProfile(profile.getId()));
-
-    }
-
-    @PutMapping()
-    public ResponseEntity<ProfileDTO> updateCurrentProfile(@RequestBody ProfileDTO profileDTO) {
-        Profile profile = currentUserUtil.getCurrentProfile();
-        return ResponseEntity.ok(profileService.updateProfile(profileDTO, profile.getId()));
     }
 
     @DeleteMapping()

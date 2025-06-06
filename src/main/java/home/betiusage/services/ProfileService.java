@@ -28,20 +28,6 @@ public class ProfileService {
         return profileRepository.findById(id).map(this::toDTO);
     }
 
-    public ProfileDTO updateProfile(ProfileDTO profileDTO, Long id) {
-        Profile existingProfile = profileRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Profile not found with id: " + id));
-
-        if (profileDTO.getUsername() != null) {
-            existingProfile.setUsername(profileDTO.getUsername());
-        }
-        if (profileDTO.getEmail() != null) {
-            existingProfile.setEmail(profileDTO.getEmail());
-        }
-
-        return toDTO(profileRepository.save(existingProfile));
-    }
-
     public Profile findOrCreateProfile(String clerkId, String email, String username) {
         Optional<Profile> existingProfile = profileRepository.findByClerkId(clerkId);
 
@@ -63,7 +49,6 @@ public class ProfileService {
             if (updateNeeded) {
                 return profileRepository.save(profile);
             }
-
             return profile;
         } else {
             Profile newProfile = new Profile();
@@ -76,15 +61,6 @@ public class ProfileService {
         }
     }
 
-    private ProfileDTO toDTO(Profile profile) {
-        ProfileDTO profileDTO = new ProfileDTO();
-        profileDTO.setId(profile.getId());
-        profileDTO.setEmail(profile.getEmail());
-        profileDTO.setUsername(profile.getUsername());
-
-        return profileDTO;
-    }
-
     public ProfileDTO deleteCurrentProfile(Long id) {
         Profile profile = profileRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Profile not found with id: " + id));
@@ -94,5 +70,14 @@ public class ProfileService {
         profileRepository.delete(profile);
 
         return deletedProfileDTO;
+    }
+
+    private ProfileDTO toDTO(Profile profile) {
+        ProfileDTO profileDTO = new ProfileDTO();
+        profileDTO.setId(profile.getId());
+        profileDTO.setEmail(profile.getEmail());
+        profileDTO.setUsername(profile.getUsername());
+
+        return profileDTO;
     }
 }
