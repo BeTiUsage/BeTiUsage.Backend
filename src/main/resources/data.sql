@@ -15,122 +15,122 @@ VALUES
     (11, 'Reading', false),
     (12, 'Gardening', false);
 
-INSERT INTO goal (id, name, completed, goal_number, hobby_name)
+INSERT INTO goal (id, name, completed, goal_number, hobby_name, is_template)
 VALUES
 -- Hiking Goals
-(1, 'Complete a 10-mile trail hike', false, 1, 'Hiking'),
-(2, 'Explore 5 new hiking locations', false, 2, 'Hiking'),
-(3, 'Improve hiking endurance', false, 3, 'Hiking'),
+(1, 'Complete a 10-mile trail hike', false, 1, 'Hiking', false),
+(2, 'Explore 5 new hiking locations', false, 2, 'Hiking', false),
+(3, 'Improve hiking endurance', false, 3, 'Hiking', false),
 
 -- Chess Goals
-(4, 'Win a local chess tournament', false, 1, 'Chess'),
-(5, 'Learn 10 new chess openings', false, 2, 'Chess'),
-(6, 'Solve chess puzzles daily', false, 3, 'Chess'),
+(4, 'Win a local chess tournament', false, 1, 'Chess', false),
+(5, 'Learn 10 new chess openings', false, 2, 'Chess', false),
+(6, 'Solve chess puzzles daily', false, 3, 'Chess', false),
 
 -- Photography Goals
-(7, 'Master night photography', false, 1, 'Photography'),
-(8, 'Create a nature photo portfolio', false, 2, 'Photography'),
-(9, 'Learn advanced photo editing', false, 3, 'Photography'),
+(7, 'Master night photography', false, 1, 'Photography', false),
+(8, 'Create a nature photo portfolio', false, 2, 'Photography', false),
+(9, 'Learn advanced photo editing', false, 3, 'Photography', false),
 
 -- Rock Climbing Goals
-(10, 'Climb a challenging indoor route', false, 1, 'Rock Climbing'),
-(11, 'Participate in an outdoor climbing event', false, 2, 'Rock Climbing'),
-(12, 'Improve bouldering techniques', false, 3, 'Rock Climbing'),
+(10, 'Climb a challenging indoor route', false, 1, 'Rock Climbing', false),
+(11, 'Participate in an outdoor climbing event', false, 2, 'Rock Climbing', false),
+(12, 'Improve bouldering techniques', false, 3, 'Rock Climbing', false),
 
 -- Pottery Goals
-(13, 'Create a set of functional mugs', false, 1, 'Pottery'),
-(14, 'Attend a pottery workshop', false, 2, 'Pottery'),
-(15, 'Experiment with glazing techniques', false, 3, 'Pottery'),
+(13, 'Create a set of functional mugs', false, 1, 'Pottery', false),
+(14, 'Attend a pottery workshop', false, 2, 'Pottery', false),
+(15, 'Experiment with glazing techniques', false, 3, 'Pottery', false),
 
 -- Guitar Playing Goals
-(16, 'Learn to play 5 songs', false, 1, 'Guitar Playing'),
-(17, 'Practice daily finger exercises', false, 2, 'Guitar Playing'),
-(18, 'Perform in a small concert', false, 3, 'Guitar Playing'),
+(16, 'Learn to play 5 songs', false, 1, 'Guitar Playing', false),
+(17, 'Practice daily finger exercises', false, 2, 'Guitar Playing', false),
+(18, 'Perform in a small concert', false, 3, 'Guitar Playing', false),
 
 -- Cooking Goals
-(19, 'Master 10 new recipes', false, 1, 'Cooking'),
-(20, 'Learn baking techniques', false, 2, 'Cooking'),
-(21, 'Host a dinner party', false, 3, 'Cooking'),
+(19, 'Master 10 new recipes', false, 1, 'Cooking', false),
+(20, 'Learn baking techniques', false, 2, 'Cooking', false),
+(21, 'Host a dinner party', false, 3, 'Cooking', false),
 
 -- Painting Goals
-(22, 'Complete 3 landscape paintings', false, 1, 'Painting'),
-(23, 'Experiment with acrylics and oils', false, 2, 'Painting'),
-(24, 'Join a local art exhibition', false, 3, 'Painting'),
+(22, 'Complete 3 landscape paintings', false, 1, 'Painting', false),
+(23, 'Experiment with acrylics and oils', false, 2, 'Painting', false),
+(24, 'Join a local art exhibition', false, 3, 'Painting', false),
 
 -- Yoga Goals
-(25, 'Practice daily yoga for 30 days', false, 1, 'Yoga'),
-(26, 'Learn advanced poses', false, 2, 'Yoga'),
-(27, 'Attend a yoga retreat', false, 3, 'Yoga'),
+(25, 'Practice daily yoga for 30 days', false, 1, 'Yoga', false),
+(26, 'Learn advanced poses', false, 2, 'Yoga', false),
+(27, 'Attend a yoga retreat', false, 3, 'Yoga', false),
 
 -- Knitting Goals
-(28, 'Finish a full sweater', false, 1, 'Knitting'),
-(29, 'Learn 3 new knitting patterns', false, 2, 'Knitting'),
-(30, 'Gift a handmade scarf', false, 3, 'Knitting'),
+(28, 'Finish a full sweater', false, 1, 'Knitting', false),
+(29, 'Learn 3 new knitting patterns', false, 2, 'Knitting', false),
+(30, 'Gift a handmade scarf', false, 3, 'Knitting', false),
 
 -- Cycling Goals
-(31, 'Complete a 50-mile ride', false, 1, 'Cycling'),
-(32, 'Explore new cycling trails', false, 2, 'Cycling'),
-(33, 'Join a cycling club event', false, 3, 'Cycling'),
+(31, 'Complete a 50-mile ride', false, 1, 'Cycling', false),
+(32, 'Explore new cycling trails', false, 2, 'Cycling', false),
+(33, 'Join a cycling club event', false, 3, 'Cycling', false),
 
 -- Reading Goals
-(34, 'Read 20 books in a year', false, 1, 'Reading'),
-(35, 'Join a book club', false, 2, 'Reading'),
-(36, 'Explore new genres', false, 3, 'Reading'),
+(34, 'Read 20 books in a year', false, 1, 'Reading', false),
+(35, 'Join a book club', false, 2, 'Reading', false),
+(36, 'Explore new genres', false, 3, 'Reading', false),
 
 -- Gardening Goals
-(37, 'Grow a vegetable garden', false, 1, 'Gardening'),
-(38, 'Plant seasonal flowers', false, 2, 'Gardening'),
-(39, 'Set up a compost system', false, 3, 'Gardening'),
+(37, 'Grow a vegetable garden', false, 1, 'Gardening', false),
+(38, 'Plant seasonal flowers', false, 2, 'Gardening', false),
+(39, 'Set up a compost system', false, 3, 'Gardening', false),
 
 -- Programming Goals
-(40, 'Build a personal project app', false, 1, 'Programming'),
-(41, 'Learn a new programming language', false, 2, 'Programming'),
-(42, 'Contribute to open-source', false, 3, 'Programming'),
+(40, 'Build a personal project app', false, 1, 'Programming', false),
+(41, 'Learn a new programming language', false, 2, 'Programming', false),
+(42, 'Contribute to open-source', false, 3, 'Programming', false),
 
 -- Dancing Goals
-(43, 'Learn 3 dance styles', false, 1, 'Dancing'),
-(44, 'Perform at a local event', false, 2, 'Dancing'),
-(45, 'Improve flexibility and rhythm', false, 3, 'Dancing'),
+(43, 'Learn 3 dance styles', false, 1, 'Dancing', false),
+(44, 'Perform at a local event', false, 2, 'Dancing', false),
+(45, 'Improve flexibility and rhythm', false, 3, 'Dancing', false),
 
 -- Woodworking Goals
-(46, 'Build a wooden chair', false, 1, 'Woodworking'),
-(47, 'Learn finishing techniques', false, 2, 'Woodworking'),
-(48, 'Create a decorative wooden box', false, 3, 'Woodworking'),
+(46, 'Build a wooden chair', false, 1, 'Woodworking', false),
+(47, 'Learn finishing techniques', false, 2, 'Woodworking', false),
+(48, 'Create a decorative wooden box', false, 3, 'Woodworking', false),
 
 -- Swimming Goals
-(49, 'Swim 1km without stopping', false, 1, 'Swimming'),
-(50, 'Attend a swim technique class', false, 2, 'Swimming'),
-(51, 'Participate in a swim race', false, 3, 'Swimming'),
+(49, 'Swim 1km without stopping', false, 1, 'Swimming', false),
+(50, 'Attend a swim technique class', false, 2, 'Swimming', false),
+(51, 'Participate in a swim race', false, 3, 'Swimming', false),
 
 -- Baking Goals
-(52, 'Bake 5 types of bread', false, 1, 'Baking'),
-(53, 'Perfect pastry making', false, 2, 'Baking'),
-(54, 'Create a baking blog', false, 3, 'Baking'),
+(52, 'Bake 5 types of bread', false, 1, 'Baking', false),
+(53, 'Perfect pastry making', false, 2, 'Baking', false),
+(54, 'Create a baking blog', false, 3, 'Baking', false),
 
 -- Tennis Goals
-(55, 'Improve backhand technique', false, 1, 'Tennis'),
-(56, 'Play weekly matches', false, 2, 'Tennis'),
-(57, 'Join a local tennis league', false, 3, 'Tennis'),
+(55, 'Improve backhand technique', false, 1, 'Tennis', false),
+(56, 'Play weekly matches', false, 2, 'Tennis', false),
+(57, 'Join a local tennis league', false, 3, 'Tennis', false),
 
 -- Astronomy Goals
-(58, 'Identify 20 constellations', false, 1, 'Astronomy'),
-(59, 'Attend a star-gazing event', false, 2, 'Astronomy'),
-(60, 'Learn astrophotography', false, 3, 'Astronomy'),
+(58, 'Identify 20 constellations', false, 1, 'Astronomy', false),
+(59, 'Attend a star-gazing event', false, 2, 'Astronomy', false),
+(60, 'Learn astrophotography', false, 3, 'Astronomy', false),
 
 -- Skateboarding Goals
-(61, 'Learn to ollie', false, 1, 'Skateboarding'),
-(62, 'Practice park tricks', false, 2, 'Skateboarding'),
-(63, 'Join a skateboarding community', false, 3, 'Skateboarding'),
+(61, 'Learn to ollie', false, 1, 'Skateboarding', false),
+(62, 'Practice park tricks', false, 2, 'Skateboarding', false),
+(63, 'Join a skateboarding community', false, 3, 'Skateboarding', false),
 
 -- Meditation Goals
-(64, 'Meditate daily for 10 minutes', false, 1, 'Meditation'),
-(65, 'Try different meditation techniques', false, 2, 'Meditation'),
-(66, 'Attend a meditation workshop', false, 3, 'Meditation'),
+(64, 'Meditate daily for 10 minutes', false, 1, 'Meditation', false),
+(65, 'Try different meditation techniques', false, 2, 'Meditation', false),
+(66, 'Attend a meditation workshop', false, 3, 'Meditation', false),
 
 -- Fishing Goals
-(67, 'Catch 3 different fish species', false, 1, 'Fishing'),
-(68, 'Learn fly fishing', false, 2, 'Fishing'),
-(69, 'Go on a fishing trip', false, 3, 'Fishing');
+(67, 'Catch 3 different fish species', false, 1, 'Fishing', false),
+(68, 'Learn fly fishing', false, 2, 'Fishing', false),
+(69, 'Go on a fishing trip', false, 3, 'Fishing', false);
 
 
 INSERT INTO sub_goal (id, name, completed, goal_id) VALUES

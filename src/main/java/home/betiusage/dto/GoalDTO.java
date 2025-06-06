@@ -19,4 +19,5 @@ public class GoalDTO {
     private Long trackingId;
     private Long goalNumber;
     private String hobbyName;
+    private Boolean isTemplate;
 }

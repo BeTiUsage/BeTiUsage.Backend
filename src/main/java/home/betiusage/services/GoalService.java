@@ -17,6 +17,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static home.betiusage.utils.ValidationUtils.existsById;
+import static home.betiusage.utils.ValidationUtils.validateId;
+
 @Service
 public class GoalService {
     private final GoalRepository goalRepository;
@@ -270,6 +273,32 @@ public class GoalService {
         return toDTO(existingGoal);
     }
 
+    public boolean isGoalTracked(Long goalId) {
+        validateId(goalId, "goal");
+        existsById(goalRepository, goalId, "Goal");
+
+        Goal goal = goalRepository.findById(goalId)
+                .orElseThrow(() -> new NotFoundException("Goal not found with id: " + goalId));
+
+        // A goal is tracked if it has a non-null tracking association
+        return goal.getTracking() != null;
+    }
+
+    // Add this method to your GoalService class
+    public boolean areAnyGoalsTracked(List<Long> goalIds) {
+        if (goalIds == null || goalIds.isEmpty()) {
+            return false;
+        }
+
+        for (Long goalId : goalIds) {
+            if (isGoalTracked(goalId)) {
+                return true; // Return true if any goal is tracked
+            }
+        }
+
+        return false; // Return false if none are tracked
+    }
+
     public GoalDTO toDTO(Goal goal) {
         GoalDTO goalDTO = new GoalDTO();
         goalDTO.setId(goal.getId());
@@ -278,6 +307,7 @@ public class GoalService {
         goalDTO.setTrackingId(goal.getTracking() != null ? goal.getTracking().getId() : null);
         goalDTO.setGoalNumber(goal.getGoalNumber());
         goalDTO.setHobbyName(goal.getHobbyName());
+        goalDTO.setIsTemplate(goal.getIsTemplate());
 
         if (goal.getSubGoals() != null && !goal.getSubGoals().isEmpty()) {
             List<SubGoalDTO> subGoalDTOs = goal.getSubGoals().stream()
