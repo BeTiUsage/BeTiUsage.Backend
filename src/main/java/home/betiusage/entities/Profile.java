@@ -21,8 +21,8 @@ public class Profile {
     private String username;
     @OneToMany(mappedBy = "profile", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Tracking> trackings = new ArrayList<>();
+    @Column(nullable = false, unique = true)
     private String clerkId;
-
     public Profile(String username, String email) {
         this.username = username;
         this.email = email;
