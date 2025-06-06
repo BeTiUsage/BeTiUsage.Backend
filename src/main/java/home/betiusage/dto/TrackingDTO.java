@@ -19,5 +19,4 @@ public class TrackingDTO {
     private Double moneySpent;
     private Integer xp;
     private LocalDateTime startDate;
-    private String img;
 }
