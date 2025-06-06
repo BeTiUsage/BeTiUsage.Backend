@@ -1,5 +1,6 @@
 CREATE SCHEMA IF NOT EXISTS better_time_usage_db;
 
+-- Categories
 INSERT INTO category (id, name, social)
 VALUES
     (1, 'Outdoor', true),
@@ -15,6 +16,7 @@ VALUES
     (11, 'Reading', false),
     (12, 'Gardening', false);
 
+-- Hobbies
 INSERT INTO hobby (id, name, description, average_time_consumption, minimum_start_capital, average_start_capital, img)
 VALUES
     (1, 'Hiking', 'A long walk in nature.', '2-3 hours', 100.0, 200.0, 'https://as1.ftcdn.net/v2/jpg/02/91/63/48/1000_F_291634839_WF8mQtlpNZFlG1X34p8RX2dGQhUxynJK.jpg'),
@@ -41,6 +43,132 @@ VALUES
     (22, 'Meditation', 'Mindfulness and mental wellness practice.', '0.5-2 hours', 20.0, 80.0, 'https://images.unsplash.com/photo-1593811167562-9cef47bfc4d7?w=800'),
     (23, 'Fishing', 'Recreational angling in various water bodies.', '3-8 hours', 100.0, 350.0, 'https://images.unsplash.com/photo-1545450660-3378a7f3a364?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
 
+-- Goal Templates for Hiking
+INSERT INTO goal_template (id, hobby_id, title, description, default_target_value, default_xp_reward, type, priority, is_active, level_requirement)
+VALUES
+    (1, 1, 'First Steps', 'Complete your first hike', 1, 50, 'ONE_TIME', 'HIGH', true, 1),
+    (2, 1, 'Weekly Explorer', 'Hike 3 times this week', 3, 100, 'WEEKLY', 'MEDIUM', true, 1),
+    (3, 1, 'Distance Walker', 'Walk 10km in total', 10, 150, 'CUSTOM', 'MEDIUM', true, 2),
+    (4, 1, 'Mountain Climber', 'Reach 5 different peaks', 5, 300, 'CUSTOM', 'HIGH', true, 3);
+
+-- Goal Templates for Chess
+INSERT INTO goal_template (id, hobby_id, title, description, default_target_value, default_xp_reward, type, priority, is_active, level_requirement)
+VALUES
+    (5, 2, 'First Game', 'Play your first chess game', 1, 50, 'ONE_TIME', 'HIGH', true, 1),
+    (6, 2, 'Daily Practice', 'Play chess every day this week', 7, 100, 'WEEKLY', 'MEDIUM', true, 1),
+    (7, 2, 'Opening Master', 'Learn 5 different openings', 5, 200, 'CUSTOM', 'HIGH', true, 2),
+    (8, 2, 'Tournament Ready', 'Win 10 games', 10, 250, 'CUSTOM', 'HIGH', true, 3);
+
+-- Goal Templates for Programming
+INSERT INTO goal_template (id, hobby_id, title, description, default_target_value, default_xp_reward, type, priority, is_active, level_requirement)
+VALUES
+    (9, 14, 'Hello World', 'Write your first program', 1, 50, 'ONE_TIME', 'HIGH', true, 1),
+    (10, 14, 'Daily Coder', 'Code for 1 hour every day this week', 7, 150, 'WEEKLY', 'HIGH', true, 1),
+    (11, 14, 'Project Builder', 'Complete 3 small projects', 3, 300, 'CUSTOM', 'HIGH', true, 2),
+    (12, 14, 'Language Learner', 'Learn basics of 2 programming languages', 2, 400, 'CUSTOM', 'MEDIUM', true, 3);
+
+-- Goal Templates for Guitar
+INSERT INTO goal_template (id, hobby_id, title, description, default_target_value, default_xp_reward, type, priority, is_active, level_requirement)
+VALUES
+    (13, 6, 'First Chord', 'Learn your first guitar chord', 1, 50, 'ONE_TIME', 'HIGH', true, 1),
+    (14, 6, 'Practice Routine', 'Practice 30 minutes daily for a week', 7, 100, 'WEEKLY', 'MEDIUM', true, 1),
+    (15, 6, 'Chord Master', 'Master 10 basic chords', 10, 200, 'CUSTOM', 'HIGH', true, 2),
+    (16, 6, 'Song Player', 'Learn to play 5 complete songs', 5, 350, 'CUSTOM', 'HIGH', true, 3);
+
+-- Sub Goal Templates for complex goals
+INSERT INTO sub_goal_template (id, goal_template_id, title, description, default_target_value, default_xp_reward, order_index)
+VALUES
+    -- For "Opening Master" chess goal
+    (1, 7, 'Learn Italian Game', 'Master the Italian Game opening', 1, 40, 1),
+    (2, 7, 'Learn Ruy Lopez', 'Master the Ruy Lopez opening', 1, 40, 2),
+    (3, 7, 'Learn Queens Gambit', 'Master the Queens Gambit opening', 1, 40, 3),
+    (4, 7, 'Learn Sicilian Defense', 'Master the Sicilian Defense', 1, 40, 4),
+    (5, 7, 'Learn French Defense', 'Master the French Defense', 1, 40, 5),
+
+    -- For "Project Builder" programming goal
+    (6, 11, 'Calculator App', 'Build a simple calculator', 1, 100, 1),
+    (7, 11, 'Todo List App', 'Create a todo list application', 1, 100, 2),
+    (8, 11, 'Weather App', 'Build a weather checking app', 1, 100, 3),
+
+    -- For "Chord Master" guitar goal
+    (9, 15, 'Basic Open Chords', 'Learn G, C, D, Em, Am chords', 5, 50, 1),
+    (10, 15, 'Barre Chords', 'Learn F and B barre chords', 2, 75, 2),
+    (11, 15, 'Advanced Chords', 'Learn 3 seventh chords', 3, 75, 3);
+
+-- Achievements - General
+INSERT INTO achievement (id, name, description, icon_url, xp_reward, type, requirement, is_hobby_specific, hobby_id)
+VALUES
+    (1, 'First Steps', 'Start your first hobby tracking', '🎯', 50, 'MILESTONE', 1, false, null),
+    (2, 'Dedicated Learner', 'Maintain a 7-day streak', '🔥', 100, 'STREAK', 7, false, null),
+    (3, 'Streak Master', 'Maintain a 30-day streak', '⚡', 300, 'STREAK', 30, false, null),
+    (4, 'Level Up!', 'Reach level 5', '⭐', 200, 'LEVEL', 5, false, null),
+    (5, 'Expert', 'Reach level 10', '👑', 500, 'LEVEL', 10, false, null),
+    (6, 'Goal Crusher', 'Complete 10 goals', '🏆', 250, 'GOAL_COUNT', 10, false, null),
+    (7, 'Perfectionist', 'Complete 50 goals', '💎', 750, 'GOAL_COUNT', 50, false, null),
+
+    -- Hobby-specific achievements
+    (8, 'Chess Novice', 'Play 25 chess games', '♟️', 150, 'HOBBY_SPECIFIC', 25, true, 2),
+    (9, 'Chess Master', 'Win 100 chess games', '👑', 500, 'HOBBY_SPECIFIC', 100, true, 2),
+    (10, 'Code Warrior', 'Write 50 programs', '💻', 300, 'HOBBY_SPECIFIC', 50, true, 14),
+    (11, 'Full Stack Developer', 'Complete 20 projects', '🚀', 600, 'HOBBY_SPECIFIC', 20, true, 14),
+    (12, 'Trail Blazer', 'Complete 50 hikes', '🥾', 400, 'HOBBY_SPECIFIC', 50, true, 1),
+    (13, 'Peak Conqueror', 'Reach 25 different peaks', '⛰️', 750, 'HOBBY_SPECIFIC', 25, true, 1),
+    (14, 'Guitar Hero', 'Learn 25 songs', '🎸', 350, 'HOBBY_SPECIFIC', 25, true, 6),
+    (15, 'Rock Star', 'Perform 10 live sessions', '🌟', 500, 'HOBBY_SPECIFIC', 10, true, 6);
+
+
+-- Sample profiles (if you need test data)
+INSERT INTO profile (id,  username, email, clerk_id )
+VALUES
+    (1,  'john_hiker', 'john@example.com', 'John'),
+    (2,  'chess_master', 'sarah@example.com' , "klsdjfkl"),
+    (3,  'code_ninja', 'alex@example.com', 'Alex' );
+
+-- Sample tracking data
+INSERT INTO tracking (id, profile_id, hobby_id, start_date, current_level, total_xp, current_streak, longest_streak, last_activity_date, is_active)
+VALUES
+    (1, 1, 1, '2024-03-01 08:00:00', 3, 250, 5, 12, '2024-06-07', true),
+    (2, 2, 2, '2024-02-15 19:30:00', 4, 350, 8, 15, '2024-06-07', true),
+    (3, 3, 14, '2024-01-20 16:15:00', 5, 480, 3, 20, '2024-06-06', true),
+    (4, 1, 6, '2024-04-10 20:00:00', 2, 120, 2, 7, '2024-06-06', true);
+
+-- Sample goals created from templates
+INSERT INTO goal (id, tracking_id, goal_template_id, title, description, target_value, current_value, xp_reward, created_date, due_date, completed_date, status, type, priority, is_custom)
+VALUES
+    (1, 1, 1, 'First Steps', 'Complete your first hike', 1, 1, 50, '2024-03-01 08:00:00', null, '2024-03-01 10:30:00', 'COMPLETED', 'ONE_TIME', 'HIGH', false),
+    (2, 1, 2, 'Weekly Explorer', 'Hike 3 times this week', 3, 2, 100, '2024-06-03 07:00:00', null, null, 'ACTIVE', 'WEEKLY', 'MEDIUM', false),
+    (3, 2, 5, 'First Game', 'Play your first chess game', 1, 1, 50, '2024-02-15 19:30:00', null, '2024-02-15 21:00:00', 'COMPLETED', 'ONE_TIME', 'HIGH', false),
+    (4, 2, 7, 'Opening Master', 'Learn 5 different openings', 5, 3, 200, '2024-03-01 10:00:00', null, null, 'ACTIVE', 'CUSTOM', 'HIGH', false),
+    (5, 3, 9, 'Hello World', 'Write your first program', 1, 1, 50, '2024-01-20 16:15:00', null, '2024-01-20 17:30:00', 'COMPLETED', 'ONE_TIME', 'HIGH', false);
+
+-- Sample sub goals
+INSERT INTO sub_goal (id, goal_id, title, description, target_value, current_value, xp_reward, completed_date, status, order_index)
+VALUES
+    (1, 4, 'Learn Italian Game', 'Master the Italian Game opening', 1, 1, 40, '2024-03-05 14:30:00', 'COMPLETED', 1),
+    (2, 4, 'Learn Ruy Lopez', 'Master the Ruy Lopez opening', 1, 1, 40, '2024-03-12 16:15:00', 'COMPLETED', 2),
+    (3, 4, 'Learn Queens Gambit', 'Master the Queens Gambit opening', 1, 1, 40, '2024-03-20 19:45:00', 'COMPLETED', 3),
+    (4, 4, 'Learn Sicilian Defense', 'Master the Sicilian Defense', 1, 0, 40, null, 'ACTIVE', 4),
+    (5, 4, 'Learn French Defense', 'Master the French Defense', 1, 0, 40, null, 'ACTIVE', 5);
+
+-- Sample activity logs
+INSERT INTO activity_log (id, tracking_id, goal_id, sub_goal_id, activity_type, description, xp_gained, timestamp, notes)
+VALUES
+    (1, 1, 1, null, 'GOAL_COMPLETED', 'Completed goal: First Steps', 50, '2024-03-01 10:30:00', 'Great first hike in the local forest!'),
+    (2, 1, null, null, 'LEVEL_UP', 'Reached level 2', 0, '2024-03-05 14:20:00', null),
+    (3, 2, 3, null, 'GOAL_COMPLETED', 'Completed goal: First Game', 50, '2024-02-15 21:00:00', 'Won my first chess game online!'),
+    (4, 2, 4, 1, 'SUBGOAL_COMPLETED', 'Completed sub-goal: Learn Italian Game', 40, '2024-03-05 14:30:00', 'Practiced with chess.com tutorials'),
+    (5, 3, 5, null, 'GOAL_COMPLETED', 'Completed goal: Hello World', 50, '2024-01-20 17:30:00', 'First Python program executed successfully!'),
+    (6, 1, null, null, 'CUSTOM_ACTIVITY', 'Completed 5km nature walk', 30, '2024-06-07 09:15:00', 'Beautiful morning walk by the lake');
+
+-- Sample user achievements
+INSERT INTO user_achievement (id, profile_id, achievement_id, unlocked_date, is_notified)
+VALUES
+    (1, 1, 1, '2024-03-01 08:00:00', true),
+    (2, 2, 1, '2024-02-15 19:30:00', true),
+    (3, 3, 1, '2024-01-20 16:15:00', true),
+    (4, 2, 2, '2024-02-22 20:00:00', true),
+    (5, 1, 4, '2024-04-15 12:30:00', false),
+    (6, 2, 8, '2024-03-30 18:45:00', false);
 
 INSERT INTO hobby_categories (hobbies_id, categories_id)
 VALUES
