@@ -19,6 +19,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -43,22 +44,18 @@ public class EventIntegrationTest {
 
     @BeforeEach
     void setUp() {
-        // Create a Category
         mockCategory = new Category();
         mockCategory.setId(1L);
         mockCategory.setName("Outdoor");
         mockCategory.setSocial(true);
 
-        // Create a Hobby and link the Category
         mockHobby = new Hobby();
         mockHobby.setId(1L);
         mockHobby.setName("Test Hobby");
         mockHobby.setCategories(List.of(mockCategory));
 
-        // Reverse the relationship: Add the Hobby to the Category
         mockCategory.setHobbies(List.of(mockHobby));
 
-        // Create an Event and link the Hobby and Category
         mockEvent = new Event();
         mockEvent.setId(1L);
         mockEvent.setName("Test Event");
@@ -70,14 +67,19 @@ public class EventIntegrationTest {
         mockEvent.setTicketPrice(20.0);
         mockEvent.setCity("Test City");
 
-        // Mock Repository Calls
         when(eventRepository.findById(1L)).thenReturn(Optional.of(mockEvent));
         when(hobbyRepository.findById(1L)).thenReturn(Optional.of(mockHobby));
         when(categoryRepository.findById(1L)).thenReturn(Optional.of(mockCategory));
         when(eventRepository.findAll()).thenReturn(List.of(mockEvent));
     }
+
     @Test
-    void testGetEvents() {
+    void notNull() {
+        assertThat(webClient).isNotNull();
+    }
+
+    @Test
+    void getAllEvents() {
         webClient
                 .get().uri("/api/events")
                 .accept(MediaType.APPLICATION_JSON)

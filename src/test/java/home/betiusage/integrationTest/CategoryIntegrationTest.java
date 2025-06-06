@@ -13,6 +13,7 @@ import home.betiusage.repositories.CategoryRepository;
 import java.util.List;
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -39,7 +40,12 @@ public class CategoryIntegrationTest {
     }
 
     @Test
-    void testgetCategories() {
+    void notNull() {
+        assertThat(webClient).isNotNull();
+    }
+
+    @Test
+    void getAllCategories() {
         webClient
                 .get().uri("/api/categories")
                 .exchange()

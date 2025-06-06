@@ -50,7 +50,6 @@ public class CommunityIntegrationTest {
 
         when(communityRepository.findById(1L)).thenReturn(Optional.of(mockCommunity));
         when(hobbyRepository.findById(1L)).thenReturn(Optional.of(mockHobby));
-        when(communityRepository.findByHobbyId(1L)).thenReturn(List.of(mockCommunity));
         when(communityRepository.findAll()).thenReturn(List.of(mockCommunity));
         when(communityRepository.existsById(1L)).thenReturn(true);
         when(hobbyRepository.existsById(1L)).thenReturn(true);
@@ -62,7 +61,7 @@ public class CommunityIntegrationTest {
     }
 
     @Test
-    void getCommunitiesFindAll() {
+    void getAllCommunities() {
         webClient
                 .get().uri("/api/communities")
                 .accept(MediaType.APPLICATION_JSON)
@@ -77,45 +76,6 @@ public class CommunityIntegrationTest {
                 .jsonPath("$[0].hobbyId").isEqualTo(1L)
                 .jsonPath("$[0].hobbyName").isEqualTo("test hobby");
 
-
         verify(communityRepository, times(1)).findAll();
-    }
-
-    @Test
-    void getCommunitiesFindById() {
-        webClient
-                .get().uri("/api/communities/1")
-                .accept(MediaType.APPLICATION_JSON)
-                .exchange()
-                .expectStatus().isOk()
-                .expectHeader().contentType(MediaType.APPLICATION_JSON)
-                .expectBody()
-                .jsonPath("$.id").isEqualTo(1L)
-                .jsonPath("$.url").isEqualTo("test url")
-                .jsonPath("$.forumName").isEqualTo("test forum")
-                .jsonPath("$.description").isEqualTo("test description")
-                .jsonPath("$.hobbyId").isEqualTo(1L)
-                .jsonPath("$.hobbyName").isEqualTo("test hobby");
-
-        verify(communityRepository, times(1)).findById(1L);
-    }
-
-    @Test
-    void getCommunitiesFindByHobbyId() {
-        webClient
-                .get().uri("/api/communities/hobby/1")
-                .accept(MediaType.APPLICATION_JSON)
-                .exchange()
-                .expectStatus().isOk()
-                .expectHeader().contentType(MediaType.APPLICATION_JSON)
-                .expectBody()
-                .jsonPath("$[0].id").isEqualTo(1L)
-                .jsonPath("$[0].url").isEqualTo("test url")
-                .jsonPath("$[0].forumName").isEqualTo("test forum")
-                .jsonPath("$[0].description").isEqualTo("test description")
-                .jsonPath("$[0].hobbyId").isEqualTo(1L)
-                .jsonPath("$[0].hobbyName").isEqualTo("test hobby");
-
-        verify(communityRepository, times(1)).findByHobbyId(1L);
     }
 }

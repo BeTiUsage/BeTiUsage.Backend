@@ -11,6 +11,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -45,7 +47,12 @@ public class EconomicDetailIntegrationTest {
     }
 
     @Test
-    void getEconomicDetails_shouldReturnAllDetails() {
+    void notNull() {
+        assertThat(webClient).isNotNull();
+    }
+
+    @Test
+    void getAllEconomicDetails() {
         List<EconomicDetailsDTO> mockDTOs = List.of(mockDTO);
         when(economicDetailService.getEconomicDetails()).thenReturn(mockDTOs);
 
