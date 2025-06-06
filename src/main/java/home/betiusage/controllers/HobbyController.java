@@ -10,7 +10,7 @@ import home.betiusage.services.HobbyService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/hobbies")
+@RequestMapping("/api/public/hobbies")
 public class HobbyController {
     private final HobbyService hobbyService;
 

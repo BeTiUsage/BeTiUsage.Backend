@@ -307,7 +307,7 @@ INSERT INTO sub_goal (id, name, completed, goal_id) VALUES
 (90, 'Practice fly casting techniques', false, 68),
 (91, 'Plan fishing trips at local lakes', false, 69);
 
-INSERT INTO hobby (id, name, description, average_time_consumption, minimum_start_capital, average_capital, img)
+INSERT INTO hobby (id, name, description, average_time_consumption, minimum_start_capital, average_start_capital, img)
 VALUES
     (1, 'Hiking', 'A long walk in nature.', '2-3 hours', 100.0, 200.0, 'https://as1.ftcdn.net/v2/jpg/02/91/63/48/1000_F_291634839_WF8mQtlpNZFlG1X34p8RX2dGQhUxynJK.jpg'),
     (2, 'Chess', 'A strategic board game.', '1-2 hours', 50.0, 100.0, 'https://www.lolaapp.com/wp-content/uploads/2023/11/Facts-on-Chess_2.jpg'),
@@ -333,47 +333,6 @@ VALUES
     (22, 'Meditation', 'Mindfulness and mental wellness practice.', '0.5-2 hours', 20.0, 80.0, 'https://images.unsplash.com/photo-1593811167562-9cef47bfc4d7?w=800'),
     (23, 'Fishing', 'Recreational angling in various water bodies.', '3-8 hours', 100.0, 350.0, 'https://images.unsplash.com/photo-1545450660-3378a7f3a364?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
 
-
-INSERT INTO required_equipment (id, name, hobby_id)
-VALUES
-    (1, 'Hiking boots', 1),
-    (2, 'Backpack', 1),
-    (3, 'Chess board', 2),
-    (4, 'Climbing shoes', 4),
-    (5, 'Harness', 4),
-    (6, 'Pottery wheel', 5),
-    (7, 'Clay', 5),
-    (8, 'Acoustic guitar', 6),
-    (9, 'Guitar picks', 6),
-    (10, 'Chef knife', 7),
-    (11, 'Cutting board', 7),
-    (12, 'Paint brushes', 8),
-    (13, 'Canvas', 8),
-    (14, 'Yoga mat', 9),
-    (15, 'Knitting needles', 10),
-    (16, 'Yarn', 10),
-    (17, 'Road bike', 11),
-    (18, 'Helmet', 11),
-    (19, 'Garden tools', 13),
-    (20, 'Seeds', 13),
-    (21, 'Computer', 14),
-    (22, 'IDE software', 14),
-    (23, 'Dance shoes', 15),
-    (24, 'Hand saw', 16),
-    (25, 'Wood planks', 16),
-    (26, 'Swimsuit', 17),
-    (27, 'Goggles', 17),
-    (28, 'Mixing bowls', 18),
-    (29, 'Measuring cups', 18),
-    (30, 'Tennis racket', 19),
-    (31, 'Tennis balls', 19),
-    (32, 'Telescope', 20),
-    (33, 'Star chart', 20),
-    (34, 'Skateboard', 21),
-    (35, 'Protective pads', 21),
-    (36, 'Meditation cushion', 22),
-    (37, 'Fishing rod', 23),
-    (38, 'Fishing reel', 23);
 
 INSERT INTO hobby_categories (hobbies_id, categories_id)
 VALUES

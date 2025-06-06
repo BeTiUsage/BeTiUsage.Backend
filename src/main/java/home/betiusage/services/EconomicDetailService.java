@@ -41,7 +41,7 @@ public class EconomicDetailService {
             Hobby hobby = economicDetail.getHobby();
 
             dto.setHobbyId(hobby.getId());
-            dto.setAverageCapital(hobby.getAverageCapital());
+            dto.setAverageCapital(hobby.getAverageStartCapital());
             dto.setMinimumStartCapital(hobby.getMinimumStartCapital());
 
             if (hobby.getCostRating() != null) {

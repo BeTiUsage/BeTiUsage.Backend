@@ -4,7 +4,7 @@ import home.betiusage.enums.ECostRating;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import java.util.ArrayList;
+
 import java.util.List;
 
 @Getter
@@ -12,13 +12,12 @@ import java.util.List;
 @NoArgsConstructor
 public class HobbyDTO {
     private Long id;
-    private List<HobbyCategoryDTO> categories;
+    private List<CategoryDTO> categories;
     private String name;
     private String description;
     private String averageTimeConsumption;
-    private List<RequiredEquipmentDTO> requiredEquipment = new ArrayList<>();
     private Double minimumStartCapital;
-    private Double averageCapital;
+    private Double averageStartCapital;
     private ECostRating costRating;
     private String img;
 }

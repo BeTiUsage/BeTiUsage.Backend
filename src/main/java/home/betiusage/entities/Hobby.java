@@ -22,37 +22,35 @@ public class Hobby {
     private String name;
     private String description;
     private String averageTimeConsumption;
-    @OneToMany(mappedBy = "hobby", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<RequiredEquipment> requiredEquipment = new ArrayList<>();
     private String img;
     //economic
     @Enumerated(EnumType.STRING)
     private ECostRating costRating;
     private Double minimumStartCapital;
-    private Double averageCapital;
+    private Double averageStartCapital;
     @OneToMany(fetch = FetchType.EAGER)
     private List<EconomicDetail> economicDetails = new ArrayList<>();
 
-    public void setAverageCapital(Double averageCapital) {
-        this.averageCapital = averageCapital;
+    public void setAverageStartCapital(Double averageCapital) {
+        this.averageStartCapital = averageCapital;
         this.costRating = calculateCostRating(averageCapital);
     }
 
     @Transient
     public ECostRating getCalculatedCostRating() {
-        return calculateCostRating(this.averageCapital);
+        return calculateCostRating(this.averageStartCapital);
     }
 
     private ECostRating calculateCostRating(Double capital) {
         if (capital == null) return null;
 
-        if (capital < 500) {
+        if (capital < 100) {
             return ECostRating.VERY_CHEAP;
-        } else if (capital < 3000) {
+        } else if (capital < 300) {
             return ECostRating.CHEAP;
-        } else if (capital < 5000) {
+        } else if (capital < 500) {
             return ECostRating.MODERATE;
-        } else if (capital < 7500) {
+        } else if (capital < 1000) {
             return ECostRating.EXPENSIVE;
         } else {
             return ECostRating.VERY_EXPENSIVE;
