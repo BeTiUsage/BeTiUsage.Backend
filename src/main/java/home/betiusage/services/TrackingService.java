@@ -59,7 +59,6 @@ public class TrackingService {
     }
 
     public TrackingDTO createTracking(TrackingDTO trackingDTO) {
-        // Validate required fields
         if (trackingDTO.getProfileId() == null) {
             throw new ValidationException("Profile ID is required");
         }
@@ -67,25 +66,20 @@ public class TrackingService {
             throw new ValidationException("Hobby ID is required");
         }
 
-        // Create a new tracking entity
         Tracking tracking = new Tracking();
 
-        // Set simple properties
         tracking.setMoneySpent(trackingDTO.getMoneySpent());
         tracking.setXp(0);
         tracking.setStartDate(trackingDTO.getStartDate());
 
-        // Set Profile reference
         Profile profile = profileRepository.findById(trackingDTO.getProfileId())
                 .orElseThrow(() -> new NotFoundException("Profile not found with id: " + trackingDTO.getProfileId()));
         tracking.setProfile(profile);
 
-        // Set Hobby reference
         Hobby hobby = hobbyRepository.findById(trackingDTO.getHobbyId())
                 .orElseThrow(() -> new NotFoundException("Hobby not found with id: " + trackingDTO.getHobbyId()));
         tracking.setHobby(hobby);
 
-        // Save the tracking first to get an ID
         Tracking savedTracking = trackingRepository.save(tracking);
 
         // Handle Goals if provided
@@ -156,15 +150,14 @@ public class TrackingService {
 
         // Break the bi-directional relationship between tracking and goals
         for (Goal goal : tracking.getGoals()) {
-            goal.setTracking(null); // Remove the back-reference
+            goal.setTracking(null);
         }
 
-        // Clear the goals list in tracking to trigger orphanRemoval
         tracking.getGoals().clear();
-        trackingRepository.save(tracking); // Save to apply orphan removal
+        // To make sure there are no relationships left when trying to delete
+        trackingRepository.save(tracking);
 
-        // Now delete the tracking
-        trackingRepository.delete(tracking); // or deleteById(id)
+        trackingRepository.delete(tracking);
 
         return deletedProfileDTO;
     }
