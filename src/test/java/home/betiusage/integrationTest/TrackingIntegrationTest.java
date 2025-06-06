@@ -1,7 +1,6 @@
 package home.betiusage.integrationTest;
 
 import home.betiusage.dto.TrackingDTO;
-import home.betiusage.dto.TrackingResDTO;
 import home.betiusage.entities.Goal;
 import home.betiusage.entities.Hobby;
 import home.betiusage.entities.Profile;
@@ -10,11 +9,8 @@ import home.betiusage.repositories.GoalRepository;
 import home.betiusage.repositories.HobbyRepository;
 import home.betiusage.repositories.ProfileRepository;
 import home.betiusage.repositories.TrackingRepository;
-import home.betiusage.services.HobbyService;
-import home.betiusage.services.TrackingService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -28,7 +24,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.ArgumentMatchers.any;
 
@@ -59,12 +54,6 @@ public class TrackingIntegrationTest {
     private Hobby mockHobby;
     private Hobby mockHobby2;
     private Profile mockProfile;
-    private TrackingDTO mockTrackingDTO;
-    @Autowired
-    private HobbyService hobbyService;
-    @Autowired
-    private TrackingService trackingService;
-
 
     @BeforeEach
     void setUp() {
