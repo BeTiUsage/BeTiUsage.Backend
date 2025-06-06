@@ -55,7 +55,6 @@ public class TrackingIntegrationTest {
     private Hobby mockHobby2;
     private Profile mockProfile;
 
-
     @BeforeEach
     void setUp() {
         mockHobby = new Hobby();
@@ -91,8 +90,6 @@ public class TrackingIntegrationTest {
         mockTracking2.setProfile(mockProfile);
         mockTracking2.setGoals(List.of(mockGoal2));
         mockTracking2.setMoneySpent(10.0);
-
-
 
         when(profileRepository.findById(1L)).thenReturn(Optional.of(mockProfile));
         when(hobbyRepository.findById(1L)).thenReturn(Optional.of(mockHobby));

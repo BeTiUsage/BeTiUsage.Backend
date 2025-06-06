@@ -1,9 +1,6 @@
 package home.betiusage.services;
 
-import home.betiusage.dto.GoalDTO;
-import home.betiusage.dto.SubGoalDTO;
-import home.betiusage.dto.TrackingDTO;
-import home.betiusage.dto.TrackingResDTO;
+import home.betiusage.dto.*;
 import home.betiusage.entities.Goal;
 import home.betiusage.entities.Hobby;
 import home.betiusage.entities.Profile;
@@ -62,7 +59,6 @@ public class TrackingService {
     }
 
     public TrackingDTO createTracking(TrackingDTO trackingDTO) {
-        // Validate required fields
         if (trackingDTO.getProfileId() == null) {
             throw new ValidationException("Profile ID is required");
         }
@@ -70,25 +66,20 @@ public class TrackingService {
             throw new ValidationException("Hobby ID is required");
         }
 
-        // Create a new tracking entity
         Tracking tracking = new Tracking();
 
-        // Set simple properties
         tracking.setMoneySpent(trackingDTO.getMoneySpent());
         tracking.setXp(0);
         tracking.setStartDate(trackingDTO.getStartDate());
 
-        // Set Profile reference
         Profile profile = profileRepository.findById(trackingDTO.getProfileId())
                 .orElseThrow(() -> new NotFoundException("Profile not found with id: " + trackingDTO.getProfileId()));
         tracking.setProfile(profile);
 
-        // Set Hobby reference
         Hobby hobby = hobbyRepository.findById(trackingDTO.getHobbyId())
                 .orElseThrow(() -> new NotFoundException("Hobby not found with id: " + trackingDTO.getHobbyId()));
         tracking.setHobby(hobby);
 
-        // Save the tracking first to get an ID
         Tracking savedTracking = trackingRepository.save(tracking);
 
         // Handle Goals if provided
@@ -148,6 +139,29 @@ public class TrackingService {
         return toDTO(trackingRepository.save(existingTracking));
     }
 
+    public TrackingDTO deleteTracking(Long id) {
+        Tracking tracking = trackingRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Tracking not found with id: " + id));
+
+        TrackingDTO deletedProfileDTO = toDTO(tracking);
+
+        tracking.setProfile(null);
+        tracking.setHobby(null);
+
+        // Break the bi-directional relationship between tracking and goals
+        for (Goal goal : tracking.getGoals()) {
+            goal.setTracking(null);
+        }
+
+        tracking.getGoals().clear();
+        // To make sure there are no relationships left when trying to delete
+        trackingRepository.save(tracking);
+
+        trackingRepository.delete(tracking);
+
+        return deletedProfileDTO;
+    }
+
     public TrackingDTO toDTO (Tracking tracking) {
         TrackingDTO trackingDTO = new TrackingDTO();
         trackingDTO.setId(tracking.getId());
@@ -158,7 +172,6 @@ public class TrackingService {
         trackingDTO.setMoneySpent(tracking.getMoneySpent());
         trackingDTO.setXp(tracking.getXp());
         trackingDTO.setStartDate(tracking.getStartDate());
-
         return trackingDTO;
     }
 
@@ -187,6 +200,7 @@ public class TrackingService {
         trackingResDTO.setMoneySpent(tracking.getMoneySpent());
         trackingResDTO.setXp(tracking.getXp());
         trackingResDTO.setStartDate(tracking.getStartDate());
+        trackingResDTO.setImg(tracking.getHobby().getImg());
 
         return trackingResDTO;
     }
