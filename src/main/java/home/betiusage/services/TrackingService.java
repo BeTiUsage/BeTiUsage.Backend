@@ -105,6 +105,9 @@ public class TrackingService {
                     Goal originalGoal = goalRepository.findById(goalId)
                             .orElseThrow(() -> new NotFoundException("Goal not found with id: " + goalId));
 
+                    originalGoal.setIsTemplate(false);
+                    goalRepository.save(originalGoal);
+
                     Goal clonedGoal = new Goal();
                     clonedGoal.setName(originalGoal.getName());
                     clonedGoal.setGoalNumber(originalGoal.getGoalNumber());
