@@ -10,10 +10,9 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import home.betiusage.entities.Category;
 import home.betiusage.entities.Hobby;
-import home.betiusage.entities.RequiredEquipment;
 import home.betiusage.repositories.CategoryRepository;
 import home.betiusage.repositories.HobbyRepository;
-import home.betiusage.repositories.RequiredEquipmentRepository;
+
 import java.util.List;
 import java.util.Optional;
 import static org.mockito.Mockito.when;

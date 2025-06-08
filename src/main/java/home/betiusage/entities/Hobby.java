@@ -22,8 +22,6 @@ public class Hobby {
     private String name;
     private String description;
     private String averageTimeConsumption;
-    @OneToMany(mappedBy = "hobby", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<RequiredEquipment> requiredEquipment = new ArrayList<>();
     private String img;
     //economic
     @Enumerated(EnumType.STRING)
