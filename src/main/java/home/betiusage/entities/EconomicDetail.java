@@ -24,6 +24,6 @@ public class EconomicDetail {
     private String currency;
     private String purchaseLink;
     private String duration;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Hobby hobby;
 }
