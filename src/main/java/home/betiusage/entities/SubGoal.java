@@ -15,7 +15,6 @@ public class SubGoal {
     private Long id;
     private String name;
     private Boolean completed;
-    @ManyToOne
-    @JoinColumn(name = "goal_id")
+    @ManyToOne(fetch = FetchType.EAGER)
     private Goal goal;
 }
