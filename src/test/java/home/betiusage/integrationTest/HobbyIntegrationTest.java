@@ -27,15 +27,11 @@ public class HobbyIntegrationTest {
     @MockBean
     private CategoryRepository categoryRepository;
 
-    @MockBean
-    private RequiredEquipmentRepository requiredEquipmentRepository;
-
     @Autowired
     private WebTestClient webClient;
 
     private Hobby mockHobby;
     private Category mockCategory;
-    private RequiredEquipment mockRequiredEquipment;
 
     @BeforeEach
     void setUp() {
@@ -44,11 +40,6 @@ public class HobbyIntegrationTest {
         mockCategory.setId(1L);
         mockCategory.setName("Outdoor");
         mockCategory.setSocial(true);
-
-        // Create mock RequiredEquipment
-        mockRequiredEquipment = new RequiredEquipment();
-        mockRequiredEquipment.setId(1L);
-        mockRequiredEquipment.setName("Tent");
 
         // Create mock Hobby
         mockHobby = new Hobby();
@@ -61,13 +52,11 @@ public class HobbyIntegrationTest {
 
         // Set relationships
         mockHobby.setCategories(List.of(mockCategory));
-        mockHobby.setRequiredEquipment(List.of(mockRequiredEquipment));
 
         // Mock repository calls
         when(hobbyRepository.findById(1L)).thenReturn(Optional.of(mockHobby));
         when(hobbyRepository.findAll()).thenReturn(List.of(mockHobby));
         when(categoryRepository.findById(1L)).thenReturn(Optional.of(mockCategory));
-        when(requiredEquipmentRepository.findById(1L)).thenReturn(Optional.of(mockRequiredEquipment));
     }
 
     @Test
@@ -85,9 +74,8 @@ public class HobbyIntegrationTest {
                 .jsonPath("$[0].description").isEqualTo("A fun outdoor activity")
                 .jsonPath("$[0].averageTimeConsumption").isEqualTo("6 hours")
                 .jsonPath("$[0].minimumStartCapital").isEqualTo(200.0)
-                .jsonPath("$[0].averageCapital").isEqualTo(500.0)
+                .jsonPath("$[0].averageStartCapital").isEqualTo(500.0)
                 .jsonPath("$[0].categories[0].name").isEqualTo("Outdoor")
-                .jsonPath("$[0].categories[0].social").isEqualTo(true)
-                .jsonPath("$[0].requiredEquipment[0].name").isEqualTo("Tent");
+                .jsonPath("$[0].categories[0].social").isEqualTo(true);
     }
 }
