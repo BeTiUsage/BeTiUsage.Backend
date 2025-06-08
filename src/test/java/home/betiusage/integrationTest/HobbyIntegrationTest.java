@@ -57,7 +57,7 @@ public class HobbyIntegrationTest {
         mockHobby.setDescription("A fun outdoor activity");
         mockHobby.setAverageTimeConsumption("6 hours");
         mockHobby.setMinimumStartCapital(200.0);
-        mockHobby.setAverageCapital(500.0);
+        mockHobby.setAverageStartCapital(500.0);
 
         // Set relationships
         mockHobby.setCategories(List.of(mockCategory));

@@ -29,7 +29,7 @@ public class HobbyService {
         hobbyDTO.setId(hobby.getId());
         hobbyDTO.setName(hobby.getName());
         hobbyDTO.setDescription(hobby.getDescription());
-        hobbyDTO.setAverageCapital(hobby.getAverageCapital());
+        hobbyDTO.setAverageStartCapital(hobby.getAverageStartCapital());
         hobbyDTO.setAverageTimeConsumption(hobby.getAverageTimeConsumption());
         hobbyDTO.setMinimumStartCapital(hobby.getMinimumStartCapital());
         hobbyDTO.setImg(hobby.getImg());

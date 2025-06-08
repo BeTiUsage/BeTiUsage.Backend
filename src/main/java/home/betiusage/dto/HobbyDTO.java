@@ -18,7 +18,7 @@ public class HobbyDTO {
     private String averageTimeConsumption;
     private List<RequiredEquipmentDTO> requiredEquipment = new ArrayList<>();
     private Double minimumStartCapital;
-    private Double averageCapital;
+    private Double averageStartCapital;
     private ECostRating costRating;
     private String img;
 }
