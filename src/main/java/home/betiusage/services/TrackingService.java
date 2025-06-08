@@ -20,14 +20,13 @@ public class TrackingService {
     private final HobbyRepository hobbyRepository;
     private final ProfileRepository profileRepository;
     private final GoalRepository goalRepository;
-    private final GoalService goalService;
 
-    public TrackingService(TrackingRepository trackingRepository, HobbyRepository hobbyRepository, ProfileRepository profileRepository, GoalRepository goalRepository,  GoalService goalService) {
+
+    public TrackingService(TrackingRepository trackingRepository, HobbyRepository hobbyRepository, ProfileRepository profileRepository, GoalRepository goalRepository) {
         this.trackingRepository = trackingRepository;
         this.hobbyRepository = hobbyRepository;
         this.profileRepository = profileRepository;
         this.goalRepository = goalRepository;
-        this.goalService = goalService;
     }
 
     public List<TrackingResDTO> findAllByProfileId(Long profileId) {
@@ -79,38 +78,23 @@ public class TrackingService {
         Tracking savedTracking = trackingRepository.save(tracking);
 
         if (trackingDTO.getGoalId() != null && !trackingDTO.getGoalId().isEmpty()) {
-            if (!goalService.areAnyGoalsTracked(trackingDTO.getGoalId())) {
-                List<Goal> goals = new ArrayList<>();
+            List<Goal> clonedGoals = new ArrayList<>();
 
-                for (Long goalId : trackingDTO.getGoalId()) {
-                    Goal goal = goalRepository.findById(goalId)
-                            .orElseThrow(() -> new NotFoundException("Goal not found with id: " + goalId));
+            for (Long goalId : trackingDTO.getGoalId()) {
+                Goal originalGoal = goalRepository.findById(goalId)
+                        .orElseThrow(() -> new NotFoundException("Goal not found with id: " + goalId));
 
-                    goal.setIsTemplate(true);
-                    goal.setTracking(savedTracking);
-                    goals.add(goal);
-                }
-
-                savedTracking.setGoals(goals);
-            } else {
-                List<Goal> clonedGoals = new ArrayList<>();
-
-                for (Long goalId : trackingDTO.getGoalId()) {
-                    Goal originalGoal = goalRepository.findById(goalId)
-                            .orElseThrow(() -> new NotFoundException("Goal not found with id: " + goalId));
-
-                    originalGoal.setIsTemplate(false);
+                if (!originalGoal.getIsTemplate()) {
+                    originalGoal.setIsTemplate(true);
                     goalRepository.save(originalGoal);
-
-                    Goal clonedGoal = getClonedGoal(originalGoal, savedTracking);
-
-                    Goal savedClonedGoal = goalRepository.save(clonedGoal);
-                    clonedGoals.add(savedClonedGoal);
                 }
 
-                savedTracking.setGoals(clonedGoals);
+                Goal clonedGoal = getClonedGoal(originalGoal, savedTracking);
+                Goal savedClonedGoal = goalRepository.save(clonedGoal);
+                clonedGoals.add(savedClonedGoal);
             }
 
+            savedTracking.setGoals(clonedGoals);
             savedTracking = trackingRepository.save(savedTracking);
         }
 
@@ -122,8 +106,8 @@ public class TrackingService {
         clonedGoal.setName(originalGoal.getName());
         clonedGoal.setGoalNumber(originalGoal.getGoalNumber());
         clonedGoal.setHobbyName(originalGoal.getHobbyName());
-        clonedGoal.setCompleted(originalGoal.getCompleted());
-        clonedGoal.setIsTemplate(true);
+        clonedGoal.setCompleted(false);
+        clonedGoal.setIsTemplate(false);
         clonedGoal.setTracking(savedTracking);
 
         if (originalGoal.getSubGoals() != null && !originalGoal.getSubGoals().isEmpty()) {
@@ -131,7 +115,7 @@ public class TrackingService {
             for (SubGoal subGoal : originalGoal.getSubGoals()) {
                 SubGoal clonedSubGoal = new SubGoal();
                 clonedSubGoal.setName(subGoal.getName());
-                clonedSubGoal.setCompleted(subGoal.getCompleted());
+                clonedSubGoal.setCompleted(false);
                 clonedSubGoal.setGoal(clonedGoal);
                 clonedSubGoals.add(clonedSubGoal);
             }
@@ -139,7 +123,6 @@ public class TrackingService {
         }
         return clonedGoal;
     }
-
 
     public TrackingDTO updateTracking(TrackingDTO trackingDTO, Long id) {
         validateId(id, "tracking");
