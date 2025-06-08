@@ -4,7 +4,7 @@ INSERT INTO hobby (id, name, description, average_time_consumption, minimum_star
 VALUES
     (1, 'Hiking', 'A long walk in nature.', '2-3 hours', 100.0, 200.0, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRoJWkNfvutn3ibqnR0SUJdP3P9KHdheZZ_Lg&s'),
     (2, 'Chess', 'A strategic board game.', '1-2 hours', 50.0, 100.0, 'https://www.lolaapp.com/wp-content/uploads/2023/11/Facts-on-Chess_2.jpg'),
-    (3, 'Photography', 'Capturing moments through a lens.', '1-3 hours', 200.0, 500.0, 'https://media.licdn.com/dms/image/C5612AQHhGWNpvI1BiA/article-cover_image-shrink_720_1280/0/1520108955015?e=2147483647&v=beta&t=IcU1LBhINXlNoIDtvqWt_4hyxoIYiwFhJ8g21oS3yXI'),
+    (3, 'Photography', 'Capturing moments through a lens.', '1-3 hours', 200.0, 500.0, 'https://images.pexels.com/photos/1264210/pexels-photo-1264210.jpeg'),
     (4, 'Rock Climbing', 'Indoor and outdoor climbing adventures.', '2-4 hours', 300.0, 600.0, 'https://alpineairadventures.com/wp-content/uploads/elementor/thumbs/rock-climbing-Banff-ozp38lmlgsd8iu02fw1t32o8m459aw8bc4k8ehnseg.jpg'),
     (5, 'Pottery', 'Creating ceramic art and functional pieces.', '2-3 hours', 150.0, 400.0, 'https://artincontext.org/wp-content/uploads/2023/05/History-of-Pottery.jpg'),
     (6, 'Guitar Playing', 'Learning and mastering the guitar.', '1-2 hours', 200.0, 500.0, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQs9FjqMlmfpeZ4If0IMO5btKxTPj-EmobsIw&s'),
