@@ -22,13 +22,10 @@ public class ClerkJwtAuthenticationConverter implements Converter<Jwt, AbstractA
 
     @Override
     public AbstractAuthenticationToken convert(Jwt jwt) {
-        // Extract user info from JWT claims
         String clerkId = jwt.getSubject();
 
-        // Check for a custom claims object that might contain user data
         Map<String, Object> userClaims = jwt.getClaims();
 
-        //Extract from token
         String email = extractClaimString(userClaims, "email");
         String username = extractClaimString(userClaims, "name");
 
@@ -56,7 +53,6 @@ public class ClerkJwtAuthenticationConverter implements Converter<Jwt, AbstractA
         );
     }
 
-    //helper
     private String extractClaimString(Map<String, Object> claims, String key) {
         if (claims.containsKey(key)) {
             Object value = claims.get(key);
