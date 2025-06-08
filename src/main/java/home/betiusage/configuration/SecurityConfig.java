@@ -21,8 +21,7 @@ import java.util.Arrays;
 @EnableWebSecurity
 @Profile("!test")
 public class SecurityConfig {
-
-    @Value("${clerk.jwks-uri:https://sought-sawfly-57.clerk.accounts.dev/.well-known/jwks.json}") //TODO: set this to .env
+    @Value("${clerk.jwks-uri:https://sought-sawfly-57.clerk.accounts.dev/.well-known/jwks.json}")
     private String jwksUri;
 
     private final ClerkJwtAuthenticationConverter jwtAuthenticationConverter;
