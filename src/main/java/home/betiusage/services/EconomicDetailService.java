@@ -4,7 +4,6 @@ import home.betiusage.dto.*;
 import home.betiusage.entities.EconomicDetail;
 import home.betiusage.entities.Hobby;
 import home.betiusage.repositories.EconomicDetailRepository;
-import home.betiusage.repositories.HobbyRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,7 +13,7 @@ import java.util.stream.Collectors;
 public class EconomicDetailService {
     EconomicDetailRepository economicDetailRepository;
 
-    public EconomicDetailService(EconomicDetailRepository economicDetailRepository, HobbyRepository hobbyRepository) {
+    public EconomicDetailService(EconomicDetailRepository economicDetailRepository) {
         this.economicDetailRepository = economicDetailRepository;
     }
 
