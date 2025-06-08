@@ -15,6 +15,8 @@ import home.betiusage.repositories.HobbyRepository;
 
 import java.util.List;
 import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -35,13 +37,11 @@ public class HobbyIntegrationTest {
 
     @BeforeEach
     void setUp() {
-        // Create mock Category
         mockCategory = new Category();
         mockCategory.setId(1L);
         mockCategory.setName("Outdoor");
         mockCategory.setSocial(true);
 
-        // Create mock Hobby
         mockHobby = new Hobby();
         mockHobby.setId(1L);
         mockHobby.setName("Camping");
@@ -50,17 +50,20 @@ public class HobbyIntegrationTest {
         mockHobby.setMinimumStartCapital(200.0);
         mockHobby.setAverageStartCapital(500.0);
 
-        // Set relationships
         mockHobby.setCategories(List.of(mockCategory));
 
-        // Mock repository calls
         when(hobbyRepository.findById(1L)).thenReturn(Optional.of(mockHobby));
         when(hobbyRepository.findAll()).thenReturn(List.of(mockHobby));
         when(categoryRepository.findById(1L)).thenReturn(Optional.of(mockCategory));
     }
 
     @Test
-    void testGetAllHobbies() {
+    void notNull() {
+        assertThat(webClient).isNotNull();
+    }
+
+    @Test
+    void getHobbies() {
         System.out.println(mockHobby.getCategories().get(0).getId());
         webClient.get()
                 .uri("/api/hobbies")
