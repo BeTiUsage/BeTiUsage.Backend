@@ -1,6 +1,5 @@
 package home.betiusage.repositories;
 
-import home.betiusage.dto.TrackingDTO;
 import home.betiusage.entities.Tracking;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

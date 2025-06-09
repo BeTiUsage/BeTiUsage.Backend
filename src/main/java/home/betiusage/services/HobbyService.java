@@ -2,7 +2,6 @@ package home.betiusage.services;
 
 import home.betiusage.dto.HobbyCategoryDTO;
 import home.betiusage.dto.HobbyDTO;
-import home.betiusage.dto.RequiredEquipmentDTO;
 import home.betiusage.entities.Hobby;
 import home.betiusage.repositories.CategoryRepository;
 import home.betiusage.repositories.HobbyRepository;
@@ -30,7 +29,7 @@ public class HobbyService {
         hobbyDTO.setId(hobby.getId());
         hobbyDTO.setName(hobby.getName());
         hobbyDTO.setDescription(hobby.getDescription());
-        hobbyDTO.setAverageCapital(hobby.getAverageCapital());
+        hobbyDTO.setAverageStartCapital(hobby.getAverageStartCapital());
         hobbyDTO.setAverageTimeConsumption(hobby.getAverageTimeConsumption());
         hobbyDTO.setMinimumStartCapital(hobby.getMinimumStartCapital());
         hobbyDTO.setImg(hobby.getImg());
@@ -38,16 +37,6 @@ public class HobbyService {
                 hobby.getCostRating() != null
                         ? hobby.getCostRating()
                         : hobby.getCalculatedCostRating()
-        );
-        hobbyDTO.setRequiredEquipment(
-                hobby.getRequiredEquipment()
-                        .stream()
-                        .map(equipment -> {
-                            RequiredEquipmentDTO dto = new RequiredEquipmentDTO();
-                            dto.setName(equipment.getName());
-                            return dto;
-                        })
-                        .collect(Collectors.toList())
         );
         if (hobby.getCategories() != null) {
             List<HobbyCategoryDTO> hobbyCategoryDTOS = hobby.getCategories()

@@ -62,7 +62,7 @@ public class CommunityIntegrationTest {
     }
 
     @Test
-    void getCommunitiesFindAll() {
+    void getCommunities() {
         webClient
                 .get().uri("/api/communities")
                 .accept(MediaType.APPLICATION_JSON)
@@ -82,7 +82,7 @@ public class CommunityIntegrationTest {
     }
 
     @Test
-    void getCommunitiesFindById() {
+    void getCommunitiesById() {
         webClient
                 .get().uri("/api/communities/1")
                 .accept(MediaType.APPLICATION_JSON)
@@ -101,7 +101,7 @@ public class CommunityIntegrationTest {
     }
 
     @Test
-    void getCommunitiesFindByHobbyId() {
+    void getCommunitiesByHobbyId() {
         webClient
                 .get().uri("/api/communities/hobby/1")
                 .accept(MediaType.APPLICATION_JSON)

@@ -44,17 +44,14 @@ public class GoalService {
         goal.setCompleted(goalDTO.getCompleted());
         goal.setGoalNumber(goalDTO.getGoalNumber());
 
-        // Handle tracking relationship properly
         if (goalDTO.getTrackingId() != null) {
             Tracking tracking = trackingRepository.findById(goalDTO.getTrackingId())
                     .orElseThrow(() -> new NotFoundException("Tracking not found with id: " + goalDTO.getTrackingId()));
             goal.setTracking(tracking);
         }
 
-        // Save the goal first to get an ID
         Goal savedGoal = goalRepository.save(goal);
 
-        // Handle SubGoals that might be part of the request
         if (goalDTO.getSubGoals() != null && !goalDTO.getSubGoals().isEmpty()) {
             List<SubGoal> subGoalsList = new ArrayList<>();
 
@@ -68,7 +65,6 @@ public class GoalService {
                     subGoal = new SubGoal();
                 }
 
-                // Set properties from DTO
                 subGoal.setName(subGoalDTO.getName());
                 subGoal.setCompleted(subGoalDTO.getCompleted() != null ? subGoalDTO.getCompleted() : false);
                 subGoal.setGoal(savedGoal);
@@ -106,7 +102,6 @@ public class GoalService {
             existingGoal.setTracking(tracking);
         }
 
-        // Handle subgoals if provided
         if (goalDTO.getSubGoals() != null) {
             List<SubGoal> updatedSubGoals = new ArrayList<>();
 
@@ -119,17 +114,11 @@ public class GoalService {
                             .filter(sg -> sg.getId().equals(subGoalDTO.getId()))
                             .findFirst();
 
-                    if (existingSubGoal.isPresent()) {
-                        subGoal = existingSubGoal.get();
-                        wasCompletedBefore = subGoal.getCompleted() != null && subGoal.getCompleted();
-                    } else {
-                        subGoal = subGoalRepository.findById(subGoalDTO.getId())
-                                .orElseGet(SubGoal::new);
-                        wasCompletedBefore = subGoal.getCompleted() != null && subGoal.getCompleted();
-                    }
+                    subGoal = existingSubGoal.orElseGet(() -> subGoalRepository.findById(subGoalDTO.getId())
+                            .orElseGet(SubGoal::new));
+                    wasCompletedBefore = subGoal.getCompleted() != null && subGoal.getCompleted();
                 } else {
                     subGoal = new SubGoal();
-                    wasCompletedBefore = false;
                 }
 
                 if (subGoalDTO.getName() != null) {
@@ -142,13 +131,10 @@ public class GoalService {
                     subGoal.setCompleted(subGoalDTO.getCompleted());
                 }
 
-                // Update completion status if provided and award XP only when status changes from false to true
                 if (subGoalDTO.getCompleted() != null) {
                     boolean isCompletedNow = subGoalDTO.getCompleted();
 
-                    // Check if completion status is changing from incomplete to complete
                     if (isCompletedNow && !wasCompletedBefore) {
-                        // Set the goal relationship first so XP calculation works properly
                         subGoal.setGoal(existingGoal);
 
                         subGoalService.awardXpForSubgoalCompletion(subGoal);
@@ -167,7 +153,6 @@ public class GoalService {
 
         boolean goalCompletionRequested = goalDTO.getCompleted() != null && goalDTO.getCompleted();
         if (goalCompletionRequested) {
-            // Verify all subgoals are completed
             boolean allSubgoalsCompleted = existingGoal.getSubGoals().isEmpty() ||
                     existingGoal.getSubGoals().stream()
                             .allMatch(sg -> sg.getCompleted() != null && sg.getCompleted());
@@ -176,7 +161,6 @@ public class GoalService {
                 throw new IllegalStateException("Cannot mark goal as completed when subgoals are incomplete");
             }
 
-            // Only award XP if the goal wasn't previously completed
             boolean wasAlreadyCompleted = existingGoal.getCompleted() != null && existingGoal.getCompleted();
             if (!wasAlreadyCompleted) {
                 awardXpForGoalCompletion(existingGoal);
@@ -194,18 +178,15 @@ public class GoalService {
     public void awardXpForGoalCompletion(Goal goal) {
         Tracking tracking = goal.getTracking();
         if (tracking == null) {
-            return; // No tracking to update
+            return;
         }
 
-        // Initialize XP if it's null
         if (tracking.getXp() == null) {
             tracking.setXp(0);
         }
 
-        // Award XP for goal completion
         tracking.setXp(tracking.getXp() + XpService.getGoalCompletionBonusXp());
 
-        // Save the tracking with updated XP
         trackingRepository.save(tracking);
 
     }
@@ -280,11 +261,9 @@ public class GoalService {
         Goal goal = goalRepository.findById(goalId)
                 .orElseThrow(() -> new NotFoundException("Goal not found with id: " + goalId));
 
-        // A goal is tracked if it has a non-null tracking association
         return goal.getTracking() != null;
     }
 
-    // Add this method to your GoalService class
     public boolean areAnyGoalsTracked(List<Long> goalIds) {
         if (goalIds == null || goalIds.isEmpty()) {
             return false;
@@ -292,11 +271,11 @@ public class GoalService {
 
         for (Long goalId : goalIds) {
             if (isGoalTracked(goalId)) {
-                return true; // Return true if any goal is tracked
+                return true;
             }
         }
 
-        return false; // Return false if none are tracked
+        return false;
     }
 
     public GoalDTO toDTO(Goal goal) {
@@ -311,7 +290,7 @@ public class GoalService {
 
         if (goal.getSubGoals() != null && !goal.getSubGoals().isEmpty()) {
             List<SubGoalDTO> subGoalDTOs = goal.getSubGoals().stream()
-                    .map(this::toSubGoalDTO)  // Make sure this method exists
+                    .map(this::toSubGoalDTO)
                     .collect(Collectors.toList());
             goalDTO.setSubGoals(subGoalDTOs);
         } else {

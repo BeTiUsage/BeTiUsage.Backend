@@ -1,5 +1,31 @@
 CREATE SCHEMA IF NOT EXISTS better_time_usage_db;
 
+INSERT INTO hobby (id, name, description, average_time_consumption, minimum_start_capital, average_start_capital, img)
+VALUES
+    (1, 'Hiking', 'A long walk in nature.', '2-3 hours', 100.0, 200.0, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRoJWkNfvutn3ibqnR0SUJdP3P9KHdheZZ_Lg&s'),
+    (2, 'Chess', 'A strategic board game.', '1-2 hours', 50.0, 100.0, 'https://www.lolaapp.com/wp-content/uploads/2023/11/Facts-on-Chess_2.jpg'),
+    (3, 'Photography', 'Capturing moments through a lens.', '1-3 hours', 200.0, 500.0, 'https://images.pexels.com/photos/1264210/pexels-photo-1264210.jpeg'),
+    (4, 'Rock Climbing', 'Indoor and outdoor climbing adventures.', '2-4 hours', 300.0, 600.0, 'https://alpineairadventures.com/wp-content/uploads/elementor/thumbs/rock-climbing-Banff-ozp38lmlgsd8iu02fw1t32o8m459aw8bc4k8ehnseg.jpg'),
+    (5, 'Pottery', 'Creating ceramic art and functional pieces.', '2-3 hours', 150.0, 400.0, 'https://artincontext.org/wp-content/uploads/2023/05/History-of-Pottery.jpg'),
+    (6, 'Guitar Playing', 'Learning and mastering the guitar.', '1-2 hours', 200.0, 500.0, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQs9FjqMlmfpeZ4If0IMO5btKxTPj-EmobsIw&s'),
+    (7, 'Cooking', 'Exploring culinary arts and recipes.', '1-3 hours', 100.0, 300.0, 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800'),
+    (8, 'Painting', 'Watercolor, acrylic, and oil painting.', '2-4 hours', 80.0, 250.0, 'https://images.squarespace-cdn.com/content/v1/54e9d6ade4b0e3df8c1291ba/560b6bda-1fee-4afd-bda7-31d7f1199e9f/KFa98bqC.png'),
+    (9, 'Yoga', 'Physical and mental wellness practice.', '1-1.5 hours', 50.0, 150.0, 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800'),
+    (10, 'Knitting', 'Creating textiles through knitting techniques.', '2-3 hours', 40.0, 120.0, 'https://www.stitchandstory.com/cdn/shop/articles/4-Steps-To-Learning-How-to-_Read_-Your-Knitting_1920x1280_crop_center.progressive.jpg?v=1535637422'),
+    (11, 'Cycling', 'Road and mountain biking adventures.', '2-5 hours', 400.0, 800.0, 'https://kajabi-storefronts-production.kajabi-cdn.com/kajabi-storefronts-production/file-uploads/blogs/2147496990/images/baf1a4-7df-5252-8c3e-b240a1f7af_AdobeStock_416790218.jpeg'),
+    (12, 'Reading', 'Exploring literature and knowledge through books.', '1-3 hours', 20.0, 100.0, 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=800'),
+    (13, 'Gardening', 'Growing plants, flowers, and vegetables.', '2-4 hours', 100.0, 250.0, 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800'),
+    (14, 'Programming', 'Software development and coding skills.', '2-6 hours', 500.0, 1200.0, 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800'),
+    (15, 'Dancing', 'Various dance styles and techniques.', '1-2 hours', 80.0, 200.0, 'https://images.unsplash.com/photo-1547153760-18fc86324498?w=800'),
+    (16, 'Woodworking', 'Creating furniture and decorative items from wood.', '3-6 hours', 300.0, 800.0, 'https://images.unsplash.com/photo-1504148455328-c376907d081c?w=800'),
+    (17, 'Swimming', 'Recreational and competitive swimming.', '1-2 hours', 100.0, 250.0, 'https://images.unsplash.com/photo-1530549387789-4c1017266635?w=800'),
+    (18, 'Baking', 'Creating breads, pastries, and desserts.', '2-4 hours', 150.0, 350.0, 'https://psm.szczecin.pl/wp-content/uploads/2018/06/5_0016_apple-brainstorming-business-908288.jpg'),
+    (19, 'Tennis', 'Racquet sport for fitness and competition.', '1-3 hours', 150.0, 400.0, 'https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?w=800'),
+    (20, 'Astronomy', 'Observing and studying celestial objects.', '2-5 hours', 200.0, 600.0, 'https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?w=800'),
+    (21, 'Skateboarding', 'Street and park skateboarding skills.', '2-4 hours', 120.0, 300.0, 'https://res.cloudinary.com/aenetworks/image/upload/c_fill,w_1200,h_630,g_auto/dpr_auto/f_auto/q_auto:eco/v1/skateboarding-GettyImages-2153224011?_a=BAVAZGDX0'),
+    (22, 'Meditation', 'Mindfulness and mental wellness practice.', '0.5-2 hours', 20.0, 80.0, 'https://images.unsplash.com/photo-1593811167562-9cef47bfc4d7?w=800'),
+    (23, 'Fishing', 'Recreational angling in various water bodies.', '3-8 hours', 100.0, 350.0, 'https://images.unsplash.com/photo-1545450660-3378a7f3a364?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+
 INSERT INTO category (id, name, social)
 VALUES
     (1, 'Outdoor', true),
@@ -132,8 +158,8 @@ VALUES
 (68, 'Learn fly fishing', false, 2, 'Fishing', false),
 (69, 'Go on a fishing trip', false, 3, 'Fishing', false);
 
-
-INSERT INTO sub_goal (id, name, completed, goal_id) VALUES
+INSERT INTO sub_goal (id, name, completed, goal_id)
+VALUES
 -- Subgoals for Hiking Goals
 (1, 'Train by completing shorter hikes of 4-6 miles', false, 1),
 (2, 'Prepare hiking kit with essential supplies', false, 1),
@@ -307,75 +333,7 @@ INSERT INTO sub_goal (id, name, completed, goal_id) VALUES
 (90, 'Practice fly casting techniques', false, 68),
 (91, 'Plan fishing trips at local lakes', false, 69);
 
-INSERT INTO hobby (id, name, description, average_time_consumption, minimum_start_capital, average_capital, img)
-VALUES
-    (1, 'Hiking', 'A long walk in nature.', '2-3 hours', 100.0, 200.0, 'https://as1.ftcdn.net/v2/jpg/02/91/63/48/1000_F_291634839_WF8mQtlpNZFlG1X34p8RX2dGQhUxynJK.jpg'),
-    (2, 'Chess', 'A strategic board game.', '1-2 hours', 50.0, 100.0, 'https://www.lolaapp.com/wp-content/uploads/2023/11/Facts-on-Chess_2.jpg'),
-    (3, 'Photography', 'Capturing moments through a lens.', '1-3 hours', 200.0, 500.0, 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'),
-    (4, 'Rock Climbing', 'Indoor and outdoor climbing adventures.', '2-4 hours', 300.0, 600.0, 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800'),
-    (5, 'Pottery', 'Creating ceramic art and functional pieces.', '2-3 hours', 150.0, 400.0, 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800'),
-    (6, 'Guitar Playing', 'Learning and mastering the guitar.', '1-2 hours', 200.0, 500.0, 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800'),
-    (7, 'Cooking', 'Exploring culinary arts and recipes.', '1-3 hours', 100.0, 300.0, 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800'),
-    (8, 'Painting', 'Watercolor, acrylic, and oil painting.', '2-4 hours', 80.0, 250.0, 'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=800'),
-    (9, 'Yoga', 'Physical and mental wellness practice.', '1-1.5 hours', 50.0, 150.0, 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800'),
-    (10, 'Knitting', 'Creating textiles through knitting techniques.', '2-3 hours', 40.0, 120.0, 'https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?w=800'),
-    (11, 'Cycling', 'Road and mountain biking adventures.', '2-5 hours', 400.0, 800.0, 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800'),
-    (12, 'Reading', 'Exploring literature and knowledge through books.', '1-3 hours', 20.0, 100.0, 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=800'),
-    (13, 'Gardening', 'Growing plants, flowers, and vegetables.', '2-4 hours', 100.0, 250.0, 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800'),
-    (14, 'Programming', 'Software development and coding skills.', '2-6 hours', 500.0, 1200.0, 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800'),
-    (15, 'Dancing', 'Various dance styles and techniques.', '1-2 hours', 80.0, 200.0, 'https://images.unsplash.com/photo-1547153760-18fc86324498?w=800'),
-    (16, 'Woodworking', 'Creating furniture and decorative items from wood.', '3-6 hours', 300.0, 800.0, 'https://images.unsplash.com/photo-1504148455328-c376907d081c?w=800'),
-    (17, 'Swimming', 'Recreational and competitive swimming.', '1-2 hours', 100.0, 250.0, 'https://images.unsplash.com/photo-1530549387789-4c1017266635?w=800'),
-    (18, 'Baking', 'Creating breads, pastries, and desserts.', '2-4 hours', 150.0, 350.0, 'https://images.unsplash.com/photo-1597528662465-55ece5734101?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'),
-    (19, 'Tennis', 'Racquet sport for fitness and competition.', '1-3 hours', 150.0, 400.0, 'https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?w=800'),
-    (20, 'Astronomy', 'Observing and studying celestial objects.', '2-5 hours', 200.0, 600.0, 'https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?w=800'),
-    (21, 'Skateboarding', 'Street and park skateboarding skills.', '2-4 hours', 120.0, 300.0, 'https://images.unsplash.com/photo-1517582837435-fdb3ccb5bb41?q=80&w=2304&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'),
-    (22, 'Meditation', 'Mindfulness and mental wellness practice.', '0.5-2 hours', 20.0, 80.0, 'https://images.unsplash.com/photo-1593811167562-9cef47bfc4d7?w=800'),
-    (23, 'Fishing', 'Recreational angling in various water bodies.', '3-8 hours', 100.0, 350.0, 'https://images.unsplash.com/photo-1545450660-3378a7f3a364?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
-
-
-INSERT INTO required_equipment (id, name, hobby_id)
-VALUES
-    (1, 'Hiking boots', 1),
-    (2, 'Backpack', 1),
-    (3, 'Chess board', 2),
-    (4, 'Climbing shoes', 4),
-    (5, 'Harness', 4),
-    (6, 'Pottery wheel', 5),
-    (7, 'Clay', 5),
-    (8, 'Acoustic guitar', 6),
-    (9, 'Guitar picks', 6),
-    (10, 'Chef knife', 7),
-    (11, 'Cutting board', 7),
-    (12, 'Paint brushes', 8),
-    (13, 'Canvas', 8),
-    (14, 'Yoga mat', 9),
-    (15, 'Knitting needles', 10),
-    (16, 'Yarn', 10),
-    (17, 'Road bike', 11),
-    (18, 'Helmet', 11),
-    (19, 'Garden tools', 13),
-    (20, 'Seeds', 13),
-    (21, 'Computer', 14),
-    (22, 'IDE software', 14),
-    (23, 'Dance shoes', 15),
-    (24, 'Hand saw', 16),
-    (25, 'Wood planks', 16),
-    (26, 'Swimsuit', 17),
-    (27, 'Goggles', 17),
-    (28, 'Mixing bowls', 18),
-    (29, 'Measuring cups', 18),
-    (30, 'Tennis racket', 19),
-    (31, 'Tennis balls', 19),
-    (32, 'Telescope', 20),
-    (33, 'Star chart', 20),
-    (34, 'Skateboard', 21),
-    (35, 'Protective pads', 21),
-    (36, 'Meditation cushion', 22),
-    (37, 'Fishing rod', 23),
-    (38, 'Fishing reel', 23);
-
-INSERT INTO hobby_categories (hobbies_id, categories_id)
+INSERT INTO hobby_categories (hobby_id, categories_id)
 VALUES
     (1, 1),
     (2, 2),

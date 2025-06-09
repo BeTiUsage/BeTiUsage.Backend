@@ -114,9 +114,8 @@ public class TrackingIntegrationTest {
         assertThat(webClient).isNotNull();
     }
 
-
     @Test
-    void findAllByProfileId () {
+    void getTrackingByProfileId () {
         webClient.
                 get().uri("/api/trackings/profile/1")
                 .exchange()
@@ -132,7 +131,7 @@ public class TrackingIntegrationTest {
     }
 
     @Test
-    void findByIdAndProfileId () {
+    void getTrackingByProfileIdAndProfileId () {
         webClient.
                 get().uri("/api/trackings/profile/1/tracking/2")
                 .exchange()
@@ -148,8 +147,7 @@ public class TrackingIntegrationTest {
     }
 
     @Test
-    void createTracking() {
-        // Create a TrackingDTO object to send in the request
+    void postTracking() {
         TrackingDTO requestDTO = new TrackingDTO();
         requestDTO.setProfileId(2L);
         requestDTO.setHobbyId(2L);

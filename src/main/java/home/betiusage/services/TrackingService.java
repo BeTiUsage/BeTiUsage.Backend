@@ -20,16 +20,13 @@ public class TrackingService {
     private final HobbyRepository hobbyRepository;
     private final ProfileRepository profileRepository;
     private final GoalRepository goalRepository;
-    private final SubGoalRepository subGoalRepository;
-    private final GoalService goalService;
 
-    public TrackingService(TrackingRepository trackingRepository, HobbyRepository hobbyRepository, ProfileRepository profileRepository, GoalRepository goalRepository, SubGoalRepository subGoalRepository, GoalService goalService) {
+
+    public TrackingService(TrackingRepository trackingRepository, HobbyRepository hobbyRepository, ProfileRepository profileRepository, GoalRepository goalRepository) {
         this.trackingRepository = trackingRepository;
         this.hobbyRepository = hobbyRepository;
         this.profileRepository = profileRepository;
         this.goalRepository = goalRepository;
-        this.subGoalRepository = subGoalRepository;
-        this.goalService = goalService;
     }
 
     public List<TrackingResDTO> findAllByProfileId(Long profileId) {
@@ -80,71 +77,52 @@ public class TrackingService {
 
         Tracking savedTracking = trackingRepository.save(tracking);
 
-        // Handle Goals if provided
         if (trackingDTO.getGoalId() != null && !trackingDTO.getGoalId().isEmpty()) {
-            if (!goalService.areAnyGoalsTracked(trackingDTO.getGoalId())) {
-                // First case: None of the goals are tracked, use existing goals
-                List<Goal> goals = new ArrayList<>();
+            List<Goal> clonedGoals = new ArrayList<>();
 
-                for (Long goalId : trackingDTO.getGoalId()) {
-                    Goal goal = goalRepository.findById(goalId)
-                            .orElseThrow(() -> new NotFoundException("Goal not found with id: " + goalId));
+            for (Long goalId : trackingDTO.getGoalId()) {
+                Goal originalGoal = goalRepository.findById(goalId)
+                        .orElseThrow(() -> new NotFoundException("Goal not found with id: " + goalId));
 
-                    // Set bidirectional relationship
-                    goal.setIsTemplate(true);
-                    goal.setTracking(savedTracking);
-                    goals.add(goal);
-                }
-
-                savedTracking.setGoals(goals);
-            } else {
-                // Second case: At least one goal is tracked, clone the goals
-                List<Goal> clonedGoals = new ArrayList<>();
-
-                for (Long goalId : trackingDTO.getGoalId()) {
-                    Goal originalGoal = goalRepository.findById(goalId)
-                            .orElseThrow(() -> new NotFoundException("Goal not found with id: " + goalId));
-
-                    originalGoal.setIsTemplate(false);
+                if (!originalGoal.getIsTemplate()) {
+                    originalGoal.setIsTemplate(true);
                     goalRepository.save(originalGoal);
-
-                    Goal clonedGoal = new Goal();
-                    clonedGoal.setName(originalGoal.getName());
-                    clonedGoal.setGoalNumber(originalGoal.getGoalNumber());
-                    clonedGoal.setHobbyName(originalGoal.getHobbyName());
-                    clonedGoal.setCompleted(originalGoal.getCompleted());
-                    clonedGoal.setIsTemplate(true);
-                    clonedGoal.setTracking(savedTracking);
-
-                    // Clone subgoals if present
-                    if (originalGoal.getSubGoals() != null && !originalGoal.getSubGoals().isEmpty()) {
-                        List<SubGoal> clonedSubGoals = new ArrayList<>();
-                        for (SubGoal subGoal : originalGoal.getSubGoals()) {
-                            SubGoal clonedSubGoal = new SubGoal();
-                            clonedSubGoal.setName(subGoal.getName());
-                            clonedSubGoal.setCompleted(subGoal.getCompleted());
-                            clonedSubGoal.setGoal(clonedGoal);
-                            clonedSubGoals.add(clonedSubGoal);
-                        }
-                        clonedGoal.setSubGoals(clonedSubGoals);
-                    }
-
-                    // Save the cloned goal
-                    Goal savedClonedGoal = goalRepository.save(clonedGoal);
-                    clonedGoals.add(savedClonedGoal);
                 }
 
-                savedTracking.setGoals(clonedGoals);
+                Goal clonedGoal = getClonedGoal(originalGoal, savedTracking);
+                Goal savedClonedGoal = goalRepository.save(clonedGoal);
+                clonedGoals.add(savedClonedGoal);
             }
 
-            // Save the tracking with its associated goals
+            savedTracking.setGoals(clonedGoals);
             savedTracking = trackingRepository.save(savedTracking);
         }
 
         return toDTO(savedTracking);
     }
 
+    private static Goal getClonedGoal(Goal originalGoal, Tracking savedTracking) {
+        Goal clonedGoal = new Goal();
+        clonedGoal.setName(originalGoal.getName());
+        clonedGoal.setGoalNumber(originalGoal.getGoalNumber());
+        clonedGoal.setHobbyName(originalGoal.getHobbyName());
+        clonedGoal.setCompleted(false);
+        clonedGoal.setIsTemplate(false);
+        clonedGoal.setTracking(savedTracking);
 
+        if (originalGoal.getSubGoals() != null && !originalGoal.getSubGoals().isEmpty()) {
+            List<SubGoal> clonedSubGoals = new ArrayList<>();
+            for (SubGoal subGoal : originalGoal.getSubGoals()) {
+                SubGoal clonedSubGoal = new SubGoal();
+                clonedSubGoal.setName(subGoal.getName());
+                clonedSubGoal.setCompleted(false);
+                clonedSubGoal.setGoal(clonedGoal);
+                clonedSubGoals.add(clonedSubGoal);
+            }
+            clonedGoal.setSubGoals(clonedSubGoals);
+        }
+        return clonedGoal;
+    }
 
     public TrackingDTO updateTracking(TrackingDTO trackingDTO, Long id) {
         validateId(id, "tracking");
@@ -190,13 +168,11 @@ public class TrackingService {
         tracking.setProfile(null);
         tracking.setHobby(null);
 
-        // Break the bi-directional relationship between tracking and goals
         for (Goal goal : tracking.getGoals()) {
             goal.setTracking(null);
         }
 
         tracking.getGoals().clear();
-        // To make sure there are no relationships left when trying to delete
         trackingRepository.save(tracking);
 
         trackingRepository.delete(tracking);

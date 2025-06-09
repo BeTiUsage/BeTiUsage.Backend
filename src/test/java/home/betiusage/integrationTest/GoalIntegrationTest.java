@@ -1,7 +1,6 @@
 package home.betiusage.integrationTest;
 
 import home.betiusage.dto.GoalDTO;
-import home.betiusage.dto.SubGoalDTO;
 import home.betiusage.entities.Goal;
 import home.betiusage.entities.Tracking;
 import home.betiusage.repositories.GoalRepository;
@@ -19,6 +18,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -46,16 +46,12 @@ public class GoalIntegrationTest {
 
     @BeforeEach
     void setUp() {
-
-        // create tracking
         mockTracking = new Tracking();
         mockTracking.setId(1L);
         mockTracking.setXp(20);
         mockTracking.setMoneySpent(0.0);
         mockTracking.setStartDate(LocalDateTime.now());
 
-
-        // create goal
         mockGoal = new Goal();
         mockGoal.setId(1L);
         mockGoal.setName("Test Goal");
@@ -104,7 +100,13 @@ public class GoalIntegrationTest {
     }
 
     @Test
-    void testGetGoals() {
+    void notNull() {
+        assertThat(webClient).isNotNull();
+    }
+
+
+    @Test
+    void getGoals() {
         webClient
                 .get().uri("/api/goals")
                 .exchange()
@@ -117,20 +119,17 @@ public class GoalIntegrationTest {
 
 
     @Test
-    void testCreateGoal() {
+    void postGoal() {
 
-        // 1. Create a request DTO (without ID)
         GoalDTO requestDTO = new GoalDTO();
         requestDTO.setName("Test Goal 3");
         requestDTO.setCompleted(false);
 
-        // 2. Create a response DTO (with ID) that the mock service will return
         GoalDTO responseDTO = new GoalDTO();
         responseDTO.setId(3L);
         responseDTO.setName("Test Goal 3");
         responseDTO.setCompleted(false);
 
-        // Mock the behavior of the goalRepository to return the mockGoal when save is called
         when(goalService.createGoal(any(GoalDTO.class))).thenReturn(responseDTO);
 
         webClient
@@ -145,7 +144,7 @@ public class GoalIntegrationTest {
     }
 
     @Test
-    void testUpdateGoal() {
+    void putGoal() {
         webClient.put().uri("/api/goals/1")
                 .bodyValue(updatedGoal)
                 .exchange()
@@ -157,7 +156,7 @@ public class GoalIntegrationTest {
     }
 
     @Test
-    void testDeleteGoal() {
+    void deleteGoal() {
         webClient.delete().uri("/api/goals/2")
                 .exchange()
                 .expectStatus().isOk()
@@ -166,5 +165,4 @@ public class GoalIntegrationTest {
                 .jsonPath("$.name").isEqualTo("Test Goal")
                 .jsonPath("$.completed").isEqualTo(false);
     }
-
 }
