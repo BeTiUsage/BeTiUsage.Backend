@@ -10,7 +10,7 @@ public class CorsConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry
             .addMapping("/**")
-            .allowedOrigins("http://localhost:4242", "https://better-time-usage-2ph6x.ondigitalocean.app", "https://better-time-usage.vercel.app")
+            .allowedOrigins("http://localhost:4242", "https://better-time-usage-2ph6x.ondigitalocean.app")
             .allowedMethods(
                 "GET",
                 "POST",
