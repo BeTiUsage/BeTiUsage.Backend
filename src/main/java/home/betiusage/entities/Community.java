@@ -16,6 +16,6 @@ public class Community {
     private String url;
     private String description;
     private String forumName;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Hobby hobby;
 }

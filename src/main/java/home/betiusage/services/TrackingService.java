@@ -1,19 +1,10 @@
 package home.betiusage.services;
 
-import home.betiusage.dto.GoalDTO;
-import home.betiusage.dto.SubGoalDTO;
-import home.betiusage.dto.TrackingDTO;
-import home.betiusage.dto.TrackingResDTO;
-import home.betiusage.entities.Goal;
-import home.betiusage.entities.Hobby;
-import home.betiusage.entities.Profile;
-import home.betiusage.entities.Tracking;
+import home.betiusage.dto.*;
+import home.betiusage.entities.*;
 import home.betiusage.errorHandling.exception.NotFoundException;
 import home.betiusage.errorHandling.exception.ValidationException;
-import home.betiusage.repositories.GoalRepository;
-import home.betiusage.repositories.HobbyRepository;
-import home.betiusage.repositories.ProfileRepository;
-import home.betiusage.repositories.TrackingRepository;
+import home.betiusage.repositories.*;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -29,6 +20,7 @@ public class TrackingService {
     private final HobbyRepository hobbyRepository;
     private final ProfileRepository profileRepository;
     private final GoalRepository goalRepository;
+
 
     public TrackingService(TrackingRepository trackingRepository, HobbyRepository hobbyRepository, ProfileRepository profileRepository, GoalRepository goalRepository) {
         this.trackingRepository = trackingRepository;
@@ -62,7 +54,6 @@ public class TrackingService {
     }
 
     public TrackingDTO createTracking(TrackingDTO trackingDTO) {
-        // Validate required fields
         if (trackingDTO.getProfileId() == null) {
             throw new ValidationException("Profile ID is required");
         }
@@ -70,48 +61,68 @@ public class TrackingService {
             throw new ValidationException("Hobby ID is required");
         }
 
-        // Create a new tracking entity
         Tracking tracking = new Tracking();
 
-        // Set simple properties
         tracking.setMoneySpent(trackingDTO.getMoneySpent());
         tracking.setXp(0);
         tracking.setStartDate(trackingDTO.getStartDate());
 
-        // Set Profile reference
         Profile profile = profileRepository.findById(trackingDTO.getProfileId())
                 .orElseThrow(() -> new NotFoundException("Profile not found with id: " + trackingDTO.getProfileId()));
         tracking.setProfile(profile);
 
-        // Set Hobby reference
         Hobby hobby = hobbyRepository.findById(trackingDTO.getHobbyId())
                 .orElseThrow(() -> new NotFoundException("Hobby not found with id: " + trackingDTO.getHobbyId()));
         tracking.setHobby(hobby);
 
-        // Save the tracking first to get an ID
         Tracking savedTracking = trackingRepository.save(tracking);
 
-        // Handle Goals if provided
         if (trackingDTO.getGoalId() != null && !trackingDTO.getGoalId().isEmpty()) {
-            List<Goal> goals = new ArrayList<>();
+            List<Goal> clonedGoals = new ArrayList<>();
 
             for (Long goalId : trackingDTO.getGoalId()) {
-                Goal goal = goalRepository.findById(goalId)
+                Goal originalGoal = goalRepository.findById(goalId)
                         .orElseThrow(() -> new NotFoundException("Goal not found with id: " + goalId));
 
-                // Set bidirectional relationship
-                goal.setTracking(savedTracking);
-                goals.add(goal);
+                if (!originalGoal.getIsTemplate()) {
+                    originalGoal.setIsTemplate(true);
+                    goalRepository.save(originalGoal);
+                }
+
+                Goal clonedGoal = getClonedGoal(originalGoal, savedTracking);
+                Goal savedClonedGoal = goalRepository.save(clonedGoal);
+                clonedGoals.add(savedClonedGoal);
             }
 
-            savedTracking.setGoals(goals);
+            savedTracking.setGoals(clonedGoals);
             savedTracking = trackingRepository.save(savedTracking);
         }
 
         return toDTO(savedTracking);
     }
 
+    private static Goal getClonedGoal(Goal originalGoal, Tracking savedTracking) {
+        Goal clonedGoal = new Goal();
+        clonedGoal.setName(originalGoal.getName());
+        clonedGoal.setGoalNumber(originalGoal.getGoalNumber());
+        clonedGoal.setHobbyName(originalGoal.getHobbyName());
+        clonedGoal.setCompleted(false);
+        clonedGoal.setIsTemplate(false);
+        clonedGoal.setTracking(savedTracking);
 
+        if (originalGoal.getSubGoals() != null && !originalGoal.getSubGoals().isEmpty()) {
+            List<SubGoal> clonedSubGoals = new ArrayList<>();
+            for (SubGoal subGoal : originalGoal.getSubGoals()) {
+                SubGoal clonedSubGoal = new SubGoal();
+                clonedSubGoal.setName(subGoal.getName());
+                clonedSubGoal.setCompleted(false);
+                clonedSubGoal.setGoal(clonedGoal);
+                clonedSubGoals.add(clonedSubGoal);
+            }
+            clonedGoal.setSubGoals(clonedSubGoals);
+        }
+        return clonedGoal;
+    }
 
     public TrackingDTO updateTracking(TrackingDTO trackingDTO, Long id) {
         validateId(id, "tracking");
@@ -148,6 +159,27 @@ public class TrackingService {
         return toDTO(trackingRepository.save(existingTracking));
     }
 
+    public TrackingDTO deleteTracking(Long id) {
+        Tracking tracking = trackingRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Tracking not found with id: " + id));
+
+        TrackingDTO deletedProfileDTO = toDTO(tracking);
+
+        tracking.setProfile(null);
+        tracking.setHobby(null);
+
+        for (Goal goal : tracking.getGoals()) {
+            goal.setTracking(null);
+        }
+
+        tracking.getGoals().clear();
+        trackingRepository.save(tracking);
+
+        trackingRepository.delete(tracking);
+
+        return deletedProfileDTO;
+    }
+
     public TrackingDTO toDTO (Tracking tracking) {
         TrackingDTO trackingDTO = new TrackingDTO();
         trackingDTO.setId(tracking.getId());
@@ -158,7 +190,6 @@ public class TrackingService {
         trackingDTO.setMoneySpent(tracking.getMoneySpent());
         trackingDTO.setXp(tracking.getXp());
         trackingDTO.setStartDate(tracking.getStartDate());
-
         return trackingDTO;
     }
 
@@ -187,6 +218,7 @@ public class TrackingService {
         trackingResDTO.setMoneySpent(tracking.getMoneySpent());
         trackingResDTO.setXp(tracking.getXp());
         trackingResDTO.setStartDate(tracking.getStartDate());
+        trackingResDTO.setImg(tracking.getHobby().getImg());
 
         return trackingResDTO;
     }

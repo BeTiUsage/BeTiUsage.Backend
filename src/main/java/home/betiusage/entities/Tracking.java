@@ -18,12 +18,10 @@ public class Tracking {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "profile_id")
     private Profile profile;
-    @OneToMany(mappedBy = "tracking", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Goal> goals = new ArrayList<>();
-    @ManyToOne
-    @JoinColumn(name = "hobby_id")
+    @ManyToOne(fetch = FetchType.EAGER)
     private Hobby hobby;
     private Double moneySpent;
     private Integer xp;

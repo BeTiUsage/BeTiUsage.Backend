@@ -17,6 +17,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static home.betiusage.utils.ValidationUtils.existsById;
+import static home.betiusage.utils.ValidationUtils.validateId;
+
 @Service
 public class GoalService {
     private final GoalRepository goalRepository;
@@ -41,17 +44,14 @@ public class GoalService {
         goal.setCompleted(goalDTO.getCompleted());
         goal.setGoalNumber(goalDTO.getGoalNumber());
 
-        // Handle tracking relationship properly
         if (goalDTO.getTrackingId() != null) {
             Tracking tracking = trackingRepository.findById(goalDTO.getTrackingId())
                     .orElseThrow(() -> new NotFoundException("Tracking not found with id: " + goalDTO.getTrackingId()));
             goal.setTracking(tracking);
         }
 
-        // Save the goal first to get an ID
         Goal savedGoal = goalRepository.save(goal);
 
-        // Handle SubGoals that might be part of the request
         if (goalDTO.getSubGoals() != null && !goalDTO.getSubGoals().isEmpty()) {
             List<SubGoal> subGoalsList = new ArrayList<>();
 
@@ -65,7 +65,6 @@ public class GoalService {
                     subGoal = new SubGoal();
                 }
 
-                // Set properties from DTO
                 subGoal.setName(subGoalDTO.getName());
                 subGoal.setCompleted(subGoalDTO.getCompleted() != null ? subGoalDTO.getCompleted() : false);
                 subGoal.setGoal(savedGoal);
@@ -103,7 +102,6 @@ public class GoalService {
             existingGoal.setTracking(tracking);
         }
 
-        // Handle subgoals if provided
         if (goalDTO.getSubGoals() != null) {
             List<SubGoal> updatedSubGoals = new ArrayList<>();
 
@@ -116,17 +114,11 @@ public class GoalService {
                             .filter(sg -> sg.getId().equals(subGoalDTO.getId()))
                             .findFirst();
 
-                    if (existingSubGoal.isPresent()) {
-                        subGoal = existingSubGoal.get();
-                        wasCompletedBefore = subGoal.getCompleted() != null && subGoal.getCompleted();
-                    } else {
-                        subGoal = subGoalRepository.findById(subGoalDTO.getId())
-                                .orElseGet(SubGoal::new);
-                        wasCompletedBefore = subGoal.getCompleted() != null && subGoal.getCompleted();
-                    }
+                    subGoal = existingSubGoal.orElseGet(() -> subGoalRepository.findById(subGoalDTO.getId())
+                            .orElseGet(SubGoal::new));
+                    wasCompletedBefore = subGoal.getCompleted() != null && subGoal.getCompleted();
                 } else {
                     subGoal = new SubGoal();
-                    wasCompletedBefore = false;
                 }
 
                 if (subGoalDTO.getName() != null) {
@@ -139,13 +131,10 @@ public class GoalService {
                     subGoal.setCompleted(subGoalDTO.getCompleted());
                 }
 
-                // Update completion status if provided and award XP only when status changes from false to true
                 if (subGoalDTO.getCompleted() != null) {
                     boolean isCompletedNow = subGoalDTO.getCompleted();
 
-                    // Check if completion status is changing from incomplete to complete
                     if (isCompletedNow && !wasCompletedBefore) {
-                        // Set the goal relationship first so XP calculation works properly
                         subGoal.setGoal(existingGoal);
 
                         subGoalService.awardXpForSubgoalCompletion(subGoal);
@@ -164,7 +153,6 @@ public class GoalService {
 
         boolean goalCompletionRequested = goalDTO.getCompleted() != null && goalDTO.getCompleted();
         if (goalCompletionRequested) {
-            // Verify all subgoals are completed
             boolean allSubgoalsCompleted = existingGoal.getSubGoals().isEmpty() ||
                     existingGoal.getSubGoals().stream()
                             .allMatch(sg -> sg.getCompleted() != null && sg.getCompleted());
@@ -173,7 +161,6 @@ public class GoalService {
                 throw new IllegalStateException("Cannot mark goal as completed when subgoals are incomplete");
             }
 
-            // Only award XP if the goal wasn't previously completed
             boolean wasAlreadyCompleted = existingGoal.getCompleted() != null && existingGoal.getCompleted();
             if (!wasAlreadyCompleted) {
                 awardXpForGoalCompletion(existingGoal);
@@ -191,18 +178,15 @@ public class GoalService {
     public void awardXpForGoalCompletion(Goal goal) {
         Tracking tracking = goal.getTracking();
         if (tracking == null) {
-            return; // No tracking to update
+            return;
         }
 
-        // Initialize XP if it's null
         if (tracking.getXp() == null) {
             tracking.setXp(0);
         }
 
-        // Award XP for goal completion
         tracking.setXp(tracking.getXp() + XpService.getGoalCompletionBonusXp());
 
-        // Save the tracking with updated XP
         trackingRepository.save(tracking);
 
     }
@@ -270,6 +254,30 @@ public class GoalService {
         return toDTO(existingGoal);
     }
 
+    public boolean isGoalTracked(Long goalId) {
+        validateId(goalId, "goal");
+        existsById(goalRepository, goalId, "Goal");
+
+        Goal goal = goalRepository.findById(goalId)
+                .orElseThrow(() -> new NotFoundException("Goal not found with id: " + goalId));
+
+        return goal.getTracking() != null;
+    }
+
+    public boolean areAnyGoalsTracked(List<Long> goalIds) {
+        if (goalIds == null || goalIds.isEmpty()) {
+            return false;
+        }
+
+        for (Long goalId : goalIds) {
+            if (isGoalTracked(goalId)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public GoalDTO toDTO(Goal goal) {
         GoalDTO goalDTO = new GoalDTO();
         goalDTO.setId(goal.getId());
@@ -277,10 +285,12 @@ public class GoalService {
         goalDTO.setCompleted(goal.getCompleted());
         goalDTO.setTrackingId(goal.getTracking() != null ? goal.getTracking().getId() : null);
         goalDTO.setGoalNumber(goal.getGoalNumber());
+        goalDTO.setHobbyName(goal.getHobbyName());
+        goalDTO.setIsTemplate(goal.getIsTemplate());
 
         if (goal.getSubGoals() != null && !goal.getSubGoals().isEmpty()) {
             List<SubGoalDTO> subGoalDTOs = goal.getSubGoals().stream()
-                    .map(this::toSubGoalDTO)  // Make sure this method exists
+                    .map(this::toSubGoalDTO)
                     .collect(Collectors.toList());
             goalDTO.setSubGoals(subGoalDTOs);
         } else {

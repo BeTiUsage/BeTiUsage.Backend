@@ -18,10 +18,10 @@ public class CategoryService {
     }
 
     public List<CategoryDTO> findAll() {
-        return categoryRepository.findAll().stream().map(this::toDto).toList();
+        return categoryRepository.findAll().stream().map(this::toDTO).toList();
     }
 
-    public CategoryDTO toDto(Category category) {
+    public CategoryDTO toDTO(Category category) {
         CategoryDTO categoryDto = new CategoryDTO();
         categoryDto.setId(category.getId());
         categoryDto.setName(category.getName());

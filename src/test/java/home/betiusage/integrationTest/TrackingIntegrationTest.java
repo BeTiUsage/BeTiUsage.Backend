@@ -55,7 +55,6 @@ public class TrackingIntegrationTest {
     private Hobby mockHobby2;
     private Profile mockProfile;
 
-
     @BeforeEach
     void setUp() {
         mockHobby = new Hobby();
@@ -92,8 +91,6 @@ public class TrackingIntegrationTest {
         mockTracking2.setGoals(List.of(mockGoal2));
         mockTracking2.setMoneySpent(10.0);
 
-
-
         when(profileRepository.findById(1L)).thenReturn(Optional.of(mockProfile));
         when(hobbyRepository.findById(1L)).thenReturn(Optional.of(mockHobby));
         when(goalRepository.findById(1L)).thenReturn(Optional.of(mockGoal));
@@ -117,9 +114,8 @@ public class TrackingIntegrationTest {
         assertThat(webClient).isNotNull();
     }
 
-
     @Test
-    void findAllByProfileId () {
+    void getTrackingByProfileId () {
         webClient.
                 get().uri("/api/trackings/profile/1")
                 .exchange()
@@ -129,13 +125,13 @@ public class TrackingIntegrationTest {
                 .jsonPath("$[0].id").isEqualTo(1L)
                 .jsonPath("$[0].hobbyId").isEqualTo(1L)
                 .jsonPath("$[0].hobbyName").isEqualTo("test hobby")
-                .jsonPath("$[0].goalId[0]").isEqualTo(1L)
+                .jsonPath("$[0].goals[0].id").isEqualTo(1L)
                 .jsonPath("$[0].profileId").isEqualTo(1L)
                 .jsonPath("$[0].moneySpent").isEqualTo(0.0);
     }
 
     @Test
-    void findByIdAndProfileId () {
+    void getTrackingByProfileIdAndProfileId () {
         webClient.
                 get().uri("/api/trackings/profile/1/tracking/2")
                 .exchange()
@@ -145,14 +141,13 @@ public class TrackingIntegrationTest {
                 .jsonPath("$.id").isEqualTo(2L)
                 .jsonPath("$.hobbyId").isEqualTo(2L)
                 .jsonPath("$.hobbyName").isEqualTo("test hobby 2")
-                .jsonPath("$.goalId[0]").isEqualTo(2L)
+                .jsonPath("$.goals[0].id").isEqualTo(2L)
                 .jsonPath("$.profileId").isEqualTo(1L)
                 .jsonPath("$.moneySpent").isEqualTo(10.0);
     }
 
     @Test
-    void createTracking() {
-        // Create a TrackingDTO object to send in the request
+    void postTracking() {
         TrackingDTO requestDTO = new TrackingDTO();
         requestDTO.setProfileId(2L);
         requestDTO.setHobbyId(2L);

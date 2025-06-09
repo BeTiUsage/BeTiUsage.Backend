@@ -1,12 +1,10 @@
 package home.betiusage.dto;
 
-import home.betiusage.entities.SubGoal;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -18,4 +16,6 @@ public class GoalDTO {
     private List<SubGoalDTO> subGoals;
     private Long trackingId;
     private Long goalNumber;
+    private String hobbyName;
+    private Boolean isTemplate;
 }
